@@ -2,17 +2,17 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./components/app/app.jsx";
 
-const movieCard = {
-  title: `The grand Budapest`,
-  genre: `Drama`,
-  year: 2014,
+const MovieCard = {
+  TITLE: `The grand Budapest`,
+  GENRE: `Drama`,
+  YEAR: 2014,
 
 };
 
 ReactDOM.render(
-    <App movieTitle = {movieCard.title}
-      movieGenre = {movieCard.genre}
-      movieYear = {movieCard.year}
+    <App movieTitle = {MovieCard.TITLE}
+      movieGenre = {MovieCard.GENRE}
+      movieYear = {MovieCard.YEAR}
 
     />,
     document.querySelector(`#root`)
