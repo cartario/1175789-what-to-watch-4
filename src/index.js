@@ -9,7 +9,7 @@ const MovieCard = {
 
 };
 
-const movies = [`Fantastic Beasts: The Crimes of Grindelwald`,
+const Movies = [`Fantastic Beasts: The Crimes of Grindelwald`,
   `Bohemian Rhapsody`,
   `Macbeth`,
   `Aviator`,
@@ -34,7 +34,7 @@ ReactDOM.render(
     <App movieTitle = {MovieCard.TITLE}
       movieGenre = {MovieCard.GENRE}
       movieYear = {MovieCard.YEAR}
-      movies = {movies}
+      movies = {Movies}
 
     />,
     document.querySelector(`#root`)
