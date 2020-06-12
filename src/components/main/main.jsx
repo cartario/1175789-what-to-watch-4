@@ -1,7 +1,8 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 const Main = (props) => {
-  // eslint-disable-next-line react/prop-types
+
   const {movieTitle, movieGenre, movieYear, movies} = props;
 
   return (
@@ -100,9 +101,9 @@ const Main = (props) => {
           </ul>
           <div className="catalog__movies-list" >
             {
-            // eslint-disable-next-line react/prop-types
-              movies.map((movie, index) => (
-                <article className="small-movie-card catalog__movies-card" key = {index}>
+
+              movies.map((movie) => (
+                <article className="small-movie-card catalog__movies-card" key = {movie}>
                   <div className="small-movie-card__image">
                     <img src="img/midnight-special.jpg" alt={movie} width="280" height="175" />
                   </div>
@@ -132,6 +133,13 @@ const Main = (props) => {
       </div>
     </React.Fragment>
   );
+};
+
+Main.propTypes = {
+  movies: PropTypes.arrayOf(PropTypes.string.isRequired),
+  movieTitle: PropTypes.string.isRequired,
+  movieGenre: PropTypes.string.isRequired,
+  movieYear: PropTypes.number.isRequired,
 };
 
 export default Main;
