@@ -2,7 +2,7 @@ import React from "react";
 
 const Main = (props) => {
   // eslint-disable-next-line react/prop-types
-  const {movieTitle, movieGenre, movieYear} = props;
+  const {movieTitle, movieGenre, movieYear, movies} = props;
 
   return (
     <React.Fragment>
@@ -98,18 +98,20 @@ const Main = (props) => {
               <a href="#" className="catalog__genres-link">Thrillers</a>
             </li>
           </ul>
-
-          <div className="catalog__movies-list">
-            <article className="small-movie-card catalog__movies-card">
-              <div className="small-movie-card__image">
-                <img src="img/midnight-special.jpg" alt="Midnight Special" width="280" height="175" />
-              </div>
-              <h3 className="small-movie-card__title">
-                <a className="small-movie-card__link" href="movie-page.html">Midnight Special</a>
-              </h3>
-            </article>
+          <div className="catalog__movies-list" >
+            {
+            // eslint-disable-next-line react/prop-types
+              movies.map((movie, index) => (
+                <article className="small-movie-card catalog__movies-card" key = {index}>
+                  <div className="small-movie-card__image">
+                    <img src="img/midnight-special.jpg" alt={movie} width="280" height="175" />
+                  </div>
+                  <h3 className="small-movie-card__title">
+                    <a className="small-movie-card__link" href="movie-page.html">{movie}</a>
+                  </h3>
+                </article>
+              ))}
           </div>
-
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>
           </div>
