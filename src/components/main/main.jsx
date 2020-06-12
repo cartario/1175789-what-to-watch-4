@@ -103,7 +103,7 @@ const Main = (props) => {
             {
 
               movies.map((movie) => (
-                <article className="small-movie-card catalog__movies-card" key>
+                <article className="small-movie-card catalog__movies-card" key = {movie}>
                   <div className="small-movie-card__image">
                     <img src="img/midnight-special.jpg" alt={movie} width="280" height="175" />
                   </div>
@@ -136,7 +136,7 @@ const Main = (props) => {
 };
 
 Main.propTypes = {
-  movies: PropTypes.array,
+  movies: PropTypes.arrayOf(PropTypes.string.isRequired),
   movieTitle: PropTypes.string.isRequired,
   movieGenre: PropTypes.string.isRequired,
   movieYear: PropTypes.number.isRequired,
