@@ -1,9 +1,7 @@
 import React from "react";
-import PropTypes from "prop-types";
-
 
 const Main = (props) => {
-
+  // eslint-disable-next-line react/prop-types
   const {movieTitle, movieGenre, movieYear, movies} = props;
 
   return (
@@ -102,7 +100,7 @@ const Main = (props) => {
           </ul>
           <div className="catalog__movies-list" >
             {
-
+            // eslint-disable-next-line react/prop-types
               movies.map((movie, index) => (
                 <article className="small-movie-card catalog__movies-card" key = {index}>
                   <div className="small-movie-card__image">
@@ -136,10 +134,4 @@ const Main = (props) => {
   );
 };
 
-Main.propTypes = {
-  movies: PropTypes.array,
-  movieTitle: PropTypes.string.isRequired,
-  movieGenre: PropTypes.string.isRequired,
-  movieYear: PropTypes.number.isRequired,
-};
 export default Main;
