@@ -1,6 +1,7 @@
 import React from "react";
-import renderer from "react-test-renderer";
-import Main from "./main.jsx";
+import Main from "./main";
+import Enzyme, {shallow} from "enzyme";
+import Adapter from "enzyme-adapter-react-16";
 
 const MovieCard = {
   TITLE: `The grand Budapest`,
@@ -29,18 +30,27 @@ const Movies = [`Fantastic Beasts: The Crimes of Grindelwald`,
   `Mindhunter`,
   `Midnight Special`];
 
-describe(`renderMain`, () => {
-  it(`should render main movies info`, () => {
-    const tree = renderer
-      .create(<Main
+Enzyme.configure({
+  adapter: new Adapter(),
+});
+
+
+it(`Should movie be pressed`, () => {
+  const onMovieButtonClick = jest.fn();
+
+  const main = shallow(
+      <Main
         movies = {Movies}
         movieTitle = {MovieCard.TITLE}
         movieGenre = {MovieCard.GENRE}
         movieYear = {MovieCard.YEAR}
-        onMovieButtonClick = {() => {}}
-      />)
-      .toJSON();
+        onMovieButtonClick = {onMovieButtonClick}
+      />
+  );
 
-    expect(tree).toMatchSnapshot();
-  });
+  const movieCard = main.find(`h2.movie-card__title`);
+  movieCard.props().onClick();
+
+  expect(onMovieButtonClick.mock.calls.length).toBe(1);
 });
+

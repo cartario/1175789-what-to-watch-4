@@ -5,12 +5,13 @@ import PropTypes from "prop-types";
 const App = (props) => {
 
 
-  const {movieTitle, movieGenre, movieYear, movies} = props;
+  const {movieTitle, movieGenre, movieYear, movies, onMovieButtonClick} = props;
   return (
     <Main movieTitle = {movieTitle}
       movieGenre = {movieGenre}
       movieYear = {movieYear}
       movies = {movies}
+      onMovieButtonClick = {onMovieButtonClick}
     />
   );
 };
@@ -20,6 +21,7 @@ App.propTypes = {
   movieTitle: PropTypes.string.isRequired,
   movieGenre: PropTypes.string.isRequired,
   movieYear: PropTypes.number.isRequired,
+  onMovieButtonClick: PropTypes.func
 };
 
 export default App;

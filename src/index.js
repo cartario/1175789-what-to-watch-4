@@ -9,6 +9,8 @@ const MovieCard = {
 
 };
 
+const onMovieButtonClick = () => {};
+
 const Movies = [`Fantastic Beasts: The Crimes of Grindelwald`,
   `Bohemian Rhapsody`,
   `Macbeth`,
@@ -34,6 +36,7 @@ ReactDOM.render(
       movieGenre = {MovieCard.GENRE}
       movieYear = {MovieCard.YEAR}
       movies = {Movies}
+      onMovieButtonClick = {onMovieButtonClick}
 
     />,
     document.querySelector(`#root`)
