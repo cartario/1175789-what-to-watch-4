@@ -49,8 +49,8 @@ it(`Should movie be pressed`, () => {
   );
 
   const movieCard = main.find(`h2.movie-card__title`);
-  movieCard.props().onClick();
+  movieCard.simulate(`click`);
 
-  expect(onMovieButtonClick.mock.calls.length).toBe(1);
+  expect(onMovieButtonClick).toBeCalled();
 });
 

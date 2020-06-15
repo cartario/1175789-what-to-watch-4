@@ -3,8 +3,6 @@ import Main from "../main/main.jsx";
 import PropTypes from "prop-types";
 
 const App = (props) => {
-
-
   const {movieTitle, movieGenre, movieYear, movies, onMovieButtonClick} = props;
   return (
     <Main movieTitle = {movieTitle}
