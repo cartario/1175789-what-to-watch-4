@@ -1,6 +1,8 @@
 import React from "react";
-import ReactDOM from "react-dom";
-import App from "./components/app/app.jsx";
+import renderer from "react-test-renderer";
+import App from "./app.jsx";
+
+const onMovieButtonClick = () => {};
 
 const MovieCard = {
   TITLE: `The grand Budapest`,
@@ -8,8 +10,6 @@ const MovieCard = {
   YEAR: 2014,
 
 };
-
-const onMovieButtonClick = () => {};
 
 const Movies = [`Fantastic Beasts: The Crimes of Grindelwald`,
   `Bohemian Rhapsody`,
@@ -31,13 +31,17 @@ const Movies = [`Fantastic Beasts: The Crimes of Grindelwald`,
   `Mindhunter`,
   `Midnight Special`];
 
-ReactDOM.render(
-    <App movieTitle = {MovieCard.TITLE}
-      movieGenre = {MovieCard.GENRE}
-      movieYear = {MovieCard.YEAR}
-      movies = {Movies}
-      onMovieButtonClick = {onMovieButtonClick}
+it(`renderApp`, () => {
+  const tree = renderer
+    .create(
+        <App
+          movieTitle = {MovieCard.TITLE}
+          movieGenre = {MovieCard.GENRE}
+          movieYear = {MovieCard.YEAR}
+          movies = {Movies}
+          onMovieButtonClick = {onMovieButtonClick}
+        />)
+    .toJSON();
 
-    />,
-    document.querySelector(`#root`)
-);
+  expect(tree).toMatchSnapshot();
+});
