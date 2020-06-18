@@ -3,47 +3,60 @@ import Main from "./main";
 import Enzyme, {shallow} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 
-const MovieCard = {
+const MovieTitle = {
   TITLE: `The grand Budapest`,
   GENRE: `Drama`,
   YEAR: 2014,
 
 };
 
-const Movies = [`Fantastic Beasts: The Crimes of Grindelwald`,
-  `Bohemian Rhapsody`,
-  `Macbeth`,
-  `Aviator`,
-  `We need to talk about Kevin`,
-  `What We Do in the Shadows`,
-  `Revenant`,
-  `Johnny English`,
-  `Shutter Island`,
-  `Pulp Fiction`,
-  `No Country for Old Men`,
-  `Snatch`,
-  `Moonrise Kingdom`,
-  `Seven Years in Tibet`,
-  `War of the Worlds`,
-  `Dardjeeling Limited`,
-  `Orlando`,
-  `Mindhunter`,
-  `Midnight Special`];
+const films = [
+  {
+    title: `Fantastic Beasts: The Crimes of Grindelwald`,
+    src: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
+  },
+  {
+    title: `Bohemian Rhapsody`,
+    src: `img/bohemian-rhapsody.jpg`,
+  },
+  {
+    title: `Macbeth`,
+    src: `img/macbeth.jpg`,
+  },
+  {
+    title: `Aviator`,
+    src: `img/aviator.jpg`,
+  },
+  {
+    title: `We need to talk about Kevin`,
+    src: `img/we-need-to-talk-about-kevin.jpg`,
+  },
+  {
+    title: `What We Do in the Shadows`,
+    src: `img/what-we-do-in-the-shadows.jpg`,
+  },
+  {
+    title: `Revenant`,
+    src: `img/revenant.jpg`,
+  },
+  {
+    title: `Johnny English`,
+    src: `img/johnny-english.jpg`,
+  },
+];
 
 Enzyme.configure({
   adapter: new Adapter(),
 });
 
 
-it(`Should movie be pressed`, () => {
+it(`Should title be pressed`, () => {
   const onMovieButtonClick = jest.fn();
 
   const main = shallow(
       <Main
-        movies = {Movies}
-        movieTitle = {MovieCard.TITLE}
-        movieGenre = {MovieCard.GENRE}
-        movieYear = {MovieCard.YEAR}
+        films = {films}
+        movieTitle = {MovieTitle}
         onMovieButtonClick = {onMovieButtonClick}
       />
   );
