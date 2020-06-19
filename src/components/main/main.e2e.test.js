@@ -3,7 +3,7 @@ import Main from "./main";
 import Enzyme, {shallow} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 
-const MovieTitle = {
+const MovieInfo = {
   TITLE: `The grand Budapest`,
   GENRE: `Drama`,
   YEAR: 2014,
@@ -56,7 +56,7 @@ it(`Should title be pressed`, () => {
   const main = shallow(
       <Main
         films = {films}
-        movieTitle = {MovieTitle}
+        MovieInfo = {MovieInfo}
         onMovieButtonClick = {onMovieButtonClick}
       />
   );

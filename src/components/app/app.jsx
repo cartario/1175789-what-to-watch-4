@@ -4,9 +4,9 @@ import PropTypes from "prop-types";
 
 
 const App = (props) => {
-  const {movieTitle, onMovieButtonClick, films} = props;
+  const {MovieInfo, onMovieButtonClick, films} = props;
   return (
-    <Main movieTitle = {movieTitle}
+    <Main MovieInfo = {MovieInfo}
       onMovieButtonClick = {onMovieButtonClick}
       films = {films}
     />
@@ -14,8 +14,7 @@ const App = (props) => {
 };
 
 App.propTypes = {
-  movies: PropTypes.array,
-  movieTitle: PropTypes.shape({
+  MovieInfo: PropTypes.shape({
     GENRE: PropTypes.string.isRequired,
     YEAR: PropTypes.number.isRequired,
     TITLE: PropTypes.string.isRequired,

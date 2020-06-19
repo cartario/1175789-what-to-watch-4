@@ -6,8 +6,8 @@ import MoviesList from "../movies-list/movies-list.jsx";
 
 const Main = (props) => {
 
-  const {movieTitle, onMovieButtonClick, films} = props;
-  const {GENRE: genre, TITLE: title, YEAR: year} = movieTitle;
+  const {MovieInfo, onMovieButtonClick, films} = props;
+  const {GENRE: genre, TITLE: title, YEAR: year} = MovieInfo;
 
   return (
     <React.Fragment>
@@ -129,7 +129,7 @@ const Main = (props) => {
 };
 
 Main.propTypes = {
-  movieTitle: PropTypes.shape({
+  MovieInfo: PropTypes.shape({
     GENRE: PropTypes.string.isRequired,
     YEAR: PropTypes.number.isRequired,
     TITLE: PropTypes.string.isRequired,

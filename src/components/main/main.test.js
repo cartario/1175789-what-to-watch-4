@@ -2,7 +2,7 @@ import React from "react";
 import renderer from "react-test-renderer";
 import Main from "./main.jsx";
 
-const MovieTitle = {
+const MovieInfo = {
   TITLE: `The grand Budapest`,
   GENRE: `Drama`,
   YEAR: 2014,
@@ -49,7 +49,7 @@ describe(`renderMain`, () => {
     const tree = renderer
       .create(<Main
         films = {films}
-        movieTitle = {MovieTitle}
+        MovieInfo = {MovieInfo}
         onMovieButtonClick = {() => {}}
       />)
       .toJSON();

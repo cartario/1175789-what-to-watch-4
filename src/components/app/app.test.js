@@ -4,7 +4,7 @@ import App from "./app.jsx";
 
 const onMovieButtonClick = () => {};
 
-const MovieTitle = {
+const MovieInfo = {
   TITLE: `The grand Budapest`,
   GENRE: `Drama`,
   YEAR: 2014,
@@ -50,7 +50,7 @@ it(`renderApp`, () => {
   const tree = renderer
     .create(
         <App
-          movieTitle = {MovieTitle}
+          MovieInfo = {MovieInfo}
           films = {films}
           onMovieButtonClick = {onMovieButtonClick}
         />)

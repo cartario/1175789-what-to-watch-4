@@ -14,14 +14,14 @@ Enzyme.configure({
 });
 
 test(`should get data while hover`, () => {
-  const onHover = jest.fn();
+  const handleHover = jest.fn();
 
   const movieCard = shallow(<MovieCard
     film = {film}
-    onHover = {onHover}
+    handleHover = {handleHover}
   />);
 
   const smallMovieCard = movieCard.find(`article.small-movie-card`);
   smallMovieCard.simulate(`mouseOver`);
-  expect(smallMovieCard.exists).toBeTruthy();
+  expect(handleHover).toHaveBeenLastCalledWith(film);
 });
