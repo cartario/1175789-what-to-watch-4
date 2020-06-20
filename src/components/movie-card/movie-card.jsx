@@ -2,15 +2,15 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const MovieCard = (props) => {
-  const {film, handleHover} = props;
-  const onMouseOverHandler = () => {
-    handleHover(film);
+  const {film, onHover} = props;
+  const handlerMouseOver = () => {
+    onHover(film);
 
   };
 
   return (
     <React.Fragment>
-      <article onMouseOver = {onMouseOverHandler} className="small-movie-card catalog__movies-card" >
+      <article onMouseOver = {handlerMouseOver} className="small-movie-card catalog__movies-card" >
         <div className="small-movie-card__image">
           <img src = {film.src} width="280" height="175" />
         </div>
@@ -27,7 +27,7 @@ MovieCard.propTypes = {
     src: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired
   }),
-  handleHover: PropTypes.func.isRequired,
+  onHover: PropTypes.func.isRequired,
 };
 
 export default MovieCard;

@@ -12,7 +12,7 @@ it(`should render movieCard`, () => {
     .create(
         <MovieCard
           film = {film}
-          handleHover = {() => {}}
+          onHover = {() => {}}
         />)
     .toJSON();
 

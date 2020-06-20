@@ -50,7 +50,7 @@ it(`renderApp`, () => {
   const tree = renderer
     .create(
         <App
-          MovieInfo = {MovieInfo}
+          movieInfo = {MovieInfo}
           films = {films}
           onMovieButtonClick = {onMovieButtonClick}
         />)

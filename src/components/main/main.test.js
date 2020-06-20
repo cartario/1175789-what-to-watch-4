@@ -49,7 +49,7 @@ describe(`renderMain`, () => {
     const tree = renderer
       .create(<Main
         films = {films}
-        MovieInfo = {MovieInfo}
+        movieInfo = {MovieInfo}
         onMovieButtonClick = {() => {}}
       />)
       .toJSON();

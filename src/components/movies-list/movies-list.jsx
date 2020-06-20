@@ -15,7 +15,7 @@ export default class MoviesList extends PureComponent {
     return (
       <div className="catalog__movies-list" >
         {this.props.films.map((film) =>
-          <MovieCard film = {film} key = {film.title} handleHover = {this.handleHover}></MovieCard>
+          <MovieCard film = {film} key = {film.title} onHover = {this.handleHover}></MovieCard>
         )}
       </div>
     );

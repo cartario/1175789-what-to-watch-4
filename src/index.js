@@ -13,7 +13,7 @@ const MovieInfo = {
 const onMovieButtonClick = () => {};
 
 ReactDOM.render(
-    <App MovieInfo = {MovieInfo}
+    <App movieInfo = {MovieInfo}
       onMovieButtonClick = {onMovieButtonClick}
       films = {films}
     />,

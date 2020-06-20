@@ -56,7 +56,7 @@ it(`Should title be pressed`, () => {
   const main = shallow(
       <Main
         films = {films}
-        MovieInfo = {MovieInfo}
+        movieInfo = {MovieInfo}
         onMovieButtonClick = {onMovieButtonClick}
       />
   );
