@@ -1,15 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import App from "./app.jsx";
-
-const onMovieButtonClick = () => {};
-
-const MovieInfo = {
-  TITLE: `The grand Budapest`,
-  GENRE: `Drama`,
-  YEAR: 2014,
-
-};
+import MoviesList from "./movies-list.jsx";
 
 const films = [
   {
@@ -46,15 +37,14 @@ const films = [
   },
 ];
 
-it(`renderApp`, () => {
+it(`should render movies-list`, () => {
   const tree = renderer
     .create(
-        <App
-          movieInfo = {MovieInfo}
+        <MoviesList
           films = {films}
-          onMovieButtonClick = {onMovieButtonClick}
         />)
     .toJSON();
 
   expect(tree).toMatchSnapshot();
+
 });
