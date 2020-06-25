@@ -7,6 +7,7 @@ import Adapter from "enzyme-adapter-react-16";
 const film = {
   title: ``,
   src: ``,
+  preview: ``,
 };
 
 Enzyme.configure({
@@ -19,6 +20,7 @@ test(`should get data while hover`, () => {
   const movieCard = shallow(<MovieCard
     film = {film}
     onHover = {onHover}
+    isPlaying = {false}
   />);
 
   const smallMovieCard = movieCard.find(`article.small-movie-card`);

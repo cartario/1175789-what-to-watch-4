@@ -12,10 +12,11 @@ export default class MoviesList extends PureComponent {
   }
 
   render() {
+
     return (
-      <div className="catalog__movies-list" >
-        {this.props.films.map((film) =>
-          <MovieCard film = {film} key = {film.title} onHover = {this.handleHover}></MovieCard>
+      <div className="catalog__movies-list">
+        {this.props.films.map((film, i) =>
+          <MovieCard film = {film} key = {film.title} onHover = {this.handleHover} isPlaying = {i === 1}></MovieCard>
         )}
       </div>
     );
@@ -23,7 +24,7 @@ export default class MoviesList extends PureComponent {
 
   handleHover(film) {
     this.setState({
-      activeFilm: film
+      activeFilm: film,
     });
   }
 }
@@ -31,6 +32,7 @@ export default class MoviesList extends PureComponent {
 MoviesList.propTypes = {
   films: PropTypes.arrayOf(PropTypes.shape({
     src: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired
+    title: PropTypes.string.isRequired,
+    preview: PropTypes.string.isRequired,
   })),
 };

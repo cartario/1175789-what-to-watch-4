@@ -8,8 +8,11 @@ exports[`should render movieCard 1`] = `
   <div
     className="small-movie-card__image"
   >
-    <img
+    <video
+      autoPlay={false}
       height="175"
+      muted={true}
+      poster=""
       src=""
       width="280"
     />

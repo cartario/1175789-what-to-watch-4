@@ -5,6 +5,7 @@ import MovieCard from "./movie-card";
 const film = {
   title: ``,
   src: ``,
+  preview: ``,
 };
 
 it(`should render movieCard`, () => {
@@ -13,6 +14,8 @@ it(`should render movieCard`, () => {
         <MovieCard
           film = {film}
           onHover = {() => {}}
+          isPlaying = {false}
+
         />)
     .toJSON();
 
