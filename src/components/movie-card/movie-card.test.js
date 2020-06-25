@@ -14,6 +14,7 @@ it(`should render movieCard`, () => {
         <MovieCard
           film = {film}
           onHover = {() => {}}
+          onMouseLeave = {() => {}}
           isPlaying = {false}
 
         />)

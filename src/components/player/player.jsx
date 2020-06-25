@@ -1,13 +1,23 @@
-import React, {PureComponent} from 'react';
+import React, {PureComponent, createRef} from 'react';
 import PropTypes from "prop-types";
 
 class Player extends PureComponent {
   constructor(props) {
     super(props);
-
+    this._videoRef = createRef();
     this.state = {
-      isPlaying: this.props.isPlaying,
+      isPause: !this.props.isPlaying,
     };
+  }
+
+  componentDidUpdate() {
+    const video = this._videoRef.current;
+
+    if (this.props.isPlaying) {
+      setTimeout(() => video.play(), 1000);
+    } else {
+      video.load();
+    }
   }
 
   render() {
@@ -16,9 +26,8 @@ class Player extends PureComponent {
       <video
         src={film.preview}
         poster={film.src}
-        autoPlay={this.state.isPlaying}
         muted
-
+        ref = {this._videoRef}
         width="280"
         height="175">
       </video>);

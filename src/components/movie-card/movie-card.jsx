@@ -1,30 +1,52 @@
-import React from "react";
+import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import Player from "../player/player.jsx";
 
+class MovieCard extends PureComponent {
 
-const MovieCard = (props) => {
+  constructor(props) {
+    super(props);
 
-  const {film, onHover, isPlaying} = props;
+    this.state = {
+      isPlaying: false,
+    };
+  }
 
-  const handlerMouseOver = () => {
-    onHover(film);
-  };
+  render() {
+    const {film, onHover, onMouseLeave} = this.props;
 
-  return (
-    <React.Fragment>
-      <article onMouseOver = {handlerMouseOver} className="small-movie-card catalog__movies-card" >
+    const handlerMouseOver = () => {
+      onHover(film);
+      this.setState({
+        isPlaying: true,
+      });
+    };
 
-        <div className="small-movie-card__image">
-          <Player film={film} isPlaying = {isPlaying}/>
-        </div>
-        <h3 className="small-movie-card__title">
-          <a className="small-movie-card__link" href="movie-page.html">{film.title}</a>
-        </h3>
-      </article>
-    </React.Fragment>
-  );
-};
+    const handlerMouseLeave = () => {
+      onMouseLeave();
+      this.setState({
+        isPlaying: false,
+      });
+    };
+
+    return (
+      <React.Fragment>
+        <article
+          onMouseOver = {handlerMouseOver}
+          onMouseLeave = {handlerMouseLeave}
+          className="small-movie-card catalog__movies-card" >
+
+          <div className="small-movie-card__image">
+            <Player film={film} isPlaying = {this.state.isPlaying}/>
+          </div>
+          <h3 className="small-movie-card__title">
+            <a className="small-movie-card__link" href="movie-page.html">{film.title}</a>
+          </h3>
+        </article>
+      </React.Fragment>
+    );
+  }
+}
 
 MovieCard.propTypes = {
   film: PropTypes.shape({
@@ -33,7 +55,8 @@ MovieCard.propTypes = {
     preview: PropTypes.string.isRequired,
   }),
   onHover: PropTypes.func.isRequired,
-  isPlaying: PropTypes.bool.isRequired,
+  onMouseLeave: PropTypes.func.isRequired,
+
 };
 
 export default MovieCard;

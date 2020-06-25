@@ -7,24 +7,41 @@ export default class MoviesList extends PureComponent {
     super(props);
     this.state = {
       activeFilm: null,
+
     };
+
     this.handleHover = this.handleHover.bind(this);
+    this.handleMouseLeave = this.handleMouseLeave.bind(this);
   }
 
   render() {
 
     return (
       <div className="catalog__movies-list">
-        {this.props.films.map((film, i) =>
-          <MovieCard film = {film} key = {film.title} onHover = {this.handleHover} isPlaying = {i === 1}></MovieCard>
+        {this.props.films.map((film) =>
+          <MovieCard
+            film = {film}
+            key = {film.title}
+            onHover = {this.handleHover}
+            onMouseLeave= {this.handleMouseLeave}
+          >
+
+          </MovieCard>
         )}
       </div>
     );
   }
 
+  handleMouseLeave() {
+    this.setState({
+
+    });
+  }
+
   handleHover(film) {
     this.setState({
       activeFilm: film,
+
     });
   }
 }

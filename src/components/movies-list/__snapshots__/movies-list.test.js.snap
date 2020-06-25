@@ -6,13 +6,13 @@ exports[`should render movies-list 1`] = `
 >
   <article
     className="small-movie-card catalog__movies-card"
+    onMouseLeave={[Function]}
     onMouseOver={[Function]}
   >
     <div
       className="small-movie-card__image"
     >
       <video
-        autoPlay={false}
         height="175"
         muted={true}
         poster="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
@@ -33,13 +33,13 @@ exports[`should render movies-list 1`] = `
   </article>
   <article
     className="small-movie-card catalog__movies-card"
+    onMouseLeave={[Function]}
     onMouseOver={[Function]}
   >
     <div
       className="small-movie-card__image"
     >
       <video
-        autoPlay={true}
         height="175"
         muted={true}
         poster="img/bohemian-rhapsody.jpg"
@@ -60,13 +60,13 @@ exports[`should render movies-list 1`] = `
   </article>
   <article
     className="small-movie-card catalog__movies-card"
+    onMouseLeave={[Function]}
     onMouseOver={[Function]}
   >
     <div
       className="small-movie-card__image"
     >
       <video
-        autoPlay={false}
         height="175"
         muted={true}
         poster="img/macbeth.jpg"
@@ -87,13 +87,13 @@ exports[`should render movies-list 1`] = `
   </article>
   <article
     className="small-movie-card catalog__movies-card"
+    onMouseLeave={[Function]}
     onMouseOver={[Function]}
   >
     <div
       className="small-movie-card__image"
     >
       <video
-        autoPlay={false}
         height="175"
         muted={true}
         poster="img/aviator.jpg"
@@ -114,13 +114,13 @@ exports[`should render movies-list 1`] = `
   </article>
   <article
     className="small-movie-card catalog__movies-card"
+    onMouseLeave={[Function]}
     onMouseOver={[Function]}
   >
     <div
       className="small-movie-card__image"
     >
       <video
-        autoPlay={false}
         height="175"
         muted={true}
         poster="img/we-need-to-talk-about-kevin.jpg"
@@ -141,13 +141,13 @@ exports[`should render movies-list 1`] = `
   </article>
   <article
     className="small-movie-card catalog__movies-card"
+    onMouseLeave={[Function]}
     onMouseOver={[Function]}
   >
     <div
       className="small-movie-card__image"
     >
       <video
-        autoPlay={false}
         height="175"
         muted={true}
         poster="img/what-we-do-in-the-shadows.jpg"
@@ -168,13 +168,13 @@ exports[`should render movies-list 1`] = `
   </article>
   <article
     className="small-movie-card catalog__movies-card"
+    onMouseLeave={[Function]}
     onMouseOver={[Function]}
   >
     <div
       className="small-movie-card__image"
     >
       <video
-        autoPlay={false}
         height="175"
         muted={true}
         poster="img/revenant.jpg"
@@ -195,13 +195,13 @@ exports[`should render movies-list 1`] = `
   </article>
   <article
     className="small-movie-card catalog__movies-card"
+    onMouseLeave={[Function]}
     onMouseOver={[Function]}
   >
     <div
       className="small-movie-card__image"
     >
       <video
-        autoPlay={false}
         height="175"
         muted={true}
         poster="img/johnny-english.jpg"

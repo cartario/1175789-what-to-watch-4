@@ -260,13 +260,13 @@ Array [
       >
         <article
           className="small-movie-card catalog__movies-card"
+          onMouseLeave={[Function]}
           onMouseOver={[Function]}
         >
           <div
             className="small-movie-card__image"
           >
             <video
-              autoPlay={false}
               height="175"
               muted={true}
               poster="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
@@ -287,13 +287,13 @@ Array [
         </article>
         <article
           className="small-movie-card catalog__movies-card"
+          onMouseLeave={[Function]}
           onMouseOver={[Function]}
         >
           <div
             className="small-movie-card__image"
           >
             <video
-              autoPlay={true}
               height="175"
               muted={true}
               poster="img/bohemian-rhapsody.jpg"
@@ -314,13 +314,13 @@ Array [
         </article>
         <article
           className="small-movie-card catalog__movies-card"
+          onMouseLeave={[Function]}
           onMouseOver={[Function]}
         >
           <div
             className="small-movie-card__image"
           >
             <video
-              autoPlay={false}
               height="175"
               muted={true}
               poster="img/macbeth.jpg"
@@ -341,13 +341,13 @@ Array [
         </article>
         <article
           className="small-movie-card catalog__movies-card"
+          onMouseLeave={[Function]}
           onMouseOver={[Function]}
         >
           <div
             className="small-movie-card__image"
           >
             <video
-              autoPlay={false}
               height="175"
               muted={true}
               poster="img/aviator.jpg"
@@ -368,13 +368,13 @@ Array [
         </article>
         <article
           className="small-movie-card catalog__movies-card"
+          onMouseLeave={[Function]}
           onMouseOver={[Function]}
         >
           <div
             className="small-movie-card__image"
           >
             <video
-              autoPlay={false}
               height="175"
               muted={true}
               poster="img/we-need-to-talk-about-kevin.jpg"
@@ -395,13 +395,13 @@ Array [
         </article>
         <article
           className="small-movie-card catalog__movies-card"
+          onMouseLeave={[Function]}
           onMouseOver={[Function]}
         >
           <div
             className="small-movie-card__image"
           >
             <video
-              autoPlay={false}
               height="175"
               muted={true}
               poster="img/what-we-do-in-the-shadows.jpg"
@@ -422,13 +422,13 @@ Array [
         </article>
         <article
           className="small-movie-card catalog__movies-card"
+          onMouseLeave={[Function]}
           onMouseOver={[Function]}
         >
           <div
             className="small-movie-card__image"
           >
             <video
-              autoPlay={false}
               height="175"
               muted={true}
               poster="img/revenant.jpg"
@@ -449,13 +449,13 @@ Array [
         </article>
         <article
           className="small-movie-card catalog__movies-card"
+          onMouseLeave={[Function]}
           onMouseOver={[Function]}
         >
           <div
             className="small-movie-card__image"
           >
             <video
-              autoPlay={false}
               height="175"
               muted={true}
               poster="img/johnny-english.jpg"

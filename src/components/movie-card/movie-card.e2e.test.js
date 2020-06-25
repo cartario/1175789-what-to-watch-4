@@ -16,10 +16,12 @@ Enzyme.configure({
 
 test(`should get data while hover`, () => {
   const onHover = jest.fn();
+  const onMouseLeave = jest.fn();
 
   const movieCard = shallow(<MovieCard
     film = {film}
     onHover = {onHover}
+    onMouseLeave = {onMouseLeave}
     isPlaying = {false}
   />);
 
