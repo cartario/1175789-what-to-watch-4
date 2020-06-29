@@ -7,15 +7,18 @@ class Player extends PureComponent {
     this._videoRef = createRef();
     this.state = {
       isPause: !this.props.isPlaying,
+      isMuted: true,
     };
+    this._timeout = null;
   }
 
   componentDidUpdate() {
     const video = this._videoRef.current;
 
     if (this.props.isPlaying) {
-      setTimeout(() => video.play(), 1000);
+      this._timeout = setTimeout(() => video.play(), 1000);
     } else {
+      clearTimeout(this._timeout);
       video.load();
     }
   }
@@ -26,7 +29,7 @@ class Player extends PureComponent {
       <video
         src={film.preview}
         poster={film.src}
-        muted
+        muted = {this.state.isMuted}
         ref = {this._videoRef}
         width="280"
         height="175">
