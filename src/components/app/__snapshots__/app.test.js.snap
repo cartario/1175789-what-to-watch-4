@@ -260,14 +260,17 @@ Array [
       >
         <article
           className="small-movie-card catalog__movies-card"
+          onMouseLeave={[Function]}
           onMouseOver={[Function]}
         >
           <div
             className="small-movie-card__image"
           >
-            <img
+            <video
               height="175"
-              src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
+              muted={true}
+              poster="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
+              src=""
               width="280"
             />
           </div>
@@ -284,14 +287,17 @@ Array [
         </article>
         <article
           className="small-movie-card catalog__movies-card"
+          onMouseLeave={[Function]}
           onMouseOver={[Function]}
         >
           <div
             className="small-movie-card__image"
           >
-            <img
+            <video
               height="175"
-              src="img/bohemian-rhapsody.jpg"
+              muted={true}
+              poster="img/bohemian-rhapsody.jpg"
+              src=""
               width="280"
             />
           </div>
@@ -308,14 +314,17 @@ Array [
         </article>
         <article
           className="small-movie-card catalog__movies-card"
+          onMouseLeave={[Function]}
           onMouseOver={[Function]}
         >
           <div
             className="small-movie-card__image"
           >
-            <img
+            <video
               height="175"
-              src="img/macbeth.jpg"
+              muted={true}
+              poster="img/macbeth.jpg"
+              src=""
               width="280"
             />
           </div>
@@ -332,14 +341,17 @@ Array [
         </article>
         <article
           className="small-movie-card catalog__movies-card"
+          onMouseLeave={[Function]}
           onMouseOver={[Function]}
         >
           <div
             className="small-movie-card__image"
           >
-            <img
+            <video
               height="175"
-              src="img/aviator.jpg"
+              muted={true}
+              poster="img/aviator.jpg"
+              src=""
               width="280"
             />
           </div>
@@ -356,14 +368,17 @@ Array [
         </article>
         <article
           className="small-movie-card catalog__movies-card"
+          onMouseLeave={[Function]}
           onMouseOver={[Function]}
         >
           <div
             className="small-movie-card__image"
           >
-            <img
+            <video
               height="175"
-              src="img/we-need-to-talk-about-kevin.jpg"
+              muted={true}
+              poster="img/we-need-to-talk-about-kevin.jpg"
+              src=""
               width="280"
             />
           </div>
@@ -380,14 +395,17 @@ Array [
         </article>
         <article
           className="small-movie-card catalog__movies-card"
+          onMouseLeave={[Function]}
           onMouseOver={[Function]}
         >
           <div
             className="small-movie-card__image"
           >
-            <img
+            <video
               height="175"
-              src="img/what-we-do-in-the-shadows.jpg"
+              muted={true}
+              poster="img/what-we-do-in-the-shadows.jpg"
+              src=""
               width="280"
             />
           </div>
@@ -404,14 +422,17 @@ Array [
         </article>
         <article
           className="small-movie-card catalog__movies-card"
+          onMouseLeave={[Function]}
           onMouseOver={[Function]}
         >
           <div
             className="small-movie-card__image"
           >
-            <img
+            <video
               height="175"
-              src="img/revenant.jpg"
+              muted={true}
+              poster="img/revenant.jpg"
+              src=""
               width="280"
             />
           </div>
@@ -428,14 +449,17 @@ Array [
         </article>
         <article
           className="small-movie-card catalog__movies-card"
+          onMouseLeave={[Function]}
           onMouseOver={[Function]}
         >
           <div
             className="small-movie-card__image"
           >
-            <img
+            <video
               height="175"
-              src="img/johnny-english.jpg"
+              muted={true}
+              poster="img/johnny-english.jpg"
+              src=""
               width="280"
             />
           </div>
