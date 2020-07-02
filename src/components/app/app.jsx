@@ -2,10 +2,14 @@ import React from "react";
 import Main from "../main/main.jsx";
 import PropTypes from "prop-types";
 
+import {connect} from "react-redux";
+import {ActionCreator} from "../../reducer.js";
+
 
 const App = (props) => {
 
   const {movieInfo, onMovieButtonClick, films} = props;
+  
   return (
     <Main movieInfo = {movieInfo}
       onMovieButtonClick = {onMovieButtonClick}
@@ -24,5 +28,16 @@ App.propTypes = {
   films: PropTypes.array.isRequired,
 };
 
-export default App;
+export {App};
 
+
+const mapStateToProps = (state) => ({
+  genre: state.genre,
+  films: state.films,  
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  changeFilterDispatch: dispatch(ActionCreator.changeFilter(`Drama`))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

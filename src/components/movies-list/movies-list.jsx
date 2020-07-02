@@ -1,9 +1,8 @@
 import React, {PureComponent} from "react";
 import MovieCard from "../movie-card/movie-card.jsx";
 import PropTypes from "prop-types";
-
-// import {connect} from "react-redux";
-
+import {connect} from "react-redux";
+import {ActionCreator} from "../../reducer.js";
 
 export default class MoviesList extends PureComponent {
   constructor(props) {
@@ -55,3 +54,14 @@ MoviesList.propTypes = {
     preview: PropTypes.string.isRequired,
   })),
 };
+
+
+// const mapStateToProps = (state) => ({
+  
+// });
+
+// const mapDispatchToProps = (dispatch) => ({
+//   a: dispatch(filterAC(`Drama`))
+// });
+
+// export connect(mapStateToProps)(MoviesList)
