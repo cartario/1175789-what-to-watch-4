@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 
 
 const App = (props) => {
+
   const {movieInfo, onMovieButtonClick, films} = props;
   return (
     <Main movieInfo = {movieInfo}
@@ -24,3 +25,4 @@ App.propTypes = {
 };
 
 export default App;
+

@@ -1,7 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./components/app/app.jsx";
+import {App} from "./components/app/app.jsx";
 import films from "./mocks/films.js";
+import {createStore} from "redux";
+import {Provider} from "react-redux";
+import {reducer} from "./reducer.js";
+
+const store = createStore(reducer);
 
 const MovieInfo = {
   TITLE: `The grand Budapest`,
@@ -13,9 +18,14 @@ const MovieInfo = {
 const onMovieButtonClick = () => {};
 
 ReactDOM.render(
-    <App movieInfo = {MovieInfo}
-      onMovieButtonClick = {onMovieButtonClick}
-      films = {films}
-    />,
+    <Provider store={store}>
+
+      <App movieInfo = {MovieInfo}
+        onMovieButtonClick = {onMovieButtonClick}
+        films = {films}
+      />
+    </Provider>,
     document.querySelector(`#root`)
 );
+
+window.q = store;

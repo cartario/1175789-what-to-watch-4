@@ -2,6 +2,9 @@ import React, {PureComponent} from "react";
 import MovieCard from "../movie-card/movie-card.jsx";
 import PropTypes from "prop-types";
 
+// import {connect} from "react-redux";
+
+
 export default class MoviesList extends PureComponent {
   constructor(props) {
     super(props);
@@ -41,7 +44,6 @@ export default class MoviesList extends PureComponent {
   handleHover(film) {
     this.setState({
       activeFilm: film,
-
     });
   }
 }

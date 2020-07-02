@@ -2,6 +2,7 @@ import React from "react";
 import renderer from "react-test-renderer";
 import App from "./app.jsx";
 
+
 const onMovieButtonClick = () => {};
 
 const MovieInfo = {
@@ -57,11 +58,13 @@ const films = [
 it(`renderApp`, () => {
   const tree = renderer
     .create(
+
         <App
           movieInfo = {MovieInfo}
           films = {films}
           onMovieButtonClick = {onMovieButtonClick}
-        />)
+        />
+    )
     .toJSON();
 
   expect(tree).toMatchSnapshot();
