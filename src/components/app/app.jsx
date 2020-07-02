@@ -8,8 +8,8 @@ import {ActionCreator} from "../../reducer.js";
 
 const App = (props) => {
 
-  const {movieInfo, onMovieButtonClick, films} = props;
-  
+  const {movieInfo, onMovieButtonClick, films, onFilterChangeFilms} = props;
+
   return (
     <Main movieInfo = {movieInfo}
       onMovieButtonClick = {onMovieButtonClick}
@@ -30,14 +30,14 @@ App.propTypes = {
 
 export {App};
 
-
 const mapStateToProps = (state) => ({
   genre: state.genre,
   films: state.films,  
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  changeFilterDispatch: dispatch(ActionCreator.changeFilter(`Drama`))
+const mapDispatchToProps = (dispatch) => ({  
+  onFilterChange() {dispatch(ActionCreator.changeFilter(`Dramas`))},
+  onFilterChangeFilms() {dispatch(ActionCreator.getFilmsByFilter(`Dramas`))},  
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

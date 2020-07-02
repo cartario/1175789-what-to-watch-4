@@ -15,6 +15,11 @@ export const ActionCreator = {
   changeFilter: (genre) => ({
     type: 'CHANGE_FILTER',
     payload: genre,
+  }),
+
+  getFilmsByFilter: (genre) => ({
+    type: `GET_MOVIES_BY_FILTER`,
+    payload: genre,
   })
 };
 
@@ -24,8 +29,8 @@ export const reducer = (state = initialState, action) => {
       
       return extend(state, {genre: action.payload});
     case ActionType.GET_MOVIES_BY_FILTER:
-
-      return state;
+      const filteredFilms = state.films.filter((film) => film.genre === action.payload);
+      return extend(state, {genre: action.payload, films: filteredFilms});
     default :
       return state;
   };

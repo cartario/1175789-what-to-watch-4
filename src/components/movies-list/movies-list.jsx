@@ -4,8 +4,9 @@ import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer.js";
 
-export default class MoviesList extends PureComponent {
+class MoviesList extends PureComponent {
   constructor(props) {
+    
     super(props);
     this.state = {
       activeFilm: null,
@@ -15,7 +16,7 @@ export default class MoviesList extends PureComponent {
     this.handleHover = this.handleHover.bind(this);
     this.handleMouseLeave = this.handleMouseLeave.bind(this);
   }
-
+  
   render() {
 
     return (
@@ -55,13 +56,14 @@ MoviesList.propTypes = {
   })),
 };
 
+export {MoviesList};
 
-// const mapStateToProps = (state) => ({
-  
-// });
+const mapStateToProps = (state) => ({
+  state: state,
+});
 
-// const mapDispatchToProps = (dispatch) => ({
-//   a: dispatch(filterAC(`Drama`))
-// });
+const mapDispatchToProps = (dispatch) => ({  
+  onFilterChange() {dispatch(ActionCreator.changeFilter(`Drama`))},  
+});
 
-// export connect(mapStateToProps)(MoviesList)
+export default connect(mapStateToProps, mapDispatchToProps)(MoviesList);
