@@ -1,12 +1,11 @@
 import React, {PureComponent} from "react";
 import MovieCard from "../movie-card/movie-card.jsx";
 import PropTypes from "prop-types";
-import {connect} from "react-redux";
-import {ActionCreator} from "../../reducer.js";
+
 
 class MoviesList extends PureComponent {
   constructor(props) {
-    
+
     super(props);
     this.state = {
       activeFilm: null,
@@ -16,15 +15,13 @@ class MoviesList extends PureComponent {
     this.handleHover = this.handleHover.bind(this);
     this.handleMouseLeave = this.handleMouseLeave.bind(this);
   }
-  
+
   render() {
-    
-    const filteredFilms = this.props.films.filter((film)=>film.genre === this.props.currentGenre || this.props.currentGenre === `All genres`);
-    
+
     return (
       <div className="catalog__movies-list">
-        {filteredFilms.map((film) =>
-        
+        {this.props.filmsByGenre.map((film) =>
+
           <MovieCard
             film = {film}
             key = {film.title}
@@ -57,6 +54,7 @@ MoviesList.propTypes = {
     title: PropTypes.string.isRequired,
     preview: PropTypes.string.isRequired,
   })),
+  filmsByGenre: PropTypes.array.isRequired,
 };
 
 export {MoviesList};

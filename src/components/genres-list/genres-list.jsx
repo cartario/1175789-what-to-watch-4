@@ -1,30 +1,31 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 const GenresList = (props) => {
-  const {films, genres, currentGenre, onFilterChange, onFilterChangeFilms} = props;
+  const {genres, currentGenre, onFilterClick} = props;
 
   const clickHandler = (e) => {
     e.preventDefault();
-    onFilterChange(e.target.textContent);    
-    // onFilterChangeFilms(e.target.textContent);
-  }
-
-  const genresList = films
-    .map((film)=>film.genre)
-    .concat(`All genres`)
-    .reverse();
-
-  const uniqGenres = [...new Set(genresList)];
+    onFilterClick(e.target.textContent);
+  };
 
   return (
     <ul className="catalog__genres-list">
-      {genres.map((genre)=> 
-        <li key={genre} className={currentGenre === genre ? `catalog__genres-item catalog__genres-item--active`: `catalog__genres-item`}>
+      {genres.map((genre)=>
+        <li key={genre} className={currentGenre === genre ? `catalog__genres-item catalog__genres-item--active` : `catalog__genres-item`}>
           <a onClick={clickHandler} href="#" className="catalog__genres-link">{genre}</a>
         </li>
       )}
     </ul>
-  )
+  );
+};
+
+
+GenresList.propTypes = {
+
+  genres: PropTypes.array.isRequired,
+  currentGenre: PropTypes.string.isRequired,
+  onFilterClick: PropTypes.func.isRequired,
 };
 
 export default GenresList;

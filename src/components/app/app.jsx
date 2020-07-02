@@ -8,16 +8,16 @@ import {ActionCreator} from "../../reducer.js";
 
 const App = (props) => {
 
-  const {movieInfo, onMovieButtonClick, films, genres, genre, onFilterChange, onFilterChangeFilms} = props;
+  const {movieInfo, onMovieButtonClick, films, filmsByGenre, genres, currentGenre, onFilterClick} = props;
 
   return (
     <Main movieInfo = {movieInfo}
       onMovieButtonClick = {onMovieButtonClick}
       films = {films}
+      filmsByGenre = {filmsByGenre}
       genres = {genres}
-      currentGenre = {genre}
-      onFilterChangeFilms = {onFilterChangeFilms}
-      onFilterChange = {onFilterChange}
+      currentGenre = {currentGenre}
+      onFilterClick = {onFilterClick}
     />
   );
 };
@@ -30,19 +30,27 @@ App.propTypes = {
   }),
   onMovieButtonClick: PropTypes.func,
   films: PropTypes.array.isRequired,
+  filmsByGenre: PropTypes.array.isRequired,
+  genres: PropTypes.array.isRequired,
+  currentGenre: PropTypes.string.isRequired,
+  onFilterClick: PropTypes.func.isRequired,
 };
 
 export {App};
 
 const mapStateToProps = (state) => ({
-  genre: state.genre,
+  currentGenre: state.currentGenre,
   genres: state.genres,
-  films: state.films,  
+  films: state.films,
+  filmsByGenre: state.filmsByGenre,
 });
 
-const mapDispatchToProps = (dispatch) => ({  
-  onFilterChange(genre) {dispatch(ActionCreator.changeFilter(genre))},
-  onFilterChangeFilms(genre) {dispatch(ActionCreator.getFilmsByFilter(genre))},  
+const mapDispatchToProps = (dispatch) => ({
+  onFilterClick(genre) {
+    dispatch(ActionCreator.changeFilter(genre));
+    dispatch(ActionCreator.getFilmsByFilter(genre));
+  }
+
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

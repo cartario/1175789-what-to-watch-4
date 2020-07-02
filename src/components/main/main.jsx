@@ -6,7 +6,7 @@ import GenresList from "../genres-list/genres-list.jsx";
 
 const Main = (props) => {
 
-  const {movieInfo, onMovieButtonClick, films, genres, currentGenre, onFilterChange, onFilterChangeFilms} = props;
+  const {movieInfo, onMovieButtonClick, filmsByGenre, genres, currentGenre, onFilterClick} = props;
   const {GENRE: genre, TITLE: title, YEAR: year} = movieInfo;
 
   return (
@@ -71,14 +71,14 @@ const Main = (props) => {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <GenresList 
-          films={films} 
-          genres={genres} 
-          currentGenre={currentGenre} 
-          onFilterChange = {onFilterChange}
-          onFilterChangeFilms = {onFilterChangeFilms}/>
+          <GenresList
 
-          <MoviesList films = {films} currentGenre={currentGenre}></MoviesList>
+            genres={genres}
+            currentGenre={currentGenre}
+            onFilterClick = {onFilterClick}
+          />
+
+          <MoviesList filmsByGenre = {filmsByGenre} currentGenre={currentGenre}></MoviesList>
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>
           </div>
@@ -109,7 +109,10 @@ Main.propTypes = {
     TITLE: PropTypes.string.isRequired,
   }),
   onMovieButtonClick: PropTypes.func,
-  films: PropTypes.array.isRequired,
+  filmsByGenre: PropTypes.array.isRequired,
+  genres: PropTypes.array.isRequired,
+  currentGenre: PropTypes.string.isRequired,
+  onFilterClick: PropTypes.func.isRequired,
 };
 
 export default Main;

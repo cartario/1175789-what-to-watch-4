@@ -47,4 +47,10 @@ export default [
     preview: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
     genre: `Thrillers`,
   },
+  {
+    title: `Johnny English3`,
+    src: `img/johnny-english.jpg`,
+    preview: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
+    genre: `Thrillers`,
+  },
 ];

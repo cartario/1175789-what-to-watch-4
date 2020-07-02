@@ -1,14 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./components/app/app.jsx";
-import films from "./mocks/films.js";
 import {createStore} from "redux";
 import {Provider} from "react-redux";
 import {reducer} from "./reducer.js";
 
 const store = createStore(
-  reducer,
-  window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f
+    reducer,
+    window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f
 );
 
 const MovieInfo = {
@@ -25,7 +24,7 @@ ReactDOM.render(
 
       <App movieInfo = {MovieInfo}
         onMovieButtonClick = {onMovieButtonClick}
-        
+
       />
     </Provider>,
     document.querySelector(`#root`)
