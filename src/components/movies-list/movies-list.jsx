@@ -18,10 +18,13 @@ class MoviesList extends PureComponent {
   }
   
   render() {
-
+    
+    const filteredFilms = this.props.films.filter((film)=>film.genre === this.props.currentGenre || this.props.currentGenre === `All genres`);
+    
     return (
       <div className="catalog__movies-list">
-        {this.props.films.map((film) =>
+        {filteredFilms.map((film) =>
+        
           <MovieCard
             film = {film}
             key = {film.title}
@@ -57,13 +60,3 @@ MoviesList.propTypes = {
 };
 
 export {MoviesList};
-
-const mapStateToProps = (state) => ({
-  state: state,
-});
-
-const mapDispatchToProps = (dispatch) => ({  
-  onFilterChange() {dispatch(ActionCreator.changeFilter(`Drama`))},  
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(MoviesList);

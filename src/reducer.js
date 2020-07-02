@@ -1,9 +1,17 @@
 import {extend} from "./utils.js";
 import films from "./mocks/films.js";
 
+const genresList = films
+  .map((film)=>film.genre)
+  .concat(`All genres`)
+  .reverse();
+
+const genres = [...new Set(genresList)];
+
 const initialState = {
-  genre: `AllGenres`,
+  genre: `All genres`,
   films,
+  genres,
 };
 
 export const ActionType = {
