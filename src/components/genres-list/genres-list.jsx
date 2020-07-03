@@ -3,6 +3,10 @@ import PropTypes from "prop-types";
 
 const GenresList = (props) => {
   const {genres, currentGenre, onFilterClick} = props;
+  let visibleGenres = genres;
+  if (genres.length > 8) {
+    visibleGenres = genres.slice(0, 8);
+  }
 
   const clickHandler = (e) => {
     e.preventDefault();
@@ -11,7 +15,7 @@ const GenresList = (props) => {
 
   return (
     <ul className="catalog__genres-list">
-      {genres.map((genre)=>
+      {visibleGenres.map((genre)=>
         <li key={genre} className={currentGenre === genre ? `catalog__genres-item catalog__genres-item--active` : `catalog__genres-item`}>
           <a onClick={clickHandler} href="#" className="catalog__genres-link">{genre}</a>
         </li>

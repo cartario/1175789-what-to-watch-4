@@ -3,7 +3,7 @@ import Main from "../main/main.jsx";
 import PropTypes from "prop-types";
 
 import {connect} from "react-redux";
-import {ActionCreator} from "../../reducer.js";
+import {ActionCreator} from "../../reducer/reducer.js";
 
 
 const App = (props) => {
