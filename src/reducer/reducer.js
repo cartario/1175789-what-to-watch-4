@@ -42,7 +42,7 @@ export const reducer = (state = initialState, action) => {
 
     case ActionType.GET_MOVIES_BY_FILTER:
       const selectedGenre = action.payload;
-      let filteredFilms = [...films];      
+      let filteredFilms = [...films];
 
       if (selectedGenre !== ALL_GENRE) {
         filteredFilms = state.films.filter((film) => film.genre === selectedGenre);
