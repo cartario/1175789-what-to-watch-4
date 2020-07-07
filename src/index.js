@@ -29,5 +29,3 @@ ReactDOM.render(
     </Provider>,
     document.querySelector(`#root`)
 );
-
-window.q = store;
