@@ -1,6 +1,10 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import App from "./app.jsx";
+import {App} from "./app.jsx";
+import {Provider} from "react-redux";
+import configureStore from "redux-mock-store";
+
+const mockStore = configureStore([]);
 
 const onMovieButtonClick = () => {};
 
@@ -10,6 +14,12 @@ const MovieInfo = {
   YEAR: 2014,
 
 };
+
+const filmsByGenre = [];
+
+const genres = [];
+
+const currentGenre = ``;
 
 const films = [
   {
@@ -55,13 +65,23 @@ const films = [
 ];
 
 it(`renderApp`, () => {
+  const store = mockStore({
+    films: []
+  });
   const tree = renderer
     .create(
-        <App
-          movieInfo = {MovieInfo}
-          films = {films}
-          onMovieButtonClick = {onMovieButtonClick}
-        />)
+        <Provider store = {store}>
+          <App
+            movieInfo = {MovieInfo}
+            films = {films}
+            onMovieButtonClick = {onMovieButtonClick}
+            filmsByGenre = {filmsByGenre}
+            genres = {genres}
+            currentGenre = {currentGenre}
+            onFilterClick = {() => {}}
+          />
+        </Provider>
+    )
     .toJSON();
 
   expect(tree).toMatchSnapshot();

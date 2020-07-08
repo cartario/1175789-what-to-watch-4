@@ -1,22 +1,6 @@
-import React from "react";
-import Main from "./main";
-import Enzyme, {shallow} from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
+import {reducer, ActionType} from "./reducer";
 
-const MovieInfo = {
-  TITLE: `The grand Budapest`,
-  GENRE: `Drama`,
-  YEAR: 2014,
-
-};
-
-const genres = [
-  `All genres`, `Drama`, `Horror`
-];
-
-const currentGenre = `All genre`;
-
-const filmsByGenre = [
+const films = [
   {
     title: `Fantastic Beasts: The Crimes of Grindelwald`,
     src: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
@@ -73,28 +57,23 @@ const filmsByGenre = [
   },
 ];
 
-Enzyme.configure({
-  adapter: new Adapter(),
+const genres = [`All genres`, `Thrillers`, `Sci-Fi`, `Romance`, `Crime`, `Dramas`, `Classic`, `Comedies`];
+const currentGenre = `All genres`;
+
+test(`Reducer without additional parameters should return initial state`, ()=> {
+  expect(reducer(void 0, {})).toEqual({
+    currentGenre,
+    films,
+    filmsByGenre: films,
+    genres,
+  });
 });
 
-
-it(`Should title be pressed`, () => {
-  const onMovieButtonClick = jest.fn();
-
-  const main = shallow(
-      <Main
-        filmsByGenre = {filmsByGenre}
-        movieInfo = {MovieInfo}
-        onMovieButtonClick = {onMovieButtonClick}
-        genres = {genres}
-        currentGenre = {currentGenre}
-        onFilterClick = {() => {}}
-      />
-  );
-
-  const movieCard = main.find(`h2.movie-card__title`);
-  movieCard.simulate(`click`);
-
-  expect(onMovieButtonClick).toBeCalled();
+test(`should be Drama after change filter`, ()=> {
+  expect(reducer({currentGenre: `All genres`}, {
+    type: ActionType.CHANGE_FILTER,
+    payload: `Dramas`,
+  })).toEqual({
+    currentGenre: `Dramas`
+  });
 });
-

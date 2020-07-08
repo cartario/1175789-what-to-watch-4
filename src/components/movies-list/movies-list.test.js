@@ -1,8 +1,9 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import MoviesList from "./movies-list.jsx";
+import {MoviesList} from "./movies-list.jsx";
 
-const films = [
+const currentGenre = ``;
+const filmsByGenre = [
   {
     title: `Fantastic Beasts: The Crimes of Grindelwald`,
     src: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
@@ -49,7 +50,8 @@ it(`should render movies-list`, () => {
   const tree = renderer
     .create(
         <MoviesList
-          films = {films}
+          filmsByGenre = {filmsByGenre}
+          currentGenre={currentGenre}
         />)
     .toJSON();
 

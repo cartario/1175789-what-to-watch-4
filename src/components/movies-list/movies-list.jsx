@@ -2,8 +2,10 @@ import React, {PureComponent} from "react";
 import MovieCard from "../movie-card/movie-card.jsx";
 import PropTypes from "prop-types";
 
-export default class MoviesList extends PureComponent {
+
+class MoviesList extends PureComponent {
   constructor(props) {
+
     super(props);
     this.state = {
       activeFilm: null,
@@ -18,7 +20,8 @@ export default class MoviesList extends PureComponent {
 
     return (
       <div className="catalog__movies-list">
-        {this.props.films.map((film) =>
+        {this.props.filmsByGenre.map((film) =>
+
           <MovieCard
             film = {film}
             key = {film.title}
@@ -41,7 +44,6 @@ export default class MoviesList extends PureComponent {
   handleHover(film) {
     this.setState({
       activeFilm: film,
-
     });
   }
 }
@@ -52,4 +54,7 @@ MoviesList.propTypes = {
     title: PropTypes.string.isRequired,
     preview: PropTypes.string.isRequired,
   })),
+  filmsByGenre: PropTypes.array.isRequired,
 };
+
+export {MoviesList};
