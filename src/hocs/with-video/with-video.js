@@ -5,15 +5,11 @@ const withVideo = (Component) => {
   class WithVideo extends PureComponent {
     constructor(props) {
       super(props);
-
       this._videoRef = createRef();
-
       this.state = {
-
         isPause: !this.props.isPlaying,
         isMuted: true,
       };
-
       this._timeout = null;
     }
 
@@ -21,10 +17,23 @@ const withVideo = (Component) => {
       const video = this._videoRef.current;
 
       if (this.props.isPlaying) {
-        this._timeout = setTimeout(() => video.play(), 1000);
+        this._timeout = setTimeout(() => {
+          video.play();
+
+          this.setState({
+            isPause: false,
+          });
+
+        }, 1000);
+
+
       } else {
         clearTimeout(this._timeout);
         video.load();
+
+        this.setState({
+          isPause: true,
+        });
       }
     }
 
