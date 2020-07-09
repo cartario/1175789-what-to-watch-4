@@ -36,8 +36,8 @@ class Player extends PureComponent {
 
   componentWillUnmount() {
     const video = this._videoRef.current;
-    video.src = null;
-    video.poster = null;
+    video.src = ``;
+    video.poster = ``;
     video.width = null;
     video.height = null;
     video.muted = null;
