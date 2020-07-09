@@ -1,51 +1,15 @@
-import React, {PureComponent, createRef} from 'react';
+import React, {PureComponent} from 'react';
 import PropTypes from "prop-types";
 import withVideo from "../../hocs/with-video/with-video.js";
-
 
 class Player extends PureComponent {
   constructor() {
     super();
-    this._videoRef = createRef();
-    this._timeout = null;
-  }
-
-  componentDidMount() {
-    const {film, isMuted} = this.props;
-    const video = this._videoRef.current;
-    video.src = film.preview;
-    video.poster = film.src;
-    video.width = `280`;
-    video.height = `175`;
-    video.muted = isMuted;
-  }
-
-  componentDidUpdate() {
-    const video = this._videoRef.current;
-
-    if (this.props.isPlaying) {
-      this._timeout = setTimeout(() => {
-        video.play();
-      }, 1000);
-
-    } else {
-      clearTimeout(this._timeout);
-      video.load();
-    }
-  }
-
-  componentWillUnmount() {
-    const video = this._videoRef.current;
-    video.src = ``;
-    video.poster = ``;
-    video.width = null;
-    video.height = null;
-    video.muted = null;
   }
 
   render() {
     return (
-      <video ref = {this._videoRef}/>
+      <video ref = {this.props.videoRef}/>
     );
   }
 }
@@ -58,6 +22,7 @@ Player.propTypes = {
   }),
   isPlaying: PropTypes.bool.isRequired,
   isMuted: PropTypes.bool.isRequired,
+  videoRef: PropTypes.any,
 };
 
 export default withVideo(Player);
