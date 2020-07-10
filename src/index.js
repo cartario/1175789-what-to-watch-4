@@ -1,14 +1,24 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./components/app/app.jsx";
-import {createStore} from "redux";
+import {createStore, compose, applyMiddleware} from "redux";
 import {Provider} from "react-redux";
-import {reducer} from "./reducer/reducer.js";
+import {reducers} from "./reducer/reducer.js";
+import thunkMiddleware from "redux-thunk";
+import {Operation} from "./reducer/films-by-genre/films-by-genre.js";
+import {createApi} from "./api.js";
 
+const api = createApi(()=>{});
 const store = createStore(
-    reducer,
-    window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f
+    reducers, compose(
+        applyMiddleware(thunkMiddleware.withExtraArgument(api)),
+        window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f
+    )
+
 );
+
+store.dispatch(Operation.loadFilms());
+
 
 const MovieInfo = {
   TITLE: `The grand Budapest`,

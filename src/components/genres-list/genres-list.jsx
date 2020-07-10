@@ -2,7 +2,16 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const GenresList = (props) => {
-  const {genres, currentGenre, onFilterClick} = props;
+  const {currentGenre, onFilterClick, films} = props;
+
+  const ALL_GENRE = `All genres`;
+  const genresList = films
+  .map((film)=>film.genre)
+  .concat(ALL_GENRE)
+  .reverse();
+
+  const genres = [...new Set(genresList)];
+
   let visibleGenres = genres;
   if (genres.length > 8) {
     visibleGenres = genres.slice(0, 8);
@@ -26,8 +35,7 @@ const GenresList = (props) => {
 
 
 GenresList.propTypes = {
-
-  genres: PropTypes.array.isRequired,
+  films: PropTypes.array.isRequired,
   currentGenre: PropTypes.string.isRequired,
   onFilterClick: PropTypes.func.isRequired,
 };

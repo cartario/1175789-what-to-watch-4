@@ -1,26 +1,8 @@
-import {extend} from "../utils.js";
-import films from "../mocks/films.js";
+import {combineReducers} from "redux";
+import {reducer as currentGenre} from "./current-genre/current-genre.js";
+import {reducer as filmsByGenre} from "./films-by-genre/films-by-genre.js";
 
-const ALL_GENRE = `All genres`;
-
-const genresList = films
-  .map((film)=>film.genre)
-  .concat(ALL_GENRE)
-  .reverse();
-
-const genres = [...new Set(genresList)];
-
-const initialState = {
-  currentGenre: ALL_GENRE,
-  films,
-  filmsByGenre: films,
-  genres,
-};
-
-export const ActionType = {
-  CHANGE_FILTER: `CHANGE_FILTER`,
-  GET_MOVIES_BY_FILTER: `GET_MOVIES_BY_FILTER`,
-};
+import NameSpace from "./name-space/name-space.js";
 
 export const ActionCreator = {
   changeFilter: (genre) => ({
@@ -31,25 +13,10 @@ export const ActionCreator = {
   getFilmsByFilter: (genre) => ({
     type: `GET_MOVIES_BY_FILTER`,
     payload: genre,
-  })
+  }),
 };
 
-export const reducer = (state = initialState, action) => {
-  switch (action.type) {
-    case ActionType.CHANGE_FILTER :
-
-      return extend(state, {currentGenre: action.payload});
-
-    case ActionType.GET_MOVIES_BY_FILTER:
-      const selectedGenre = action.payload;
-      let filteredFilms = [...films];
-
-      if (selectedGenre !== ALL_GENRE) {
-        filteredFilms = state.films.filter((film) => film.genre === selectedGenre);
-      }
-
-      return extend(state, {filmsByGenre: filteredFilms});
-    default :
-      return state;
-  }
-};
+export const reducers = combineReducers({
+  [NameSpace.CURRENT_GENRE]: currentGenre,
+  [NameSpace.FILMS]: filmsByGenre,
+});

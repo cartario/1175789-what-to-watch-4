@@ -24,7 +24,7 @@ class MoviesList extends PureComponent {
 
           <MovieCard
             film = {film}
-            key = {film.title}
+            key = {film.id}
             onHover = {this.handleHover}
             onMouseLeave= {this.handleMouseLeave}
           >
