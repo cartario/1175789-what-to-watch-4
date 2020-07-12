@@ -1,16 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {getUniqGenres} from "../../utils.js";
 
 const GenresList = (props) => {
   const {currentGenre, onFilterClick, films} = props;
 
-  const ALL_GENRE = `All genres`;
-  const genresList = films
-  .map((film)=>film.genre)
-  .concat(ALL_GENRE)
-  .reverse();
-
-  const genres = [...new Set(genresList)];
+  const genres = getUniqGenres(films);
 
   let visibleGenres = genres;
   if (genres.length > 8) {
