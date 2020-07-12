@@ -1,8 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {getUniqGenres} from "../../utils.js";
 
 const GenresList = (props) => {
-  const {genres, currentGenre, onFilterClick} = props;
+  const {currentGenre, onFilterClick, films} = props;
+
+  const genres = getUniqGenres(films);
+
   let visibleGenres = genres;
   if (genres.length > 8) {
     visibleGenres = genres.slice(0, 8);
@@ -26,8 +30,7 @@ const GenresList = (props) => {
 
 
 GenresList.propTypes = {
-
-  genres: PropTypes.array.isRequired,
+  films: PropTypes.array.isRequired,
   currentGenre: PropTypes.string.isRequired,
   onFilterClick: PropTypes.func.isRequired,
 };

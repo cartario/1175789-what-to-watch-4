@@ -6,7 +6,7 @@ import GenresList from "../genres-list/genres-list.jsx";
 
 const Main = (props) => {
 
-  const {movieInfo, onMovieButtonClick, filmsByGenre, genres, currentGenre, onFilterClick} = props;
+  const {movieInfo, onMovieButtonClick, filmsByGenre, films, currentGenre, onFilterClick} = props;
   const {GENRE: genre, TITLE: title, YEAR: year} = movieInfo;
 
   return (
@@ -72,13 +72,12 @@ const Main = (props) => {
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
           <GenresList
-
-            genres={genres}
+            films = {films}
             currentGenre={currentGenre}
             onFilterClick = {onFilterClick}
           />
 
-          <MoviesList filmsByGenre = {filmsByGenre} currentGenre={currentGenre}></MoviesList>
+          <MoviesList filmsByGenre = {filmsByGenre} currentGenre={currentGenre} films={films}></MoviesList>
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>
           </div>
@@ -110,7 +109,7 @@ Main.propTypes = {
   }),
   onMovieButtonClick: PropTypes.func,
   filmsByGenre: PropTypes.array.isRequired,
-  genres: PropTypes.array.isRequired,
+  films: PropTypes.array.isRequired,
   currentGenre: PropTypes.string.isRequired,
   onFilterClick: PropTypes.func.isRequired,
 };

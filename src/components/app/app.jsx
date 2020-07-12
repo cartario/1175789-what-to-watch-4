@@ -1,21 +1,20 @@
 import React from "react";
 import Main from "../main/main.jsx";
 import PropTypes from "prop-types";
-
+import NameSpace from "../../reducer/name-space/name-space.js";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer/reducer.js";
 
 
 const App = (props) => {
 
-  const {movieInfo, onMovieButtonClick, films, filmsByGenre, genres, currentGenre, onFilterClick} = props;
+  const {movieInfo, onMovieButtonClick, films, filmsByGenre, currentGenre, onFilterClick} = props;
 
   return (
     <Main movieInfo = {movieInfo}
       onMovieButtonClick = {onMovieButtonClick}
       films = {films}
       filmsByGenre = {filmsByGenre}
-      genres = {genres}
       currentGenre = {currentGenre}
       onFilterClick = {onFilterClick}
     />
@@ -31,18 +30,28 @@ App.propTypes = {
   onMovieButtonClick: PropTypes.func,
   films: PropTypes.array.isRequired,
   filmsByGenre: PropTypes.array.isRequired,
-  genres: PropTypes.array.isRequired,
   currentGenre: PropTypes.string.isRequired,
   onFilterClick: PropTypes.func.isRequired,
 };
 
 export {App};
 
+const getCurrentGenre = (state) => {
+  return state[NameSpace.CURRENT_GENRE].currentGenre;
+};
+
+const getAllFilms = (state) => {
+  return state[NameSpace.FILMS].films;
+};
+
+const getFilmsByFilter = (state) => {
+  return state[NameSpace.FILMS].filmsByGenre;
+};
+
 const mapStateToProps = (state) => ({
-  currentGenre: state.currentGenre,
-  genres: state.genres,
-  films: state.films,
-  filmsByGenre: state.filmsByGenre,
+  currentGenre: getCurrentGenre(state),
+  films: getAllFilms(state),
+  filmsByGenre: getFilmsByFilter(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
