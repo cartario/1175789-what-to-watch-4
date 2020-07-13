@@ -2,11 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import {MoviesList} from "../movies-list/movies-list.jsx";
 import GenresList from "../genres-list/genres-list.jsx";
+import {AuthorizationStatus} from "../../reducer/user/user.js";
 
 
 const Main = (props) => {
 
-  const {movieInfo, onMovieButtonClick, filmsByGenre, films, currentGenre, onFilterClick} = props;
+  const {movieInfo, onMovieButtonClick, filmsByGenre, films, currentGenre, onFilterClick, authorizationStatus} = props;
   const {GENRE: genre, TITLE: title, YEAR: year} = movieInfo;
 
   return (
@@ -18,6 +19,7 @@ const Main = (props) => {
 
         <h1 className="visually-hidden">WTW</h1>
 
+
         <header className="page-header movie-card__head">
           <div className="logo">
             <a className="logo__link">
@@ -26,11 +28,15 @@ const Main = (props) => {
               <span className="logo__letter logo__letter--3">W</span>
             </a>
           </div>
-
           <div className="user-block">
-            <div className="user-block__avatar">
-              <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
-            </div>
+
+            {authorizationStatus === AuthorizationStatus.AUTH ?
+              <div className="user-block__avatar">
+                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
+              </div>
+              :
+              <a href="sign-in.html" className="user-block__link">Sign in</a>
+            }
           </div>
         </header>
 
@@ -112,6 +118,7 @@ Main.propTypes = {
   films: PropTypes.array.isRequired,
   currentGenre: PropTypes.string.isRequired,
   onFilterClick: PropTypes.func.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
 };
 
 export default Main;
