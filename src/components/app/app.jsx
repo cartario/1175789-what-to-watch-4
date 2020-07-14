@@ -1,4 +1,4 @@
-import React, {PureComponent} from "react";
+import React from "react";
 import Main from "../main/main.jsx";
 import SignIn from "../sign-in/sign-in.jsx";
 import PropTypes from "prop-types";
@@ -6,7 +6,7 @@ import NameSpace from "../../reducer/name-space/name-space.js";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer/reducer.js";
 import {Operation as UserOperation} from "../../reducer/user/user.js";
-import {AuthorizationStatus} from "../../reducer/user/user.js";
+// import {AuthorizationStatus} from "../../reducer/user/user.js";
 import {history} from "../../history.js";
 import {Switch, Route, Router} from "react-router-dom";
 import {AppRoute} from "../../const.js";
@@ -20,50 +20,33 @@ const MovieInfo = {
 
 const onMovieButtonClick = () => {};
 
-class App extends PureComponent {
+const App = (props) => {
+  const {films, filmsByGenre, currentGenre, onFilterClick, login, authorizationStatus} = props;
 
-  _renderMain() {
-    const {films, filmsByGenre, currentGenre, onFilterClick, login, authorizationStatus} = this.props;
+  return (
+    <Router history = {history}>
+      <Switch>
+        <Route exact path={AppRoute.ROOT}>
+          <Main movieInfo = {MovieInfo}
+            onMovieButtonClick = {onMovieButtonClick}
+            films = {films}
+            filmsByGenre = {filmsByGenre}
+            currentGenre = {currentGenre}
+            onFilterClick = {onFilterClick}
+            authorizationStatus= {authorizationStatus}
+          />
+        </Route>
+        <Route exact path={AppRoute.LOGIN}>
+          <SignIn login = {login} authorizationStatus= {authorizationStatus}/>
+        </Route>
+        <Route exact path={AppRoute.MY_LIST}>
+          <h1>MyList</h1>
+        </Route>
+      </Switch>
+    </Router>
 
-    if (authorizationStatus === AuthorizationStatus.AUTH) {
-      return (
-        <Main movieInfo = {MovieInfo}
-          onMovieButtonClick = {onMovieButtonClick}
-          films = {films}
-          filmsByGenre = {filmsByGenre}
-          currentGenre = {currentGenre}
-          onFilterClick = {onFilterClick}
-          authorizationStatus= {authorizationStatus}
-        />
-      );
-
-    }
-
-    return (
-      <SignIn login = {login} authorizationStatus= {authorizationStatus}/>
-    );
-
-
-  }
-
-  render() {
-    const {login, authorizationStatus} = this.props;
-
-    return (
-      <Router history = {history}>
-        <Switch>
-          <Route exact path={AppRoute.ROOT}>
-            {this._renderMain()}
-          </Route>
-          <Route exact path={AppRoute.LOGIN}>
-            <SignIn login = {login} authorizationStatus= {authorizationStatus}/>
-          </Route>
-        </Switch>
-      </Router>
-
-    );
-  }
-}
+  );
+};
 
 
 App.propTypes = {

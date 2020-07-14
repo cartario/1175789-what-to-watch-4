@@ -4,6 +4,7 @@ import {MoviesList} from "../movies-list/movies-list.jsx";
 import GenresList from "../genres-list/genres-list.jsx";
 import {AuthorizationStatus} from "../../reducer/user/user.js";
 import {Link} from "react-router-dom";
+import {AppRoute} from "../../const.js";
 
 const Main = (props) => {
 
@@ -31,7 +32,7 @@ const Main = (props) => {
           <div className="user-block">
 
             {authorizationStatus === AuthorizationStatus.AUTH ?
-              <Link to = "/" >
+              <Link to = {AppRoute.MY_LIST} >
                 <div className="user-block__avatar">
                   <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
                 </div>
