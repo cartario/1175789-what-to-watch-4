@@ -43,7 +43,7 @@ class App extends PureComponent {
       <SignIn login = {login} authorizationStatus= {authorizationStatus}/>
     );
 
-    
+
   }
 
   render() {
