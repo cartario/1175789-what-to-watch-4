@@ -6,9 +6,10 @@ import NameSpace from "../../reducer/name-space/name-space.js";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer/reducer.js";
 import {Operation as UserOperation} from "../../reducer/user/user.js";
-// import {AuthorizationStatus} from "../../reducer/user/user.js";
+import {AuthorizationStatus} from "../../reducer/user/user.js";
 import {history} from "../../history.js";
 import {Switch, Route, Router} from "react-router-dom";
+import {AppRoute} from "../../const.js";
 
 const MovieInfo = {
   TITLE: `The grand Budapest`,
@@ -21,24 +22,40 @@ const onMovieButtonClick = () => {};
 
 class App extends PureComponent {
 
+  _renderMain() {
+    const {films, filmsByGenre, currentGenre, onFilterClick, login, authorizationStatus} = this.props;
+
+    if (authorizationStatus === AuthorizationStatus.AUTH) {
+      return (
+        <Main movieInfo = {MovieInfo}
+          onMovieButtonClick = {onMovieButtonClick}
+          films = {films}
+          filmsByGenre = {filmsByGenre}
+          currentGenre = {currentGenre}
+          onFilterClick = {onFilterClick}
+          authorizationStatus= {authorizationStatus}
+        />
+      );
+
+    }
+
+    return (
+      <SignIn login = {login} authorizationStatus= {authorizationStatus}/>
+    );
+
+    
+  }
 
   render() {
-    const {films, filmsByGenre, currentGenre, onFilterClick, login, authorizationStatus} = this.props;
+    const {login, authorizationStatus} = this.props;
 
     return (
       <Router history = {history}>
         <Switch>
-          <Route exact path="/">
-            <Main movieInfo = {MovieInfo}
-              onMovieButtonClick = {onMovieButtonClick}
-              films = {films}
-              filmsByGenre = {filmsByGenre}
-              currentGenre = {currentGenre}
-              onFilterClick = {onFilterClick}
-              authorizationStatus= {authorizationStatus}
-            />
+          <Route exact path={AppRoute.ROOT}>
+            {this._renderMain()}
           </Route>
-          <Route exact path="/login">
+          <Route exact path={AppRoute.LOGIN}>
             <SignIn login = {login} authorizationStatus= {authorizationStatus}/>
           </Route>
         </Switch>

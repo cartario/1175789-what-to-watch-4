@@ -8,9 +8,12 @@ import thunkMiddleware from "redux-thunk";
 import {Operation} from "./reducer/films-by-genre/films-by-genre.js";
 import {Operation as UserOperation, ActionCreator, AuthorizationStatus} from "./reducer/user/user.js";
 import {createApi} from "./api.js";
+import {Redirect} from "react-router-dom";
+import {AppRoute} from "./const.js";
 
 const onUnauthorized = () => {
   store.dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH));
+  return (<Redirect to = {AppRoute.LOGIN}/>);
 };
 
 const api = createApi(onUnauthorized);
