@@ -1,4 +1,4 @@
-import React from "react";
+import React, {PureComponent} from "react";
 import Main from "../main/main.jsx";
 import SignIn from "../sign-in/sign-in.jsx";
 import PropTypes from "prop-types";
@@ -6,28 +6,48 @@ import NameSpace from "../../reducer/name-space/name-space.js";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer/reducer.js";
 import {Operation as UserOperation} from "../../reducer/user/user.js";
-import {AuthorizationStatus} from "../../reducer/user/user.js";
+// import {AuthorizationStatus} from "../../reducer/user/user.js";
+import {history} from "../../history.js";
+import {Switch, Route, Router} from "react-router-dom";
+
+const MovieInfo = {
+  TITLE: `The grand Budapest`,
+  GENRE: `Drama`,
+  YEAR: 2014,
+
+};
+
+const onMovieButtonClick = () => {};
+
+class App extends PureComponent {
 
 
-const App = (props) => {
+  render() {
+    const {films, filmsByGenre, currentGenre, onFilterClick, login, authorizationStatus} = this.props;
 
-  const {movieInfo, onMovieButtonClick, films, filmsByGenre, currentGenre, onFilterClick, login, authorizationStatus} = props;
-
-  if (authorizationStatus === AuthorizationStatus.AUTH) {
     return (
-      <Main movieInfo = {movieInfo}
-        onMovieButtonClick = {onMovieButtonClick}
-        films = {films}
-        filmsByGenre = {filmsByGenre}
-        currentGenre = {currentGenre}
-        onFilterClick = {onFilterClick}
-        authorizationStatus= {authorizationStatus}
-      />
+      <Router history = {history}>
+        <Switch>
+          <Route exact path="/">
+            <Main movieInfo = {MovieInfo}
+              onMovieButtonClick = {onMovieButtonClick}
+              films = {films}
+              filmsByGenre = {filmsByGenre}
+              currentGenre = {currentGenre}
+              onFilterClick = {onFilterClick}
+              authorizationStatus= {authorizationStatus}
+            />
+          </Route>
+          <Route exact path="/login">
+            <SignIn login = {login} authorizationStatus= {authorizationStatus}/>
+          </Route>
+        </Switch>
+      </Router>
+
     );
   }
+}
 
-  return <SignIn login = {login} authorizationStatus= {authorizationStatus}/>;
-};
 
 App.propTypes = {
   movieInfo: PropTypes.shape({
@@ -44,7 +64,6 @@ App.propTypes = {
   login: PropTypes.func.isRequired,
 };
 
-export {App};
 
 const getCurrentGenre = (state) => {
   return state[NameSpace.CURRENT_GENRE].currentGenre;
@@ -82,4 +101,5 @@ const mapDispatchToProps = (dispatch) => ({
 
 });
 
+export {App};
 export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -26,23 +26,11 @@ const store = createStore(
 store.dispatch(Operation.loadFilms());
 store.dispatch(UserOperation.checkAuth());
 
-
-const MovieInfo = {
-  TITLE: `The grand Budapest`,
-  GENRE: `Drama`,
-  YEAR: 2014,
-
-};
-
-const onMovieButtonClick = () => {};
-
 ReactDOM.render(
-    <Provider store={store}>
 
-      <App movieInfo = {MovieInfo}
-        onMovieButtonClick = {onMovieButtonClick}
-
-      />
-    </Provider>,
+    <Provider store={store} >
+      <App/>
+    </Provider>
+    ,
     document.querySelector(`#root`)
 );
