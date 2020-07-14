@@ -27,7 +27,7 @@ export const createApi = (onUnauthorized)=> {
       onUnauthorized();
       history.push(AppRoute.LOGIN);
       // return (<Redirect to = {AppRoute.LOGIN}/>);
-      // throw err;
+      throw err;
     }
     throw err;
   };
