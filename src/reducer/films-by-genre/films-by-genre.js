@@ -26,18 +26,18 @@ export const ActionCreator = {
   },
 
   addWatchList: (userId) => {
-    
+
     return {
       type: ActionType.ADD_WATCH_LIST,
       payload: userId,
-    }
+    };
   },
 
   removeWatchList: (userId) => {
     return {
       type: ActionType.REMOVE_WATCH_LIST,
       payload: userId,
-    }
+    };
   }
 };
 
@@ -81,24 +81,25 @@ export const reducer = (state = initialState, action) => {
       return extend(state, {films: action.payload});
 
     case ActionType.ADD_WATCH_LIST: {
-      
-      const stateCopy = {...state, films: state.films.map((film)=> {
-        if (film.id === action.payload){          
-          return {...film, isFavorite: true}
-        }        
+      const filmsList = state.films.map((film)=> {
+        if (film.id === action.payload) {
+          return extend(film, {isFavorite: true});
+        }
         return film;
-      })}
-      return stateCopy;
+      });
+
+      return extend(state, {films: filmsList});
     }
 
     case ActionType.REMOVE_WATCH_LIST: {
-      const stateCopy = {...state, films: state.films.map((film)=> {
-        if (film.id === action.payload){          
-          return {...film, isFavorite: false}
-        }        
+      const filmsList = state.films.map((film)=> {
+        if (film.id === action.payload) {
+          return extend(film, {isFavorite: false});
+        }
         return film;
-      })}
-      return stateCopy;
+      });
+
+      return extend(state, {films: filmsList});
     }
 
     default:
