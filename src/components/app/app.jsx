@@ -6,6 +6,7 @@ import NameSpace from "../../reducer/name-space/name-space.js";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer/reducer.js";
 import {Operation as UserOperation} from "../../reducer/user/user.js";
+import {ActionCreator as FilmsReducerAC} from "../../reducer/films-by-genre/films-by-genre.js";
 // import {AuthorizationStatus} from "../../reducer/user/user.js";
 import {history} from "../../history.js";
 import {Switch, Route, Router} from "react-router-dom";
@@ -21,7 +22,8 @@ const MovieInfo = {
 const onMovieButtonClick = () => {};
 
 const App = (props) => {
-  const {films, filmsByGenre, currentGenre, onFilterClick, login, authorizationStatus} = props;
+  const {films, filmsByGenre, currentGenre, onFilterClick, login, authorizationStatus, 
+    addListClick, removeListClick} = props;
 
   return (
     <Router history = {history}>
@@ -34,6 +36,8 @@ const App = (props) => {
             currentGenre = {currentGenre}
             onFilterClick = {onFilterClick}
             authorizationStatus= {authorizationStatus}
+            addListClick = {addListClick}
+            removeListClick = {removeListClick}
           />
         </Route>
         <Route exact path={AppRoute.LOGIN}>
@@ -93,6 +97,14 @@ const mapDispatchToProps = (dispatch) => ({
   onFilterClick(genre) {
     dispatch(ActionCreator.changeFilter(genre));
     dispatch(ActionCreator.getFilmsByFilter(genre));
+  },
+
+  addListClick(userId) {
+    dispatch(FilmsReducerAC.addWatchList(userId));
+  },
+
+  removeListClick(userId) {
+    dispatch(FilmsReducerAC.removeWatchList(userId));
   },
 
   login(authData) {

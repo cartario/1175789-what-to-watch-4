@@ -8,8 +8,29 @@ import {AppRoute} from "../../const.js";
 
 const Main = (props) => {
 
-  const {movieInfo, onMovieButtonClick, filmsByGenre, films, currentGenre, onFilterClick, authorizationStatus} = props;
+  const {movieInfo, onMovieButtonClick, filmsByGenre, films, currentGenre, onFilterClick, authorizationStatus, 
+    addListClick, removeListClick} = props;
   const {GENRE: genre, TITLE: title, YEAR: year} = movieInfo;
+
+  const currentId = 3;
+
+  let isListed;
+  
+  const currentFilm = films.filter((film)=> film.id === currentId)[0];
+
+  films.map((film)=> console.log(film.isFavorite))
+  
+  if(!!currentFilm) {    
+    isListed = currentFilm.isFavorite;
+  }
+
+  const addListHandler = () => {    
+    addListClick(currentId);
+  };
+
+  const removeListHandler = () => {
+    removeListClick(currentId);
+  };
 
   return (
     <React.Fragment>
@@ -63,12 +84,24 @@ const Main = (props) => {
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list movie-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
-                  <span>My list</span>
-                </button>
+
+                
+              {isListed ?
+              <button onClick={removeListHandler} className="btn btn--list movie-card__button" type="button">
+                <svg viewBox="0 0 19 20" width="19" height="20">
+                  <use xlinkHref="#in-list"></use>
+                </svg>
+                <span>My list</span>
+                </button> 
+                :
+                 <button onClick={addListHandler} className="btn btn--list movie-card__button" type="button">
+                <svg viewBox="0 0 19 20" width="19" height="20">
+                  <use xlinkHref="#add"></use>
+                </svg>
+                <span>My list</span>
+                </button>}
+                
+                
               </div>
             </div>
           </div>
