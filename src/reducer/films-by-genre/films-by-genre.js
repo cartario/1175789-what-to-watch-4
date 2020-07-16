@@ -81,6 +81,7 @@ export const reducer = (state = initialState, action) => {
       return extend(state, {films: action.payload});
 
     case ActionType.ADD_WATCH_LIST: {
+      
       const stateCopy = {...state, films: state.films.map((film)=> {
         if (film.id === action.payload){          
           return {...film, isFavorite: true}

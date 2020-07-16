@@ -6,7 +6,7 @@ import {Provider} from "react-redux";
 import {reducers} from "./reducer/reducer.js";
 import thunkMiddleware from "redux-thunk";
 import {Operation} from "./reducer/films-by-genre/films-by-genre.js";
-import {Operation as UserOperation, ActionCreator, AuthorizationStatus} from "./reducer/user/user.js";
+import {ActionCreator, AuthorizationStatus} from "./reducer/user/user.js";
 import {createApi} from "./api.js";
 
 
@@ -25,7 +25,6 @@ const store = createStore(
 );
 
 store.dispatch(Operation.loadFilms());
-store.dispatch(UserOperation.checkAuth());
 
 ReactDOM.render(
 

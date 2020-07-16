@@ -4,27 +4,25 @@ import {MoviesList} from "../movies-list/movies-list.jsx";
 import GenresList from "../genres-list/genres-list.jsx";
 import {AuthorizationStatus} from "../../reducer/user/user.js";
 import {Link} from "react-router-dom";
-import {AppRoute} from "../../const.js";
+import {AppRoutes} from "../../const.js";
 
 const Main = (props) => {
 
-  const {movieInfo, onMovieButtonClick, filmsByGenre, films, currentGenre, onFilterClick, authorizationStatus, 
+  const {movieInfo, onMovieButtonClick, filmsByGenre, films, currentGenre, onFilterClick, authorizationStatus,
     addListClick, removeListClick} = props;
   const {GENRE: genre, TITLE: title, YEAR: year} = movieInfo;
 
   const currentId = 3;
 
   let isListed;
-  
+
   const currentFilm = films.filter((film)=> film.id === currentId)[0];
 
-  films.map((film)=> console.log(film.isFavorite))
-  
-  if(!!currentFilm) {    
+  if (currentFilm) {
     isListed = currentFilm.isFavorite;
   }
 
-  const addListHandler = () => {    
+  const addListHandler = () => {
     addListClick(currentId);
   };
 
@@ -53,7 +51,7 @@ const Main = (props) => {
           <div className="user-block">
 
             {authorizationStatus === AuthorizationStatus.AUTH ?
-              <Link to = {AppRoute.MY_LIST} >
+              <Link to = {AppRoutes.MY_LIST} >
                 <div className="user-block__avatar">
                   <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
                 </div>
@@ -85,23 +83,23 @@ const Main = (props) => {
                   <span>Play</span>
                 </button>
 
-                
-              {isListed ?
-              <button onClick={removeListHandler} className="btn btn--list movie-card__button" type="button">
-                <svg viewBox="0 0 19 20" width="19" height="20">
-                  <use xlinkHref="#in-list"></use>
-                </svg>
-                <span>My list</span>
-                </button> 
-                :
-                 <button onClick={addListHandler} className="btn btn--list movie-card__button" type="button">
-                <svg viewBox="0 0 19 20" width="19" height="20">
-                  <use xlinkHref="#add"></use>
-                </svg>
-                <span>My list</span>
-                </button>}
-                
-                
+
+                {isListed ?
+                  <button onClick={removeListHandler} className="btn btn--list movie-card__button" type="button">
+                    <svg viewBox="0 0 19 20" width="19" height="20">
+                      <use xlinkHref="#in-list"></use>
+                    </svg>
+                    <span>My list</span>
+                  </button>
+                  :
+                  <button onClick={addListHandler} className="btn btn--list movie-card__button" type="button">
+                    <svg viewBox="0 0 19 20" width="19" height="20">
+                      <use xlinkHref="#add"></use>
+                    </svg>
+                    <span>My list</span>
+                  </button>}
+
+
               </div>
             </div>
           </div>
@@ -155,6 +153,8 @@ Main.propTypes = {
   currentGenre: PropTypes.string.isRequired,
   onFilterClick: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
+  addListClick: PropTypes.func.isRequired,
+  removeListClick: PropTypes.func.isRequired,
 };
 
 export default Main;

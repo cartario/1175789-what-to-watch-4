@@ -10,7 +10,7 @@ import {ActionCreator as FilmsReducerAC} from "../../reducer/films-by-genre/film
 // import {AuthorizationStatus} from "../../reducer/user/user.js";
 import {history} from "../../history.js";
 import {Switch, Route, Router} from "react-router-dom";
-import {AppRoute} from "../../const.js";
+import {AppRoutes} from "../../const.js";
 
 const MovieInfo = {
   TITLE: `The grand Budapest`,
@@ -22,13 +22,13 @@ const MovieInfo = {
 const onMovieButtonClick = () => {};
 
 const App = (props) => {
-  const {films, filmsByGenre, currentGenre, onFilterClick, login, authorizationStatus, 
+  const {films, filmsByGenre, currentGenre, onFilterClick, login, authorizationStatus,
     addListClick, removeListClick} = props;
 
   return (
     <Router history = {history}>
       <Switch>
-        <Route exact path={AppRoute.ROOT}>
+        <Route exact path={AppRoutes.ROOT}>
           <Main movieInfo = {MovieInfo}
             onMovieButtonClick = {onMovieButtonClick}
             films = {films}
@@ -40,10 +40,10 @@ const App = (props) => {
             removeListClick = {removeListClick}
           />
         </Route>
-        <Route exact path={AppRoute.LOGIN}>
+        <Route exact path={AppRoutes.LOGIN}>
           <SignIn login = {login} authorizationStatus= {authorizationStatus}/>
         </Route>
-        <Route exact path={AppRoute.MY_LIST}>
+        <Route exact path={AppRoutes.MY_LIST}>
           <h1>MyList</h1>
         </Route>
       </Switch>
@@ -66,6 +66,8 @@ App.propTypes = {
   onFilterClick: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
   login: PropTypes.func.isRequired,
+  addListClick: PropTypes.func.isRequired,
+  removeListClick: PropTypes.func.isRequired,
 };
 
 

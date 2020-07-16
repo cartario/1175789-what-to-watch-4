@@ -1,6 +1,6 @@
 import axios from "axios";
 // import {Redirect} from "react-router-dom";
-import {AppRoute} from "./const.js";
+import {AppRoutes} from "./const.js";
 import {history} from "./history.js";
 
 const Error = {
@@ -16,7 +16,7 @@ export const createApi = (onUnauthorized)=> {
   });
 
   const onSuccess = (response) => {
-    history.push(AppRoute.ROOT);
+    history.push(AppRoutes.ROOT);
     return response;
   };
 
@@ -25,8 +25,8 @@ export const createApi = (onUnauthorized)=> {
 
     if (response.status === Error.UNAUTHORIZED) {
       onUnauthorized();
-      history.push(AppRoute.LOGIN);
-      // return (<Redirect to = {AppRoute.LOGIN}/>);
+      history.push(AppRoutes.LOGIN);
+
       throw err;
     }
     throw err;

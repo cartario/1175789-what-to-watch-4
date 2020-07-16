@@ -1,4 +1,4 @@
-export const AppRoute = {
+export const AppRoutes = {
   ROOT: `/`,
   LOGIN: `/login`,
   MY_LIST: `/mylist`,
