@@ -150,6 +150,7 @@ Main.propTypes = {
   onMovieButtonClick: PropTypes.func,
   filmsByGenre: PropTypes.array.isRequired,
   films: PropTypes.array.isRequired,
+  activeFilm: PropTypes.func.isRequired,
   currentGenre: PropTypes.string.isRequired,
   onFilterClick: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired,

@@ -11,7 +11,7 @@ const MovieCard = (props) => {
     <article
       onMouseOver = {handlerMouseOver}
       onMouseLeave = {handlerMouseLeave}
-      onClick = {()=>{clickHandler(film)}}
+      onClick = {()=> clickHandler(film)}
       className="small-movie-card catalog__movies-card" >
       <div className="small-movie-card__image">
         <Player film={film} isPlaying = {isPlaying}/>
@@ -33,6 +33,7 @@ MovieCard.propTypes = {
   handlerMouseLeave: PropTypes.func.isRequired,
   handlerMouseOver: PropTypes.func.isRequired,
   isPlaying: PropTypes.bool.isRequired,
+  clickHandler: PropTypes.func.isRequired,
 };
 
 export default withCard(MovieCard);

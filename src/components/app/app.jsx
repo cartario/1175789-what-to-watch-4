@@ -17,7 +17,6 @@ const MovieInfo = {
   TITLE: `The grand Budapest`,
   GENRE: `Drama`,
   YEAR: 2014,
-
 };
 
 const onMovieButtonClick = () => {};
@@ -53,10 +52,8 @@ const App = (props) => {
         </Route>
       </Switch>
     </Router>
-
   );
 };
-
 
 App.propTypes = {
   movieInfo: PropTypes.shape({
@@ -73,6 +70,8 @@ App.propTypes = {
   login: PropTypes.func.isRequired,
   addListClick: PropTypes.func.isRequired,
   removeListClick: PropTypes.func.isRequired,
+  activeFilm: PropTypes.func.isRequired,
+  currentMovie: PropTypes.number.isRequired,
 };
 
 

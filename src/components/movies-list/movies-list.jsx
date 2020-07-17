@@ -39,10 +39,10 @@ class MoviesList extends PureComponent {
     );
   }
 
-  handleClick(film) {    
+  handleClick(film) {
     this.props.activeFilm(film.id);
-    history.push("/moviepage");
-    return <Redirect to="/moviepage"/>  ;  
+    history.push(`/moviepage`);
+    return <Redirect to="/moviepage"/>;
   }
 
   handleMouseLeave() {
@@ -65,6 +65,7 @@ MoviesList.propTypes = {
     preview: PropTypes.string.isRequired,
   })),
   filmsByGenre: PropTypes.array.isRequired,
+  activeFilm: PropTypes.func.isRequired,
 };
 
 export {MoviesList};
