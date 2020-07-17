@@ -9,7 +9,7 @@ import {AppRoutes} from "../../const.js";
 const Main = (props) => {
 
   const {movieInfo, onMovieButtonClick, filmsByGenre, films, currentGenre, onFilterClick, authorizationStatus,
-    addListClick, removeListClick} = props;
+    addListClick, removeListClick, activeFilm} = props;
   const {GENRE: genre, TITLE: title, YEAR: year} = movieInfo;
 
   const currentId = 3;
@@ -117,7 +117,7 @@ const Main = (props) => {
             onFilterClick = {onFilterClick}
           />
 
-          <MoviesList filmsByGenre = {filmsByGenre} currentGenre={currentGenre} films={films}></MoviesList>
+          <MoviesList activeFilm = {activeFilm} filmsByGenre = {filmsByGenre} currentGenre={currentGenre} films={films}></MoviesList>
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>
           </div>

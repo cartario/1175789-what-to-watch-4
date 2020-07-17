@@ -6,6 +6,7 @@ const ALL_GENRE = `All genres`;
 const initialState = {
   films,
   filmsByGenre: [],
+  activeFilmId: 1,
 };
 
 export const ActionType = {
@@ -13,6 +14,7 @@ export const ActionType = {
   GET_MOVIES_FROM_SERVER: `GET_MOVIES_FROM_SERVER`,
   ADD_WATCH_LIST: `ADD_WATCH_LIST`,
   REMOVE_WATCH_LIST: `REMOVE_WATCH_LIST`,
+  SET_ACTIVE_FILM: `SET_ACTIVE_FILM`,
 };
 
 export const ActionCreator = {
@@ -38,7 +40,14 @@ export const ActionCreator = {
       type: ActionType.REMOVE_WATCH_LIST,
       payload: userId,
     };
-  }
+  },
+
+  activeFilm: (film) => {
+    return {
+      type: ActionType.SET_ACTIVE_FILM,
+      payload: film,
+    };
+  },
 };
 
 const adapter = (data) => {
@@ -109,6 +118,10 @@ export const reducer = (state = initialState, action) => {
       });
 
       return extend(state, {films: filmsList});
+    }
+
+    case ActionType.SET_ACTIVE_FILM: {
+      return extend(state, {activeFilmId: action.payload});
     }
 
     default:

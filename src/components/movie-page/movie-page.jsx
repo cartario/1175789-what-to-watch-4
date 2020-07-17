@@ -1,9 +1,25 @@
 import React from "react";
+import MovieCard from "../movie-card/movie-card.jsx";
+import {Link} from "react-router-dom";
 
 const MoviePage = (props) => {
-  const {films} = props;
+  const {films, currentMovie} = props;
+
   const {rating, scoresCount, description, director, starring, title, posterImage, 
-    genre, released, backgroundImage} = films[0];
+    genre, released, backgroundImage} = films[currentMovie - 1];
+
+  const getTextRate = (rate) => {
+    if (rate <= 3) {
+      return `Bad`;
+    } else if (rate <= 5) {
+      return `Normal`;
+    } else if (rate <= 8) {
+      return `Good`;
+    } else if (rate <=10) {
+      return `Very good`;
+    }
+      return `Awesome`;
+  };
 
   return (<>
   <section className="movie-card movie-card--full">
@@ -16,11 +32,11 @@ const MoviePage = (props) => {
 
         <header className="page-header movie-card__head">
           <div className="logo">
-            <a href="main.html" className="logo__link">
+            <Link to="/" className="logo__link">
               <span className="logo__letter logo__letter--1">W</span>
               <span className="logo__letter logo__letter--2">T</span>
               <span className="logo__letter logo__letter--3">W</span>
-            </a>
+            </Link>
           </div>
 
           <div className="user-block">
@@ -81,7 +97,7 @@ const MoviePage = (props) => {
             <div className="movie-rating">
               <div className="movie-rating__score">{rating}</div>
               <p className="movie-rating__meta">
-                <span className="movie-rating__level">Very good</span>
+                <span className="movie-rating__level">{getTextRate(rating)}</span>
                 <span className="movie-rating__count">{scoresCount} ratings</span>
               </p>
             </div>
@@ -102,42 +118,19 @@ const MoviePage = (props) => {
         <h2 className="catalog__title">More like this</h2>
 
         <div className="catalog__movies-list">
+          {films.map((film)=> <MovieCard
+           film = {film}
+           key = {film.id}
+           onHover = {()=>{}}
+           onMouseLeave= {()=>{}}
+           clickHandler = {()=>{}}
+          />)}
+          
 
-          <article className="small-movie-card catalog__movies-card">
-            <div className="small-movie-card__image">
-              <img src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg" alt="Fantastic Beasts: The Crimes of Grindelwald" width="280" height="175"/>
-            </div>
-            <h3 className="small-movie-card__title">
-              <a className="small-movie-card__link" href="movie-page.html">Fantastic Beasts: The Crimes of Grindelwald</a>
-            </h3>
-          </article>
 
-          <article className="small-movie-card catalog__movies-card">
-            <div className="small-movie-card__image">
-              <img src="img/bohemian-rhapsody.jpg" alt="Bohemian Rhapsody" width="280" height="175"/>
-            </div>
-            <h3 className="small-movie-card__title">
-              <a className="small-movie-card__link" href="movie-page.html">Bohemian Rhapsody</a>
-            </h3>
-          </article>
 
-          <article className="small-movie-card catalog__movies-card">
-            <div className="small-movie-card__image">
-              <img src="img/macbeth.jpg" alt="Macbeth" width="280" height="175"/>
-            </div>
-            <h3 className="small-movie-card__title">
-              <a className="small-movie-card__link" href="movie-page.html">Macbeth</a>
-            </h3>
-          </article>
 
-          <article className="small-movie-card catalog__movies-card">
-            <div className="small-movie-card__image">
-              <img src="img/aviator.jpg" alt="Aviator" width="280" height="175"/>
-            </div>
-            <h3 className="small-movie-card__title">
-              <a className="small-movie-card__link" href="movie-page.html">Aviator</a>
-            </h3>
-          </article>
+
 
         </div>
       </section>

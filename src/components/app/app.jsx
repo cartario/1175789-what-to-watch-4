@@ -24,7 +24,7 @@ const onMovieButtonClick = () => {};
 
 const App = (props) => {
   const {films, filmsByGenre, currentGenre, onFilterClick, login, authorizationStatus,
-    addListClick, removeListClick} = props;
+    addListClick, removeListClick, activeFilm, currentMovie} = props;
 
   return (
     <Router history = {history}>
@@ -39,6 +39,7 @@ const App = (props) => {
             authorizationStatus= {authorizationStatus}
             addListClick = {addListClick}
             removeListClick = {removeListClick}
+            activeFilm = {activeFilm}
           />
         </Route>
         <Route exact path={AppRoutes.LOGIN}>
@@ -48,7 +49,7 @@ const App = (props) => {
           <h1>MyList</h1>
         </Route>
         <Route exact path={AppRoutes.MOVIE_PAGE}>
-          <MoviePage films={films} />
+          <MoviePage films={films} currentMovie={currentMovie}/>
         </Route>
       </Switch>
     </Router>
@@ -92,11 +93,16 @@ const getAuthorizationStatus = (state) => {
   return state[NameSpace.USER].authorizationStatus;
 };
 
+const getCurrentMovie = (state) => {
+  return state[NameSpace.FILMS].activeFilmId;
+};
+
 const mapStateToProps = (state) => ({
   currentGenre: getCurrentGenre(state),
   films: getAllFilms(state),
   filmsByGenre: getFilmsByFilter(state),
   authorizationStatus: getAuthorizationStatus(state),
+  currentMovie: getCurrentMovie(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -115,7 +121,11 @@ const mapDispatchToProps = (dispatch) => ({
 
   login(authData) {
     dispatch(UserOperation.login(authData));
-  }
+  },
+
+  activeFilm(userId) {
+    dispatch(FilmsReducerAC.activeFilm(userId));
+  },
 
 });
 

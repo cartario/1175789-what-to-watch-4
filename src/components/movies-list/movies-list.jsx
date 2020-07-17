@@ -1,6 +1,8 @@
 import React, {PureComponent} from "react";
 import MovieCard from "../movie-card/movie-card.jsx";
 import PropTypes from "prop-types";
+import {Redirect} from "react-router-dom";
+import {history} from "../../history.js";
 
 
 class MoviesList extends PureComponent {
@@ -14,6 +16,7 @@ class MoviesList extends PureComponent {
 
     this.handleHover = this.handleHover.bind(this);
     this.handleMouseLeave = this.handleMouseLeave.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   render() {
@@ -27,12 +30,19 @@ class MoviesList extends PureComponent {
             key = {film.id}
             onHover = {this.handleHover}
             onMouseLeave= {this.handleMouseLeave}
+            clickHandler = {this.handleClick}
           >
 
           </MovieCard>
         )}
       </div>
     );
+  }
+
+  handleClick(film) {    
+    this.props.activeFilm(film.id);
+    history.push("/moviepage");
+    return <Redirect to="/moviepage"/>  ;  
   }
 
   handleMouseLeave() {
