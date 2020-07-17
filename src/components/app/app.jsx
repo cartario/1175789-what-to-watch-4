@@ -11,6 +11,7 @@ import {ActionCreator as FilmsReducerAC} from "../../reducer/films-by-genre/film
 import {history} from "../../history.js";
 import {Switch, Route, Router} from "react-router-dom";
 import {AppRoutes} from "../../const.js";
+import MoviePage from "../movie-page/movie-page.jsx";
 
 const MovieInfo = {
   TITLE: `The grand Budapest`,
@@ -45,6 +46,9 @@ const App = (props) => {
         </Route>
         <Route exact path={AppRoutes.MY_LIST}>
           <h1>MyList</h1>
+        </Route>
+        <Route exact path={AppRoutes.MOVIE_PAGE}>
+          <MoviePage films={films} />
         </Route>
       </Switch>
     </Router>

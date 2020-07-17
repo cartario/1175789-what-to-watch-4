@@ -16,7 +16,7 @@ export const createApi = (onUnauthorized)=> {
   });
 
   const onSuccess = (response) => {
-    history.push(AppRoutes.ROOT);
+    // history.push(AppRoutes.ROOT);
     return response;
   };
 

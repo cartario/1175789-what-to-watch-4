@@ -48,7 +48,16 @@ const adapter = (data) => {
     src: film.preview_image,
     preview: film.preview_video_link,
     genre: film.genre,
-    isFavorite: film.is_favorite
+    rating: film.rating,
+    scoresCount: film.scores_count,
+    description: film.description,
+    director: film.director,
+    starring: film.starring,
+    released: film.released,
+    backgroundImage: film.background_image,
+    posterImage: film.poster_image,
+    isFavorite: film.is_favorite,
+
   }));
 };
 

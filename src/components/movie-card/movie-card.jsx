@@ -5,16 +5,22 @@ import PropTypes from "prop-types";
 
 const MovieCard = (props) => {
   const {film, handlerMouseLeave, handlerMouseOver, isPlaying} = props;
+
+  const clickHandler = () => {
+       
+    console.log(film);
+  }
+
   return (
     <article
       onMouseOver = {handlerMouseOver}
       onMouseLeave = {handlerMouseLeave}
       className="small-movie-card catalog__movies-card" >
-      <div className="small-movie-card__image">
+      <div onClick={clickHandler}  className="small-movie-card__image">
         <Player film={film} isPlaying = {isPlaying}/>
       </div>
       <h3 className="small-movie-card__title">
-        <a className="small-movie-card__link" href="movie-page.html">{film.title}</a>
+        <a onClick={(e)=>{e.preventDefault(); clickHandler(e)}} className="small-movie-card__link" href="movie-page.html">{film.title}</a>
       </h3>
     </article>
   );
