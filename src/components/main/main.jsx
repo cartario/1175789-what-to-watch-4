@@ -3,12 +3,32 @@ import PropTypes from "prop-types";
 import {MoviesList} from "../movies-list/movies-list.jsx";
 import GenresList from "../genres-list/genres-list.jsx";
 import {AuthorizationStatus} from "../../reducer/user/user.js";
-
+import {Link} from "react-router-dom";
+import {AppRoutes} from "../../const.js";
 
 const Main = (props) => {
 
-  const {movieInfo, onMovieButtonClick, filmsByGenre, films, currentGenre, onFilterClick, authorizationStatus} = props;
+  const {movieInfo, onMovieButtonClick, filmsByGenre, films, currentGenre, onFilterClick, authorizationStatus,
+    addListClick, removeListClick} = props;
   const {GENRE: genre, TITLE: title, YEAR: year} = movieInfo;
+
+  const currentId = 3;
+
+  let isListed;
+
+  const currentFilm = films.filter((film)=> film.id === currentId)[0];
+
+  if (currentFilm) {
+    isListed = currentFilm.isFavorite;
+  }
+
+  const addListHandler = () => {
+    addListClick(currentId);
+  };
+
+  const removeListHandler = () => {
+    removeListClick(currentId);
+  };
 
   return (
     <React.Fragment>
@@ -22,20 +42,22 @@ const Main = (props) => {
 
         <header className="page-header movie-card__head">
           <div className="logo">
-            <a className="logo__link">
+            <Link to ="/" className="logo__link">
               <span className="logo__letter logo__letter--1">W</span>
               <span className="logo__letter logo__letter--2">T</span>
               <span className="logo__letter logo__letter--3">W</span>
-            </a>
+            </Link>
           </div>
           <div className="user-block">
 
             {authorizationStatus === AuthorizationStatus.AUTH ?
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
-              </div>
+              <Link to = {AppRoutes.MY_LIST} >
+                <div className="user-block__avatar">
+                  <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
+                </div>
+              </Link>
               :
-              <a href="sign-in.html" className="user-block__link">Sign in</a>
+              <Link to = "/login" className="user-block__link">Sign in</Link>
             }
           </div>
         </header>
@@ -60,12 +82,24 @@ const Main = (props) => {
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list movie-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
-                  <span>My list</span>
-                </button>
+
+
+                {isListed ?
+                  <button onClick={removeListHandler} className="btn btn--list movie-card__button" type="button">
+                    <svg viewBox="0 0 19 20" width="19" height="20">
+                      <use xlinkHref="#in-list"></use>
+                    </svg>
+                    <span>My list</span>
+                  </button>
+                  :
+                  <button onClick={addListHandler} className="btn btn--list movie-card__button" type="button">
+                    <svg viewBox="0 0 19 20" width="19" height="20">
+                      <use xlinkHref="#add"></use>
+                    </svg>
+                    <span>My list</span>
+                  </button>}
+
+
               </div>
             </div>
           </div>
@@ -119,6 +153,8 @@ Main.propTypes = {
   currentGenre: PropTypes.string.isRequired,
   onFilterClick: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
+  addListClick: PropTypes.func.isRequired,
+  removeListClick: PropTypes.func.isRequired,
 };
 
 export default Main;

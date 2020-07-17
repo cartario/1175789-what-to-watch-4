@@ -6,8 +6,9 @@ import {Provider} from "react-redux";
 import {reducers} from "./reducer/reducer.js";
 import thunkMiddleware from "redux-thunk";
 import {Operation} from "./reducer/films-by-genre/films-by-genre.js";
-import {Operation as UserOperation, ActionCreator, AuthorizationStatus} from "./reducer/user/user.js";
+import {ActionCreator, AuthorizationStatus} from "./reducer/user/user.js";
 import {createApi} from "./api.js";
+
 
 const onUnauthorized = () => {
   store.dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH));
@@ -24,25 +25,12 @@ const store = createStore(
 );
 
 store.dispatch(Operation.loadFilms());
-store.dispatch(UserOperation.checkAuth());
-
-
-const MovieInfo = {
-  TITLE: `The grand Budapest`,
-  GENRE: `Drama`,
-  YEAR: 2014,
-
-};
-
-const onMovieButtonClick = () => {};
 
 ReactDOM.render(
-    <Provider store={store}>
 
-      <App movieInfo = {MovieInfo}
-        onMovieButtonClick = {onMovieButtonClick}
-
-      />
-    </Provider>,
+    <Provider store={store} >
+      <App/>
+    </Provider>
+    ,
     document.querySelector(`#root`)
 );

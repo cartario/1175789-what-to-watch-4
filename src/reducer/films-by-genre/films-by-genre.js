@@ -11,15 +11,32 @@ const initialState = {
 export const ActionType = {
   GET_MOVIES_BY_FILTER: `GET_MOVIES_BY_FILTER`,
   GET_MOVIES_FROM_SERVER: `GET_MOVIES_FROM_SERVER`,
+  ADD_WATCH_LIST: `ADD_WATCH_LIST`,
+  REMOVE_WATCH_LIST: `REMOVE_WATCH_LIST`,
 };
 
-const ActionCreator = {
+export const ActionCreator = {
 
   loadFilms: (filmsList) => {
 
     return {
       type: ActionType.GET_MOVIES_FROM_SERVER,
       payload: filmsList,
+    };
+  },
+
+  addWatchList: (userId) => {
+
+    return {
+      type: ActionType.ADD_WATCH_LIST,
+      payload: userId,
+    };
+  },
+
+  removeWatchList: (userId) => {
+    return {
+      type: ActionType.REMOVE_WATCH_LIST,
+      payload: userId,
     };
   }
 };
@@ -31,6 +48,7 @@ const adapter = (data) => {
     src: film.preview_image,
     preview: film.preview_video_link,
     genre: film.genre,
+    isFavorite: film.is_favorite
   }));
 };
 
@@ -61,6 +79,29 @@ export const reducer = (state = initialState, action) => {
       return extend(state, {filmsByGenre: filteredFilms});
     case ActionType.GET_MOVIES_FROM_SERVER:
       return extend(state, {films: action.payload});
+
+    case ActionType.ADD_WATCH_LIST: {
+      const filmsList = state.films.map((film)=> {
+        if (film.id === action.payload) {
+          return extend(film, {isFavorite: true});
+        }
+        return film;
+      });
+
+      return extend(state, {films: filmsList});
+    }
+
+    case ActionType.REMOVE_WATCH_LIST: {
+      const filmsList = state.films.map((film)=> {
+        if (film.id === action.payload) {
+          return extend(film, {isFavorite: false});
+        }
+        return film;
+      });
+
+      return extend(state, {films: filmsList});
+    }
+
     default:
       return state;
   }

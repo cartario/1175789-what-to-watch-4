@@ -6,28 +6,52 @@ import NameSpace from "../../reducer/name-space/name-space.js";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer/reducer.js";
 import {Operation as UserOperation} from "../../reducer/user/user.js";
-import {AuthorizationStatus} from "../../reducer/user/user.js";
+import {ActionCreator as FilmsReducerAC} from "../../reducer/films-by-genre/films-by-genre.js";
+// import {AuthorizationStatus} from "../../reducer/user/user.js";
+import {history} from "../../history.js";
+import {Switch, Route, Router} from "react-router-dom";
+import {AppRoutes} from "../../const.js";
 
+const MovieInfo = {
+  TITLE: `The grand Budapest`,
+  GENRE: `Drama`,
+  YEAR: 2014,
+
+};
+
+const onMovieButtonClick = () => {};
 
 const App = (props) => {
+  const {films, filmsByGenre, currentGenre, onFilterClick, login, authorizationStatus,
+    addListClick, removeListClick} = props;
 
-  const {movieInfo, onMovieButtonClick, films, filmsByGenre, currentGenre, onFilterClick, login, authorizationStatus} = props;
+  return (
+    <Router history = {history}>
+      <Switch>
+        <Route exact path={AppRoutes.ROOT}>
+          <Main movieInfo = {MovieInfo}
+            onMovieButtonClick = {onMovieButtonClick}
+            films = {films}
+            filmsByGenre = {filmsByGenre}
+            currentGenre = {currentGenre}
+            onFilterClick = {onFilterClick}
+            authorizationStatus= {authorizationStatus}
+            addListClick = {addListClick}
+            removeListClick = {removeListClick}
+          />
+        </Route>
+        <Route exact path={AppRoutes.LOGIN}>
+          <SignIn login = {login} authorizationStatus= {authorizationStatus}/>
+        </Route>
+        <Route exact path={AppRoutes.MY_LIST}>
+          <h1>MyList</h1>
+        </Route>
+      </Switch>
+    </Router>
 
-  if (authorizationStatus === AuthorizationStatus.AUTH) {
-    return (
-      <Main movieInfo = {movieInfo}
-        onMovieButtonClick = {onMovieButtonClick}
-        films = {films}
-        filmsByGenre = {filmsByGenre}
-        currentGenre = {currentGenre}
-        onFilterClick = {onFilterClick}
-        authorizationStatus= {authorizationStatus}
-      />
-    );
-  }
-
-  return <SignIn login = {login} authorizationStatus= {authorizationStatus}/>;
+  );
 };
+
 
 App.propTypes = {
   movieInfo: PropTypes.shape({
@@ -42,9 +66,10 @@ App.propTypes = {
   onFilterClick: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
   login: PropTypes.func.isRequired,
+  addListClick: PropTypes.func.isRequired,
+  removeListClick: PropTypes.func.isRequired,
 };
 
-export {App};
 
 const getCurrentGenre = (state) => {
   return state[NameSpace.CURRENT_GENRE].currentGenre;
@@ -76,10 +101,19 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(ActionCreator.getFilmsByFilter(genre));
   },
 
+  addListClick(userId) {
+    dispatch(FilmsReducerAC.addWatchList(userId));
+  },
+
+  removeListClick(userId) {
+    dispatch(FilmsReducerAC.removeWatchList(userId));
+  },
+
   login(authData) {
     dispatch(UserOperation.login(authData));
   }
 
 });
 
+export {App};
 export default connect(mapStateToProps, mapDispatchToProps)(App);
