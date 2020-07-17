@@ -1,10 +1,11 @@
 import React from "react";
-import MovieCard from "../movie-card/movie-card.jsx";
+import GenresList from "../genres-list/genres-list.jsx";
+import {MoviesList} from "../movies-list/movies-list.jsx";
 import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
 
 const MoviePage = (props) => {
-  const {films, currentMovie} = props;
+  const {films, currentMovie, filmsByGenre, currentGenre, activeFilm, onFilterClick} = props;
 
   const {rating, scoresCount, description, director, starring, title, posterImage,
     genre, released, backgroundImage} = films[currentMovie - 1];
@@ -118,16 +119,18 @@ const MoviePage = (props) => {
       <section className="catalog catalog--like-this">
         <h2 className="catalog__title">More like this</h2>
 
-        <div className="catalog__movies-list">
-          {films.map((film)=> <MovieCard
-            film = {film}
-            key = {film.id}
-            onHover = {()=>{}}
-            onMouseLeave= {()=>{}}
-            clickHandler = {()=>{}}
-          />)}
+        <GenresList
+          films = {films}
+          currentGenre={currentGenre}
+          onFilterClick = {onFilterClick}
+        />
 
-        </div>
+        <MoviesList
+          activeFilm = {activeFilm}
+          filmsByGenre = {filmsByGenre}
+          currentGenre={currentGenre}
+          films={films}
+        />
       </section>
 
       <footer className="page-footer">
@@ -150,6 +153,10 @@ const MoviePage = (props) => {
 MoviePage.propTypes = {
   currentMovie: PropTypes.number.isRequired,
   films: PropTypes.array.isRequired,
+  filmsByGenre: PropTypes.array.isRequired,
+  currentGenre: PropTypes.string.isRequired,
+  activeFilm: PropTypes.func.isRequired,
+  onFilterClick: PropTypes.func.isRequired,
 };
 
 export default MoviePage;

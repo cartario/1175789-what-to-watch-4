@@ -117,7 +117,13 @@ const Main = (props) => {
             onFilterClick = {onFilterClick}
           />
 
-          <MoviesList activeFilm = {activeFilm} filmsByGenre = {filmsByGenre} currentGenre={currentGenre} films={films}></MoviesList>
+          <MoviesList
+            activeFilm = {activeFilm}
+            filmsByGenre = {filmsByGenre}
+            currentGenre={currentGenre}
+            films={films}
+          />
+
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>
           </div>

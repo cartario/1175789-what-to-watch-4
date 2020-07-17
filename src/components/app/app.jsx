@@ -48,7 +48,13 @@ const App = (props) => {
           <h1>MyList</h1>
         </Route>
         <Route exact path={AppRoutes.MOVIE_PAGE}>
-          <MoviePage films={films} currentMovie={currentMovie}/>
+          <MoviePage
+            activeFilm = {activeFilm}
+            films={films}
+            currentMovie={currentMovie}
+            filmsByGenre = {filmsByGenre}
+            onFilterClick = {onFilterClick}
+            currentGenre = {currentGenre}/>
         </Route>
       </Switch>
     </Router>
