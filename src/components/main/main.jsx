@@ -1,16 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {MoviesList} from "../movies-list/movies-list.jsx";
+import Header from "../header/header.jsx";
 import GenresList from "../genres-list/genres-list.jsx";
-import {AuthorizationStatus} from "../../reducer/user/user.js";
-import {Link} from "react-router-dom";
-import {AppRoutes} from "../../const.js";
 
 const Main = (props) => {
 
-  const {movieInfo, onMovieButtonClick, filmsByGenre, films, currentGenre, onFilterClick, authorizationStatus,
-    addListClick, removeListClick, activeFilm} = props;
-  const {GENRE: genre, TITLE: title, YEAR: year} = movieInfo;
+  const {onMovieButtonClick, filmsByGenre, films, currentGenre, onFilterClick, authorizationStatus,
+    addListClick, removeListClick, activeFilm, currentMovie} = props;
+
+  const {title, posterImage,
+    genre, released} = films[currentMovie - 1];
 
   const currentId = 3;
 
@@ -33,46 +33,24 @@ const Main = (props) => {
   return (
     <React.Fragment>
       <section className="movie-card">
-        <div className="movie-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt={title}/>
-        </div>
 
-        <h1 className="visually-hidden">WTW</h1>
-
-
-        <header className="page-header movie-card__head">
-          <div className="logo">
-            <Link to ="/" className="logo__link">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </Link>
-          </div>
-          <div className="user-block">
-
-            {authorizationStatus === AuthorizationStatus.AUTH ?
-              <Link to = {AppRoutes.MY_LIST} >
-                <div className="user-block__avatar">
-                  <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
-                </div>
-              </Link>
-              :
-              <Link to = "/login" className="user-block__link">Sign in</Link>
-            }
-          </div>
-        </header>
+        <Header
+          films ={films}
+          authorizationStatus = {authorizationStatus}
+          currentMovie = {currentMovie}
+        />
 
         <div className="movie-card__wrap">
           <div className="movie-card__info">
             <div className="movie-card__poster">
-              <img src="img/the-grand-budapest-hotel-poster.jpg" alt={title} width="218" height="327"/>
+              <img src={posterImage} alt={title} width="218" height="327"/>
             </div>
 
             <div className="movie-card__desc">
               <h2 onClick = {onMovieButtonClick} className="movie-card__title">{title}</h2>
               <p className="movie-card__meta">
                 <span className="movie-card__genre">{genre}</span>
-                <span className="movie-card__year">{year}</span>
+                <span className="movie-card__year">{released}</span>
               </p>
 
               <div className="movie-card__buttons">
@@ -162,6 +140,7 @@ Main.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
   addListClick: PropTypes.func.isRequired,
   removeListClick: PropTypes.func.isRequired,
+  currentMovie: PropTypes.number.isRequired,
 };
 
 export default Main;

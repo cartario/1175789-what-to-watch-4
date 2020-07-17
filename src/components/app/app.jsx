@@ -39,6 +39,7 @@ const App = (props) => {
             addListClick = {addListClick}
             removeListClick = {removeListClick}
             activeFilm = {activeFilm}
+            currentMovie={currentMovie}
           />
         </Route>
         <Route exact path={AppRoutes.LOGIN}>
@@ -50,6 +51,7 @@ const App = (props) => {
         <Route exact path={AppRoutes.MOVIE_PAGE}>
           <MoviePage
             activeFilm = {activeFilm}
+            authorizationStatus= {authorizationStatus}
             films={films}
             currentMovie={currentMovie}
             filmsByGenre = {filmsByGenre}

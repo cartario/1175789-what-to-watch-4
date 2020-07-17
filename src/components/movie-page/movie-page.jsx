@@ -1,14 +1,15 @@
 import React from "react";
 import GenresList from "../genres-list/genres-list.jsx";
 import {MoviesList} from "../movies-list/movies-list.jsx";
-import {Link} from "react-router-dom";
+import Header from "../header/header.jsx";
+
 import PropTypes from "prop-types";
 
 const MoviePage = (props) => {
-  const {films, currentMovie, filmsByGenre, currentGenre, activeFilm, onFilterClick} = props;
+  const {films, currentMovie, filmsByGenre, currentGenre, activeFilm, onFilterClick, authorizationStatus} = props;
 
   const {rating, scoresCount, description, director, starring, title, posterImage,
-    genre, released, backgroundImage} = films[currentMovie - 1];
+    genre, released} = films[currentMovie - 1];
 
   const getTextRate = (rate) => {
     if (rate <= 3) {
@@ -26,27 +27,12 @@ const MoviePage = (props) => {
   return (<>
   <section className="movie-card movie-card--full">
     <div className="movie-card__hero">
-      <div className="movie-card__bg">
-        <img src={backgroundImage} alt="The Grand Budapest Hotel"/>
-      </div>
 
-      <h1 className="visually-hidden">WTW</h1>
-
-      <header className="page-header movie-card__head">
-        <div className="logo">
-          <Link to="/" className="logo__link">
-            <span className="logo__letter logo__letter--1">W</span>
-            <span className="logo__letter logo__letter--2">T</span>
-            <span className="logo__letter logo__letter--3">W</span>
-          </Link>
-        </div>
-
-        <div className="user-block">
-          <div className="user-block__avatar">
-            <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
-          </div>
-        </div>
-      </header>
+      <Header
+        films ={films}
+        authorizationStatus = {authorizationStatus}
+        currentMovie = {currentMovie}
+      />
 
       <div className="movie-card__wrap">
         <div className="movie-card__desc">
@@ -157,6 +143,7 @@ MoviePage.propTypes = {
   currentGenre: PropTypes.string.isRequired,
   activeFilm: PropTypes.func.isRequired,
   onFilterClick: PropTypes.func.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
 };
 
 export default MoviePage;
