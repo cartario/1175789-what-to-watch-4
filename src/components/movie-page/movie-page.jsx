@@ -2,29 +2,17 @@ import React from "react";
 import GenresList from "../genres-list/genres-list.jsx";
 import {MoviesList} from "../movies-list/movies-list.jsx";
 import Header from "../header/header.jsx";
-
 import PropTypes from "prop-types";
+import Tabs from "../tabs/tabs.jsx";
 
 const MoviePage = (props) => {
   const {films, currentMovie, filmsByGenre, currentGenre, activeFilm, onFilterClick, authorizationStatus} = props;
 
-  const {rating, scoresCount, description, director, starring, title, posterImage,
+  const {title, posterImage,
     genre, released} = films[currentMovie - 1];
 
-  const getTextRate = (rate) => {
-    if (rate <= 3) {
-      return `Bad`;
-    } else if (rate <= 5) {
-      return `Normal`;
-    } else if (rate <= 8) {
-      return `Good`;
-    } else if (rate <= 10) {
-      return `Very good`;
-    }
-    return `Awesome`;
-  };
-
-  return (<>
+  return (
+  <>
   <section className="movie-card movie-card--full">
     <div className="movie-card__hero">
 
@@ -67,37 +55,8 @@ const MoviePage = (props) => {
           <img src={posterImage} alt="The Grand Budapest Hotel poster" width="218" height="327"/>
         </div>
 
-        <div className="movie-card__desc">
-          <nav className="movie-nav movie-card__nav">
-            <ul className="movie-nav__list">
-              <li className="movie-nav__item movie-nav__item--active">
-                <a href="#" className="movie-nav__link">Overview</a>
-              </li>
-              <li className="movie-nav__item">
-                <a href="#" className="movie-nav__link">Details</a>
-              </li>
-              <li className="movie-nav__item">
-                <a href="#" className="movie-nav__link">Reviews</a>
-              </li>
-            </ul>
-          </nav>
+        <Tabs/>
 
-          <div className="movie-rating">
-            <div className="movie-rating__score">{rating}</div>
-            <p className="movie-rating__meta">
-              <span className="movie-rating__level">{getTextRate(rating)}</span>
-              <span className="movie-rating__count">{scoresCount} ratings</span>
-            </p>
-          </div>
-
-          <div className="movie-card__text">
-            <p>{description}</p>
-
-            <p className="movie-card__director"><strong>Director: {director}</strong></p>
-
-            <p className="movie-card__starring"><strong>Starring: {starring}</strong></p>
-          </div>
-        </div>
       </div>
     </div>
   </section>
