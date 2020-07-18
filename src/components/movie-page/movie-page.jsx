@@ -1,12 +1,12 @@
 import React from "react";
 import GenresList from "../genres-list/genres-list.jsx";
-import {MoviesList} from "../movies-list/movies-list.jsx";
+import MoviesList from "../movies-list/movies-list.jsx";
 import Header from "../header/header.jsx";
 import PropTypes from "prop-types";
 import Tabs from "../tabs/tabs.jsx";
 
 const MoviePage = (props) => {
-  const {films, currentMovie, filmsByGenre, currentGenre, activeFilm, onFilterClick, authorizationStatus} = props;
+  const {films, currentMovie, currentGenre, onFilterClick, authorizationStatus} = props;
 
   const {title, posterImage,
     genre, released} = films[currentMovie - 1];
@@ -70,12 +70,7 @@ const MoviePage = (props) => {
           onFilterClick = {onFilterClick}
         />
 
-        <MoviesList
-          activeFilm = {activeFilm}
-          filmsByGenre = {filmsByGenre}
-          currentGenre={currentGenre}
-          films={films}
-        />
+        <MoviesList/>
       </section>
 
       <footer className="page-footer">
@@ -98,9 +93,7 @@ const MoviePage = (props) => {
 MoviePage.propTypes = {
   currentMovie: PropTypes.number.isRequired,
   films: PropTypes.array.isRequired,
-  filmsByGenre: PropTypes.array.isRequired,
   currentGenre: PropTypes.string.isRequired,
-  activeFilm: PropTypes.func.isRequired,
   onFilterClick: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
 };
