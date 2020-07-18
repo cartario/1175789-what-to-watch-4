@@ -3,32 +3,15 @@ import PropTypes from "prop-types";
 import MoviesList from "../movies-list/movies-list.jsx";
 import Header from "../header/header.jsx";
 import GenresList from "../genres-list/genres-list.jsx";
+import ControlsBtnList from "../controls-btn-list/controls-btn-list.jsx";
 
 const Main = (props) => {
 
   const {onMovieButtonClick, films, currentGenre, onFilterClick, authorizationStatus,
-    addListClick, removeListClick, currentMovie} = props;
+    currentMovie} = props;
 
   const {title, posterImage,
     genre, released} = films[currentMovie - 1];
-
-  const currentId = 3;
-
-  let isListed;
-
-  const currentFilm = films.filter((film)=> film.id === currentId)[0];
-
-  if (currentFilm) {
-    isListed = currentFilm.isFavorite;
-  }
-
-  const addListHandler = () => {
-    addListClick(currentId);
-  };
-
-  const removeListHandler = () => {
-    removeListClick(currentId);
-  };
 
   return (
     <React.Fragment>
@@ -54,29 +37,8 @@ const Main = (props) => {
               </p>
 
               <div className="movie-card__buttons">
-                <button className="btn btn--play movie-card__button" type="button">
-                  <svg viewBox="0 0 19 19" width="19" height="19">
-                    <use xlinkHref="#play-s"></use>
-                  </svg>
-                  <span>Play</span>
-                </button>
 
-
-                {isListed ?
-                  <button onClick={removeListHandler} className="btn btn--list movie-card__button" type="button">
-                    <svg viewBox="0 0 19 20" width="19" height="20">
-                      <use xlinkHref="#in-list"></use>
-                    </svg>
-                    <span>My list</span>
-                  </button>
-                  :
-                  <button onClick={addListHandler} className="btn btn--list movie-card__button" type="button">
-                    <svg viewBox="0 0 19 20" width="19" height="20">
-                      <use xlinkHref="#add"></use>
-                    </svg>
-                    <span>My list</span>
-                  </button>}
-
+                <ControlsBtnList/>
 
               </div>
             </div>

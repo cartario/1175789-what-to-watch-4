@@ -44,11 +44,9 @@ const App = (props) => {
         </Route>
         <Route exact path={AppRoutes.MOVIE_PAGE}>
           <MoviePage
-
             authorizationStatus= {authorizationStatus}
             films={films}
             currentMovie={currentMovie}
-
             onFilterClick = {onFilterClick}
             currentGenre = {currentGenre}/>
         </Route>
