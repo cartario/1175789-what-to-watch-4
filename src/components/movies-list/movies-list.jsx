@@ -1,6 +1,11 @@
 import React, {PureComponent} from "react";
 import MovieCard from "../movie-card/movie-card.jsx";
 import PropTypes from "prop-types";
+import {Redirect} from "react-router-dom";
+import {history} from "../../history.js";
+import {connect} from "react-redux";
+import {getFilmsByFilter} from "../../selectors.js";
+import {ActionCreator as FilmsReducerAC} from "../../reducer/films-by-genre/films-by-genre.js";
 
 
 class MoviesList extends PureComponent {
@@ -14,6 +19,7 @@ class MoviesList extends PureComponent {
 
     this.handleHover = this.handleHover.bind(this);
     this.handleMouseLeave = this.handleMouseLeave.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   render() {
@@ -27,12 +33,19 @@ class MoviesList extends PureComponent {
             key = {film.id}
             onHover = {this.handleHover}
             onMouseLeave= {this.handleMouseLeave}
+            clickHandler = {this.handleClick}
           >
 
           </MovieCard>
         )}
       </div>
     );
+  }
+
+  handleClick(film) {
+    this.props.activeFilm(film.id);
+    history.push(`/moviepage`);
+    return <Redirect to="/moviepage"/>;
   }
 
   handleMouseLeave() {
@@ -49,12 +62,19 @@ class MoviesList extends PureComponent {
 }
 
 MoviesList.propTypes = {
-  films: PropTypes.arrayOf(PropTypes.shape({
-    src: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    preview: PropTypes.string.isRequired,
-  })),
   filmsByGenre: PropTypes.array.isRequired,
+  activeFilm: PropTypes.func.isRequired,
 };
 
+const mapStateToProps = (state) => ({
+  filmsByGenre: getFilmsByFilter(state),
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  activeFilm(userId) {
+    dispatch(FilmsReducerAC.activeFilm(userId));
+  },
+});
+
 export {MoviesList};
+export default connect(mapStateToProps, mapDispatchToProps)(MoviesList);

@@ -1,104 +1,44 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {MoviesList} from "../movies-list/movies-list.jsx";
+import MoviesList from "../movies-list/movies-list.jsx";
+import Header from "../header/header.jsx";
 import GenresList from "../genres-list/genres-list.jsx";
-import {AuthorizationStatus} from "../../reducer/user/user.js";
-import {Link} from "react-router-dom";
-import {AppRoutes} from "../../const.js";
+import ControlsBtnList from "../controls-btn-list/controls-btn-list.jsx";
 
 const Main = (props) => {
 
-  const {movieInfo, onMovieButtonClick, filmsByGenre, films, currentGenre, onFilterClick, authorizationStatus,
-    addListClick, removeListClick} = props;
-  const {GENRE: genre, TITLE: title, YEAR: year} = movieInfo;
+  const {onMovieButtonClick, films, currentGenre, onFilterClick, authorizationStatus,
+    currentMovie} = props;
 
-  const currentId = 3;
-
-  let isListed;
-
-  const currentFilm = films.filter((film)=> film.id === currentId)[0];
-
-  if (currentFilm) {
-    isListed = currentFilm.isFavorite;
-  }
-
-  const addListHandler = () => {
-    addListClick(currentId);
-  };
-
-  const removeListHandler = () => {
-    removeListClick(currentId);
-  };
+  const {title, posterImage,
+    genre, released} = films[currentMovie - 1];
 
   return (
     <React.Fragment>
       <section className="movie-card">
-        <div className="movie-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt={title}/>
-        </div>
 
-        <h1 className="visually-hidden">WTW</h1>
-
-
-        <header className="page-header movie-card__head">
-          <div className="logo">
-            <Link to ="/" className="logo__link">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </Link>
-          </div>
-          <div className="user-block">
-
-            {authorizationStatus === AuthorizationStatus.AUTH ?
-              <Link to = {AppRoutes.MY_LIST} >
-                <div className="user-block__avatar">
-                  <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
-                </div>
-              </Link>
-              :
-              <Link to = "/login" className="user-block__link">Sign in</Link>
-            }
-          </div>
-        </header>
+        <Header
+          films ={films}
+          authorizationStatus = {authorizationStatus}
+          currentMovie = {currentMovie}
+        />
 
         <div className="movie-card__wrap">
           <div className="movie-card__info">
             <div className="movie-card__poster">
-              <img src="img/the-grand-budapest-hotel-poster.jpg" alt={title} width="218" height="327"/>
+              <img src={posterImage} alt={title} width="218" height="327"/>
             </div>
 
             <div className="movie-card__desc">
               <h2 onClick = {onMovieButtonClick} className="movie-card__title">{title}</h2>
               <p className="movie-card__meta">
                 <span className="movie-card__genre">{genre}</span>
-                <span className="movie-card__year">{year}</span>
+                <span className="movie-card__year">{released}</span>
               </p>
 
               <div className="movie-card__buttons">
-                <button className="btn btn--play movie-card__button" type="button">
-                  <svg viewBox="0 0 19 19" width="19" height="19">
-                    <use xlinkHref="#play-s"></use>
-                  </svg>
-                  <span>Play</span>
-                </button>
 
-
-                {isListed ?
-                  <button onClick={removeListHandler} className="btn btn--list movie-card__button" type="button">
-                    <svg viewBox="0 0 19 20" width="19" height="20">
-                      <use xlinkHref="#in-list"></use>
-                    </svg>
-                    <span>My list</span>
-                  </button>
-                  :
-                  <button onClick={addListHandler} className="btn btn--list movie-card__button" type="button">
-                    <svg viewBox="0 0 19 20" width="19" height="20">
-                      <use xlinkHref="#add"></use>
-                    </svg>
-                    <span>My list</span>
-                  </button>}
-
+                <ControlsBtnList/>
 
               </div>
             </div>
@@ -117,7 +57,8 @@ const Main = (props) => {
             onFilterClick = {onFilterClick}
           />
 
-          <MoviesList filmsByGenre = {filmsByGenre} currentGenre={currentGenre} films={films}></MoviesList>
+          <MoviesList/>
+
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>
           </div>
@@ -150,11 +91,13 @@ Main.propTypes = {
   onMovieButtonClick: PropTypes.func,
   filmsByGenre: PropTypes.array.isRequired,
   films: PropTypes.array.isRequired,
+  activeFilm: PropTypes.func.isRequired,
   currentGenre: PropTypes.string.isRequired,
   onFilterClick: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
   addListClick: PropTypes.func.isRequired,
   removeListClick: PropTypes.func.isRequired,
+  currentMovie: PropTypes.number.isRequired,
 };
 
 export default Main;

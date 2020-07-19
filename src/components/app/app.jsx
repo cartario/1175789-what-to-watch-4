@@ -2,7 +2,6 @@ import React from "react";
 import Main from "../main/main.jsx";
 import SignIn from "../sign-in/sign-in.jsx";
 import PropTypes from "prop-types";
-import NameSpace from "../../reducer/name-space/name-space.js";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer/reducer.js";
 import {Operation as UserOperation} from "../../reducer/user/user.js";
@@ -11,25 +10,20 @@ import {ActionCreator as FilmsReducerAC} from "../../reducer/films-by-genre/film
 import {history} from "../../history.js";
 import {Switch, Route, Router} from "react-router-dom";
 import {AppRoutes} from "../../const.js";
-
-const MovieInfo = {
-  TITLE: `The grand Budapest`,
-  GENRE: `Drama`,
-  YEAR: 2014,
-
-};
+import MoviePage from "../movie-page/movie-page.jsx";
+import {getCurrentGenre, getCurrentMovie, getAllFilms, getFilmsByFilter, getAuthorizationStatus} from "../../selectors.js";
 
 const onMovieButtonClick = () => {};
 
 const App = (props) => {
   const {films, filmsByGenre, currentGenre, onFilterClick, login, authorizationStatus,
-    addListClick, removeListClick} = props;
+    addListClick, removeListClick, activeFilm, currentMovie} = props;
 
   return (
     <Router history = {history}>
       <Switch>
         <Route exact path={AppRoutes.ROOT}>
-          <Main movieInfo = {MovieInfo}
+          <Main
             onMovieButtonClick = {onMovieButtonClick}
             films = {films}
             filmsByGenre = {filmsByGenre}
@@ -38,6 +32,8 @@ const App = (props) => {
             authorizationStatus= {authorizationStatus}
             addListClick = {addListClick}
             removeListClick = {removeListClick}
+            activeFilm = {activeFilm}
+            currentMovie={currentMovie}
           />
         </Route>
         <Route exact path={AppRoutes.LOGIN}>
@@ -46,19 +42,20 @@ const App = (props) => {
         <Route exact path={AppRoutes.MY_LIST}>
           <h1>MyList</h1>
         </Route>
+        <Route exact path={AppRoutes.MOVIE_PAGE}>
+          <MoviePage
+            authorizationStatus= {authorizationStatus}
+            films={films}
+            currentMovie={currentMovie}
+            onFilterClick = {onFilterClick}
+            currentGenre = {currentGenre}/>
+        </Route>
       </Switch>
     </Router>
-
   );
 };
 
-
 App.propTypes = {
-  movieInfo: PropTypes.shape({
-    GENRE: PropTypes.string.isRequired,
-    YEAR: PropTypes.number.isRequired,
-    TITLE: PropTypes.string.isRequired,
-  }),
   onMovieButtonClick: PropTypes.func,
   films: PropTypes.array.isRequired,
   filmsByGenre: PropTypes.array.isRequired,
@@ -68,24 +65,8 @@ App.propTypes = {
   login: PropTypes.func.isRequired,
   addListClick: PropTypes.func.isRequired,
   removeListClick: PropTypes.func.isRequired,
-};
-
-
-const getCurrentGenre = (state) => {
-  return state[NameSpace.CURRENT_GENRE].currentGenre;
-};
-
-const getAllFilms = (state) => {
-  return state[NameSpace.FILMS].films;
-};
-
-const getFilmsByFilter = (state) => {
-  return state[NameSpace.FILMS].filmsByGenre;
-};
-
-const getAuthorizationStatus = (state) => {
-
-  return state[NameSpace.USER].authorizationStatus;
+  activeFilm: PropTypes.func.isRequired,
+  currentMovie: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -93,6 +74,7 @@ const mapStateToProps = (state) => ({
   films: getAllFilms(state),
   filmsByGenre: getFilmsByFilter(state),
   authorizationStatus: getAuthorizationStatus(state),
+  currentMovie: getCurrentMovie(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -111,8 +93,11 @@ const mapDispatchToProps = (dispatch) => ({
 
   login(authData) {
     dispatch(UserOperation.login(authData));
-  }
+  },
 
+  activeFilm(userId) {
+    dispatch(FilmsReducerAC.activeFilm(userId));
+  },
 });
 
 export {App};
