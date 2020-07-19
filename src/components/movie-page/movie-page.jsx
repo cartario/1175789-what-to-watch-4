@@ -1,5 +1,5 @@
 import React from "react";
-import GenresList from "../genres-list/genres-list.jsx";
+
 import MoviesList from "../movies-list/movies-list.jsx";
 import Header from "../header/header.jsx";
 import PropTypes from "prop-types";
@@ -7,7 +7,7 @@ import Tabs from "../tabs/tabs.jsx";
 import ControlsBtnList from "../controls-btn-list/controls-btn-list.jsx";
 
 const MoviePage = (props) => {
-  const {films, currentMovie, currentGenre, onFilterClick, authorizationStatus} = props;
+  const {films, currentMovie, authorizationStatus} = props;
 
   const {title, posterImage,
     genre, released} = films[currentMovie - 1];
@@ -56,12 +56,6 @@ const MoviePage = (props) => {
     <div className="page-content">
       <section className="catalog catalog--like-this">
         <h2 className="catalog__title">More like this</h2>
-
-        <GenresList
-          films = {films}
-          currentGenre={currentGenre}
-          onFilterClick = {onFilterClick}
-        />
 
         <MoviesList/>
       </section>

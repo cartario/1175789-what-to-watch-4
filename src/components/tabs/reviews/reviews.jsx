@@ -28,7 +28,6 @@ const Reviews = (props) => {
   );
 };
 
-
 const mapStateToProps = (state) => ({
   films: getAllFilms(state),
   currentMovie: getCurrentMovie(state),

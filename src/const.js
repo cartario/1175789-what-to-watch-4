@@ -12,3 +12,9 @@ export const TextRates = {
   VERY_GOOD: `Very good`,
   AWESOME: `Awesome`,
 };
+
+export const TabNames = {
+  OVERVIEW: `Overview`,
+  DETAILS: `Details`,
+  REVIEWS: `Reviews`,
+};
