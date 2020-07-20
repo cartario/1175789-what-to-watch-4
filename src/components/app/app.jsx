@@ -32,7 +32,7 @@ const App = (props) => {
             authorizationStatus= {authorizationStatus}
             addListClick = {addListClick}
             removeListClick = {removeListClick}
-            activeFilm = {activeFilm}            
+            activeFilm = {activeFilm}
             currentMovie={currentMovie}
           />
         </Route>
@@ -66,7 +66,7 @@ App.propTypes = {
   addListClick: PropTypes.func.isRequired,
   removeListClick: PropTypes.func.isRequired,
   activeFilm: PropTypes.func.isRequired,
-  // currentMovie: PropTypes.number.isRequired,
+  currentMovie: PropTypes.shape({}),
 };
 
 const mapStateToProps = (state) => ({

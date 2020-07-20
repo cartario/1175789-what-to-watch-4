@@ -95,6 +95,7 @@ export const Operation = {
         const dataFromAdapter = adapter(response.data);
         dispatch(ActionCreator.loadFilms(dataFromAdapter));
         dispatch({type: ActionType.GET_MOVIES_BY_FILTER, payload: ALL_GENRE});
+        dispatch({type: ActionType.SET_ACTIVE_FILM, payload: adapter((response.data))[0]});
       });
   },
 

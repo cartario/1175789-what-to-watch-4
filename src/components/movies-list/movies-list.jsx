@@ -16,25 +16,16 @@ class MoviesList extends PureComponent {
 
     };
 
-    this.currentFilmId = this.props.currentFilmId;
     this.handleHover = this.handleHover.bind(this);
     this.handleMouseLeave = this.handleMouseLeave.bind(this);
     this.handleClick = this.handleClick.bind(this);
   }
 
   render() {
+    const {currentMovie, filmsByGenre} = this.props;
     switch (this.props.mode) {
       case `similar`:
-        let similarFilms = this.props.filmsByGenre;
-        const getCurrentFilm = (films, currentfilmId) => {
-          return films.filter((film) => film.id === currentfilmId)[0];
-        };
-
-        const currentFilm = getCurrentFilm(similarFilms, this.currentFilmId);
-        if (currentFilm) {
-          similarFilms = similarFilms.filter((film)=> film.genre === currentFilm.genre);
-        }
-
+        const similarFilms = filmsByGenre.filter((film)=> film.genre === currentMovie.genre);
         return (
           <div className="catalog__movies-list">
             {similarFilms.map((film) =>
@@ -44,7 +35,7 @@ class MoviesList extends PureComponent {
                 key = {film.id}
                 onHover = {this.handleHover}
                 onMouseLeave= {this.handleMouseLeave}
-                clickHandler = {this.handleClick}               
+                clickHandler = {this.handleClick}
               >
 
               </MovieCard>
@@ -60,7 +51,7 @@ class MoviesList extends PureComponent {
                 key = {film.id}
                 onHover = {this.handleHover}
                 onMouseLeave= {this.handleMouseLeave}
-                clickHandler = {this.handleClick}               
+                clickHandler = {this.handleClick}
               >
               </MovieCard>
             )}
@@ -69,7 +60,7 @@ class MoviesList extends PureComponent {
     }
   }
 
-  handleClick(film) {   
+  handleClick(film) {
     this.props.activeFilm(film);
     history.push(`/moviepage`);
     return <Redirect to="/moviepage"/>;
@@ -91,7 +82,9 @@ class MoviesList extends PureComponent {
 MoviesList.propTypes = {
   filmsByGenre: PropTypes.array.isRequired,
   activeFilm: PropTypes.func.isRequired,
-  // currentFilmId: PropTypes.number.isRequired,
+  currentMovie: PropTypes.shape({
+    genre: PropTypes.string,
+  }),
   mode: PropTypes.string,
 };
 
