@@ -3,8 +3,11 @@ import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {getAllFilms, getCurrentMovie, getAllComments} from "../../../selectors.js";
 
+
 const Reviews = (props) => {
+
   const {comments} = props;
+
 
   return (
     <>

@@ -1,8 +1,12 @@
 import React, {PureComponent} from "react";
+import PropTypes from "prop-types";
 import Overview from "./overview/overview.jsx";
 import Details from "./details/details.jsx";
 import Reviews from "./reviews/reviews.jsx";
 import {TabNames} from "../../const.js";
+import {Operation} from "../../reducer/films-by-genre/films-by-genre.js";
+import {connect} from "react-redux";
+import {getCurrentMovie} from "../../selectors.js";
 
 class Tabs extends PureComponent {
   constructor(props) {
@@ -26,6 +30,7 @@ class Tabs extends PureComponent {
 
   clickHandler(tab) {
     this.setState({currentTab: tab});
+    this.props.loadComments(this.props.currentMovie.id);
   }
 
   render() {
@@ -50,4 +55,23 @@ class Tabs extends PureComponent {
   }
 }
 
-export default Tabs;
+const mapStateToProps = (state) => ({
+  currentMovie: getCurrentMovie(state),
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  loadComments(filmId) {
+    dispatch(Operation.loadComments(filmId));
+  }
+});
+
+Tabs.propTypes = {
+  currentMovie: PropTypes.shape({
+    id: PropTypes.number,
+  }),
+  loadComments: PropTypes.func,
+};
+
+
+export {Tabs};
+export default connect(mapStateToProps, mapDispatchToProps)(Tabs);

@@ -57,8 +57,6 @@ export const ActionCreator = {
       payload: commentsList,
     };
   },
-
-
 };
 
 const adapter = (data) => {
@@ -82,11 +80,6 @@ const adapter = (data) => {
   }));
 };
 
-const commentAdapter = (data) => {
-
-  return data;
-};
-
 export const Operation = {
 
   loadFilms: () => (dispatch, getState, api) => {
@@ -99,11 +92,11 @@ export const Operation = {
       });
   },
 
-  loadComments: () => (dispatch, getState, api) => {
+  loadComments: (filmId) => (dispatch, getState, api) => {
 
-    return api.get(`/comments/7`)
+    return api.get(`/comments/${filmId}`)
       .then((response) => {
-        dispatch(ActionCreator.loadComments(commentAdapter(response.data)));
+        dispatch(ActionCreator.loadComments(response.data));
       });
   },
 };

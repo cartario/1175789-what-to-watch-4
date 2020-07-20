@@ -25,7 +25,7 @@ const store = createStore(
 );
 
 store.dispatch(Operation.loadFilms());
-store.dispatch(Operation.loadComments());
+
 
 ReactDOM.render(
 

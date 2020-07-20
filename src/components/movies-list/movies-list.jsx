@@ -23,7 +23,7 @@ class MoviesList extends PureComponent {
 
   render() {
     const {currentMovie, filmsByGenre} = this.props;
-    switch (this.props.mode) {
+    switch (this.props.showSimilar) {
       case `similar`:
         const similarFilms = filmsByGenre.filter((film)=> film.genre === currentMovie.genre);
         return (
@@ -86,6 +86,7 @@ MoviesList.propTypes = {
     genre: PropTypes.string,
   }),
   mode: PropTypes.string,
+  showSimilar: PropTypes.string,
 };
 
 const mapStateToProps = (state) => ({
