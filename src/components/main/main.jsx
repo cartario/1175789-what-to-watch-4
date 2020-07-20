@@ -8,10 +8,12 @@ import ControlsBtnList from "../controls-btn-list/controls-btn-list.jsx";
 const Main = (props) => {
 
   const {onMovieButtonClick, films, currentGenre, onFilterClick, authorizationStatus,
-    currentMovie} = props;
+    currentMovie, activeFilm2} = props;
 
-  const {title, posterImage,
-    genre, released} = films[currentMovie - 1];
+  let active;
+  activeFilm2.id ? active = activeFilm2 : active = films[0];
+
+  const {title, posterImage,  genre, released} = active;
 
   return (
     <React.Fragment>

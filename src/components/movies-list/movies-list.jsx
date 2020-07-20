@@ -44,7 +44,7 @@ class MoviesList extends PureComponent {
                 key = {film.id}
                 onHover = {this.handleHover}
                 onMouseLeave= {this.handleMouseLeave}
-                clickHandler = {this.handleClick}
+                clickHandler = {this.handleClick}               
               >
 
               </MovieCard>
@@ -61,7 +61,7 @@ class MoviesList extends PureComponent {
                 key = {film.id}
                 onHover = {this.handleHover}
                 onMouseLeave= {this.handleMouseLeave}
-                clickHandler = {this.handleClick}
+                clickHandler = {this.handleClick}               
               >
 
               </MovieCard>
@@ -73,6 +73,7 @@ class MoviesList extends PureComponent {
 
   handleClick(film) {
     this.props.activeFilm(film.id);
+    this.props.activeFilm2(film);
     history.push(`/moviepage`);
     return <Redirect to="/moviepage"/>;
   }
@@ -105,6 +106,10 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   activeFilm(userId) {
     dispatch(FilmsReducerAC.activeFilm(userId));
+  },
+
+  activeFilm2(film) {
+    dispatch(FilmsReducerAC.activeFilm2(film));
   },
 });
 

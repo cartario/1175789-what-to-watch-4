@@ -21,6 +21,10 @@ export const getCurrentMovie = (state) => {
   return state[NameSpace.FILMS].activeFilmId;
 };
 
+export const getCurrentMovie2 = (state) => {
+  return state[NameSpace.FILMS].activeFilm;
+};
+
 export const getAllComments = (state) => {
   return state[NameSpace.FILMS].comments;
 };

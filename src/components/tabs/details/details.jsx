@@ -1,11 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {getAllFilms, getCurrentMovie} from "../../../selectors.js";
+import {getAllFilms, getCurrentMovie, getCurrentMovie2} from "../../../selectors.js";
 
 const Details = (props) => {
-  const {films, currentMovie} = props;
-  const {director, starring, runTime, released, genre} = films[currentMovie - 1];
+  const {films, currentMovie2} = props;
+
+  let active;
+  currentMovie2.id ? active = currentMovie2 : active = films[0];
+
+  const {director, starring, runTime, released, genre} = active;
 
   return (
     <>
@@ -44,12 +48,13 @@ const Details = (props) => {
 
 const mapStateToProps = (state) => ({
   films: getAllFilms(state),
-  currentMovie: getCurrentMovie(state),
+  
+  currentMovie2: getCurrentMovie2(state),
 });
 
 Details.propTypes = {
   films: PropTypes.array.isRequired,
-  currentMovie: PropTypes.number.isRequired,
+  // currentMovie: PropTypes.number.isRequired,
 };
 
 export {Details};

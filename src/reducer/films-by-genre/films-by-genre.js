@@ -8,6 +8,7 @@ const initialState = {
   comments: [],
   filmsByGenre: [],
   activeFilmId: 1,
+  activeFilm: {},
 };
 
 export const ActionType = {
@@ -17,6 +18,7 @@ export const ActionType = {
   ADD_WATCH_LIST: `ADD_WATCH_LIST`,
   REMOVE_WATCH_LIST: `REMOVE_WATCH_LIST`,
   SET_ACTIVE_FILM: `SET_ACTIVE_FILM`,
+  SET_ACTIVE_FILM2: `SET_ACTIVE_FILM2`,
 };
 
 export const ActionCreator = {
@@ -47,6 +49,13 @@ export const ActionCreator = {
   activeFilm: (film) => {
     return {
       type: ActionType.SET_ACTIVE_FILM,
+      payload: film,
+    };
+  },
+
+  activeFilm2: (film) => {
+    return {
+      type: ActionType.SET_ACTIVE_FILM2,
       payload: film,
     };
   },
@@ -148,6 +157,10 @@ export const reducer = (state = initialState, action) => {
       return extend(state, {activeFilmId: action.payload});
     }
 
+    case ActionType.SET_ACTIVE_FILM2: {
+      return extend(state, {activeFilm: action.payload});
+    }
+
     case ActionType.GET_COMMENTS_FROM_SERVER:
       return extend(state, {comments: action.payload});
 
@@ -155,3 +168,5 @@ export const reducer = (state = initialState, action) => {
       return state;
   }
 };
+
+

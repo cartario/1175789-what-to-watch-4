@@ -2,11 +2,16 @@ import React from "react";
 import PropTypes from "prop-types";
 import {getTextRate} from "../../../utils.js";
 import {connect} from "react-redux";
-import {getAllFilms, getCurrentMovie} from "../../../selectors.js";
+import {getAllFilms, getCurrentMovie2} from "../../../selectors.js";
 
 const Overview = (props) => {
-  const {films, currentMovie} = props;
-  const {rating, scoresCount, description, director, starring} = films[currentMovie - 1];
+  const {films, currentMovie2} = props;
+
+  let active;
+  currentMovie2.id ? active = currentMovie2 : active = films[0];
+
+  const {rating, scoresCount, description, director, starring} = active;;
+
   return (
     <>
       <div className="movie-rating">
@@ -23,16 +28,19 @@ const Overview = (props) => {
       </div>
     </>
   );
+
+
 };
 
 const mapStateToProps = (state) => ({
   films: getAllFilms(state),
-  currentMovie: getCurrentMovie(state),
+ 
+  currentMovie2: getCurrentMovie2(state),
 });
 
 Overview.propTypes = {
   films: PropTypes.array.isRequired,
-  currentMovie: PropTypes.number.isRequired,
+  // currentMovie2: PropTypes.shap.isRequired,
 };
 
 export {Overview};
