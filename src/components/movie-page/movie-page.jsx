@@ -9,8 +9,11 @@ import ControlsBtnList from "../controls-btn-list/controls-btn-list.jsx";
 const MoviePage = (props) => {
   const {films, currentMovie, authorizationStatus} = props;
 
+  let active;
+  currentMovie.id ? active = currentMovie : active = films[0];
+
   const {title, posterImage,
-    genre, released} = films[currentMovie - 1];
+    genre, released} = active;
 
   const mode = `similar`;
 
@@ -80,7 +83,7 @@ const MoviePage = (props) => {
 };
 
 MoviePage.propTypes = {
-  currentMovie: PropTypes.number.isRequired,
+  // currentMovie: PropTypes.number.isRequired,
   films: PropTypes.array.isRequired,
   currentGenre: PropTypes.string.isRequired,
   onFilterClick: PropTypes.func.isRequired,

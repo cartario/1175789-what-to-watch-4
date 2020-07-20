@@ -7,7 +7,10 @@ import PropTypes from "prop-types";
 const Header = (props) => {
   const {films, authorizationStatus, currentMovie} = props;
 
-  const {title, backgroundImage} = films[currentMovie - 1];
+  let active;
+  currentMovie.id ? active =  currentMovie : active = films[0];
+
+  const {title, backgroundImage} = active;
   return (
     <>
       <div className="movie-card__bg">
@@ -49,7 +52,7 @@ Header.propTypes = {
 
 
   authorizationStatus: PropTypes.string.isRequired,
-  currentMovie: PropTypes.number.isRequired,
+  // currentMovie: PropTypes.number.isRequired,
 };
 
 export default Header;

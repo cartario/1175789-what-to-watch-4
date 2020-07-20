@@ -8,10 +8,10 @@ import ControlsBtnList from "../controls-btn-list/controls-btn-list.jsx";
 const Main = (props) => {
 
   const {onMovieButtonClick, films, currentGenre, onFilterClick, authorizationStatus,
-    currentMovie, activeFilm2} = props;
+    currentMovie} = props;
 
   let active;
-  activeFilm2.id ? active = activeFilm2 : active = films[0];
+  currentMovie.id ? active = currentMovie : active = films[0];
 
   const {title, posterImage,  genre, released} = active;
 
@@ -99,7 +99,7 @@ Main.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
   addListClick: PropTypes.func.isRequired,
   removeListClick: PropTypes.func.isRequired,
-  currentMovie: PropTypes.number.isRequired,
+  // currentMovie: PropTypes.number.isRequired,
 };
 
 export default Main;

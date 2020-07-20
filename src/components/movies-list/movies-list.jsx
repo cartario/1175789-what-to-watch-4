@@ -55,7 +55,6 @@ class MoviesList extends PureComponent {
         return (
           <div className="catalog__movies-list">
             {this.props.filmsByGenre.map((film) =>
-
               <MovieCard
                 film = {film}
                 key = {film.id}
@@ -63,7 +62,6 @@ class MoviesList extends PureComponent {
                 onMouseLeave= {this.handleMouseLeave}
                 clickHandler = {this.handleClick}               
               >
-
               </MovieCard>
             )}
           </div>
@@ -71,9 +69,8 @@ class MoviesList extends PureComponent {
     }
   }
 
-  handleClick(film) {
-    this.props.activeFilm(film.id);
-    this.props.activeFilm2(film);
+  handleClick(film) {   
+    this.props.activeFilm(film);
     history.push(`/moviepage`);
     return <Redirect to="/moviepage"/>;
   }
@@ -94,22 +91,19 @@ class MoviesList extends PureComponent {
 MoviesList.propTypes = {
   filmsByGenre: PropTypes.array.isRequired,
   activeFilm: PropTypes.func.isRequired,
-  currentFilmId: PropTypes.number.isRequired,
+  // currentFilmId: PropTypes.number.isRequired,
   mode: PropTypes.string,
 };
 
 const mapStateToProps = (state) => ({
   filmsByGenre: getFilmsByFilter(state),
-  currentFilmId: getCurrentMovie(state),
+  currentMovie: getCurrentMovie(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  activeFilm(userId) {
-    dispatch(FilmsReducerAC.activeFilm(userId));
-  },
 
-  activeFilm2(film) {
-    dispatch(FilmsReducerAC.activeFilm2(film));
+  activeFilm(film) {
+    dispatch(FilmsReducerAC.activeFilm(film));
   },
 });
 

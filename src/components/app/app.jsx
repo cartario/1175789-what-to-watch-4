@@ -17,8 +17,7 @@ const onMovieButtonClick = () => {};
 
 const App = (props) => {
   const {films, filmsByGenre, currentGenre, onFilterClick, login, authorizationStatus,
-    addListClick, removeListClick, activeFilm, currentMovie,activeFilm2} = props;
-    // activeFilm2()
+    addListClick, removeListClick, activeFilm, currentMovie} = props;
 
   return (
     <Router history = {history}>
@@ -33,8 +32,7 @@ const App = (props) => {
             authorizationStatus= {authorizationStatus}
             addListClick = {addListClick}
             removeListClick = {removeListClick}
-            activeFilm = {activeFilm}
-            activeFilm2 = {activeFilm2}
+            activeFilm = {activeFilm}            
             currentMovie={currentMovie}
           />
         </Route>
@@ -68,7 +66,7 @@ App.propTypes = {
   addListClick: PropTypes.func.isRequired,
   removeListClick: PropTypes.func.isRequired,
   activeFilm: PropTypes.func.isRequired,
-  currentMovie: PropTypes.number.isRequired,
+  // currentMovie: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -97,12 +95,8 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(UserOperation.login(authData));
   },
 
-  activeFilm(userId) {
-    dispatch(FilmsReducerAC.activeFilm(userId));
-  },
-
-  activeFilm2(film) {
-    dispatch(FilmsReducerAC.activeFilm2(film));
+  activeFilm(film) {
+    dispatch(FilmsReducerAC.activeFilm(film));
   },
 });
 

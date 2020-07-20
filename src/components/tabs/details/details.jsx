@@ -1,13 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {getAllFilms, getCurrentMovie, getCurrentMovie2} from "../../../selectors.js";
+import {getAllFilms, getCurrentMovie} from "../../../selectors.js";
 
 const Details = (props) => {
-  const {films, currentMovie2} = props;
+  const {films, currentMovie} = props;
 
   let active;
-  currentMovie2.id ? active = currentMovie2 : active = films[0];
+  currentMovie.id ? active = currentMovie : active = films[0];
 
   const {director, starring, runTime, released, genre} = active;
 
@@ -49,7 +49,7 @@ const Details = (props) => {
 const mapStateToProps = (state) => ({
   films: getAllFilms(state),
   
-  currentMovie2: getCurrentMovie2(state),
+  currentMovie: getCurrentMovie(state),
 });
 
 Details.propTypes = {
