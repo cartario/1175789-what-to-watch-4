@@ -12,6 +12,8 @@ const MoviePage = (props) => {
   const {title, posterImage,
     genre, released} = films[currentMovie - 1];
 
+  const mode = `similar`;
+
   return (
   <>
   <section className="movie-card movie-card--full">
@@ -57,7 +59,7 @@ const MoviePage = (props) => {
       <section className="catalog catalog--like-this">
         <h2 className="catalog__title">More like this</h2>
 
-        <MoviesList/>
+        <MoviesList mode={mode}/>
       </section>
 
       <footer className="page-footer">

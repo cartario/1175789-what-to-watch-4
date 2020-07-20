@@ -4,9 +4,8 @@ import PropTypes from "prop-types";
 import {Redirect} from "react-router-dom";
 import {history} from "../../history.js";
 import {connect} from "react-redux";
-import {getFilmsByFilter} from "../../selectors.js";
+import {getFilmsByFilter, getCurrentMovie} from "../../selectors.js";
 import {ActionCreator as FilmsReducerAC} from "../../reducer/films-by-genre/films-by-genre.js";
-
 
 class MoviesList extends PureComponent {
   constructor(props) {
@@ -17,29 +16,59 @@ class MoviesList extends PureComponent {
 
     };
 
+    this.currentFilmId = this.props.currentFilmId;
     this.handleHover = this.handleHover.bind(this);
     this.handleMouseLeave = this.handleMouseLeave.bind(this);
     this.handleClick = this.handleClick.bind(this);
   }
 
   render() {
+    switch (this.props.mode) {
+      case `similar`:
+        let similarFilms = this.props.filmsByGenre;
+        const getCurrentFilm = (films, currentfilmId) => {
+          return films.filter((film) => film.id === currentfilmId)[0];
+        };
 
-    return (
-      <div className="catalog__movies-list">
-        {this.props.filmsByGenre.map((film) =>
+        const currentFilm = getCurrentFilm(similarFilms, this.currentFilmId);
+        if (currentFilm) {
+          similarFilms = similarFilms.filter((film)=> film.genre === currentFilm.genre);
+        }
 
-          <MovieCard
-            film = {film}
-            key = {film.id}
-            onHover = {this.handleHover}
-            onMouseLeave= {this.handleMouseLeave}
-            clickHandler = {this.handleClick}
-          >
+        return (
+          <div className="catalog__movies-list">
+            {similarFilms.map((film) =>
 
-          </MovieCard>
-        )}
-      </div>
-    );
+              <MovieCard
+                film = {film}
+                key = {film.id}
+                onHover = {this.handleHover}
+                onMouseLeave= {this.handleMouseLeave}
+                clickHandler = {this.handleClick}
+              >
+
+              </MovieCard>
+            ).slice(0, 4)}
+          </div>
+        );
+      default :
+        return (
+          <div className="catalog__movies-list">
+            {this.props.filmsByGenre.map((film) =>
+
+              <MovieCard
+                film = {film}
+                key = {film.id}
+                onHover = {this.handleHover}
+                onMouseLeave= {this.handleMouseLeave}
+                clickHandler = {this.handleClick}
+              >
+
+              </MovieCard>
+            )}
+          </div>
+        );
+    }
   }
 
   handleClick(film) {
@@ -64,10 +93,13 @@ class MoviesList extends PureComponent {
 MoviesList.propTypes = {
   filmsByGenre: PropTypes.array.isRequired,
   activeFilm: PropTypes.func.isRequired,
+  currentFilmId: PropTypes.number.isRequired,
+  mode: PropTypes.string,
 };
 
 const mapStateToProps = (state) => ({
   filmsByGenre: getFilmsByFilter(state),
+  currentFilmId: getCurrentMovie(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
