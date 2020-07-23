@@ -5,13 +5,15 @@ const ALL_GENRE = `All genres`;
 
 const initialState = {
   films,
+  comments: [],
   filmsByGenre: [],
-  activeFilmId: 1,
+  currentMovie: {},
 };
 
 export const ActionType = {
   GET_MOVIES_BY_FILTER: `GET_MOVIES_BY_FILTER`,
   GET_MOVIES_FROM_SERVER: `GET_MOVIES_FROM_SERVER`,
+  GET_COMMENTS_FROM_SERVER: `GET_COMMENTS_FROM_SERVER`,
   ADD_WATCH_LIST: `ADD_WATCH_LIST`,
   REMOVE_WATCH_LIST: `REMOVE_WATCH_LIST`,
   SET_ACTIVE_FILM: `SET_ACTIVE_FILM`,
@@ -48,6 +50,13 @@ export const ActionCreator = {
       payload: film,
     };
   },
+
+  loadComments: (commentsList) => {
+    return {
+      type: ActionType.GET_COMMENTS_FROM_SERVER,
+      payload: commentsList,
+    };
+  },
 };
 
 const adapter = (data) => {
@@ -65,6 +74,7 @@ const adapter = (data) => {
     released: film.released,
     backgroundImage: film.background_image,
     posterImage: film.poster_image,
+    runTime: film.run_time,
     isFavorite: film.is_favorite,
 
   }));
@@ -78,6 +88,15 @@ export const Operation = {
         const dataFromAdapter = adapter(response.data);
         dispatch(ActionCreator.loadFilms(dataFromAdapter));
         dispatch({type: ActionType.GET_MOVIES_BY_FILTER, payload: ALL_GENRE});
+        dispatch({type: ActionType.SET_ACTIVE_FILM, payload: adapter((response.data))[0]});
+      });
+  },
+
+  loadComments: (filmId) => (dispatch, getState, api) => {
+
+    return api.get(`/comments/${filmId}`)
+      .then((response) => {
+        dispatch(ActionCreator.loadComments(response.data));
       });
   },
 };
@@ -88,13 +107,12 @@ export const reducer = (state = initialState, action) => {
     case ActionType.GET_MOVIES_BY_FILTER:
       const selectedGenre = action.payload;
       let filteredFilms = [...state.films];
-
       if (selectedGenre !== ALL_GENRE) {
         filteredFilms = state.films.filter((film) => film.genre === selectedGenre);
 
       }
-
       return extend(state, {filmsByGenre: filteredFilms});
+
     case ActionType.GET_MOVIES_FROM_SERVER:
       return extend(state, {films: action.payload});
 
@@ -121,10 +139,16 @@ export const reducer = (state = initialState, action) => {
     }
 
     case ActionType.SET_ACTIVE_FILM: {
-      return extend(state, {activeFilmId: action.payload});
+
+      return extend(state, {currentMovie: action.payload});
     }
+
+    case ActionType.GET_COMMENTS_FROM_SERVER:
+      return extend(state, {comments: action.payload});
 
     default:
       return state;
   }
 };
+
+

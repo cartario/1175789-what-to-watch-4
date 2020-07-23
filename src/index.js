@@ -26,6 +26,7 @@ const store = createStore(
 
 store.dispatch(Operation.loadFilms());
 
+
 ReactDOM.render(
 
     <Provider store={store} >

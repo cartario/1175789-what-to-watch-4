@@ -5,9 +5,8 @@ import {AppRoutes} from "../../const.js";
 import PropTypes from "prop-types";
 
 const Header = (props) => {
-  const {films, authorizationStatus, currentMovie} = props;
-
-  const {title, backgroundImage} = films[currentMovie - 1];
+  const {authorizationStatus, currentMovie} = props;
+  const {title, backgroundImage} = currentMovie;
   return (
     <>
       <div className="movie-card__bg">
@@ -49,7 +48,10 @@ Header.propTypes = {
 
 
   authorizationStatus: PropTypes.string.isRequired,
-  currentMovie: PropTypes.number.isRequired,
+  currentMovie: PropTypes.shape({
+    title: PropTypes.string,
+    backgroundImage: PropTypes.string,
+  }),
 };
 
 export default Header;

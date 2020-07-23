@@ -4,9 +4,8 @@ import PropTypes from "prop-types";
 import {Redirect} from "react-router-dom";
 import {history} from "../../history.js";
 import {connect} from "react-redux";
-import {getFilmsByFilter} from "../../selectors.js";
+import {getFilmsByFilter, getCurrentMovie} from "../../selectors.js";
 import {ActionCreator as FilmsReducerAC} from "../../reducer/films-by-genre/films-by-genre.js";
-
 
 class MoviesList extends PureComponent {
   constructor(props) {
@@ -23,27 +22,46 @@ class MoviesList extends PureComponent {
   }
 
   render() {
+    const {currentMovie, filmsByGenre} = this.props;
+    switch (this.props.showSimilar) {
+      case `similar`:
+        const similarFilms = filmsByGenre.filter((film)=> film.genre === currentMovie.genre);
+        return (
+          <div className="catalog__movies-list">
+            {similarFilms.map((film) =>
 
-    return (
-      <div className="catalog__movies-list">
-        {this.props.filmsByGenre.map((film) =>
+              <MovieCard
+                film = {film}
+                key = {film.id}
+                onHover = {this.handleHover}
+                onMouseLeave= {this.handleMouseLeave}
+                clickHandler = {this.handleClick}
+              >
 
-          <MovieCard
-            film = {film}
-            key = {film.id}
-            onHover = {this.handleHover}
-            onMouseLeave= {this.handleMouseLeave}
-            clickHandler = {this.handleClick}
-          >
-
-          </MovieCard>
-        )}
-      </div>
-    );
+              </MovieCard>
+            ).slice(0, 4)}
+          </div>
+        );
+      default :
+        return (
+          <div className="catalog__movies-list">
+            {this.props.filmsByGenre.map((film) =>
+              <MovieCard
+                film = {film}
+                key = {film.id}
+                onHover = {this.handleHover}
+                onMouseLeave= {this.handleMouseLeave}
+                clickHandler = {this.handleClick}
+              >
+              </MovieCard>
+            )}
+          </div>
+        );
+    }
   }
 
   handleClick(film) {
-    this.props.activeFilm(film.id);
+    this.props.activeFilm(film);
     history.push(`/moviepage`);
     return <Redirect to="/moviepage"/>;
   }
@@ -64,15 +82,22 @@ class MoviesList extends PureComponent {
 MoviesList.propTypes = {
   filmsByGenre: PropTypes.array.isRequired,
   activeFilm: PropTypes.func.isRequired,
+  currentMovie: PropTypes.shape({
+    genre: PropTypes.string,
+  }),
+  mode: PropTypes.string,
+  showSimilar: PropTypes.string,
 };
 
 const mapStateToProps = (state) => ({
   filmsByGenre: getFilmsByFilter(state),
+  currentMovie: getCurrentMovie(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  activeFilm(userId) {
-    dispatch(FilmsReducerAC.activeFilm(userId));
+
+  activeFilm(film) {
+    dispatch(FilmsReducerAC.activeFilm(film));
   },
 });
 

@@ -5,8 +5,10 @@ import {connect} from "react-redux";
 import {getAllFilms, getCurrentMovie} from "../../../selectors.js";
 
 const Overview = (props) => {
-  const {films, currentMovie} = props;
-  const {rating, scoresCount, description, director, starring} = films[currentMovie - 1];
+  const {currentMovie} = props;
+
+  const {rating, scoresCount, description, director, starring} = currentMovie;
+
   return (
     <>
       <div className="movie-rating">
@@ -23,16 +25,25 @@ const Overview = (props) => {
       </div>
     </>
   );
+
+
 };
 
 const mapStateToProps = (state) => ({
   films: getAllFilms(state),
+
   currentMovie: getCurrentMovie(state),
 });
 
 Overview.propTypes = {
   films: PropTypes.array.isRequired,
-  currentMovie: PropTypes.number.isRequired,
+  currentMovie: PropTypes.shape({
+    rating: PropTypes.number,
+    scoresCount: PropTypes.number,
+    description: PropTypes.string,
+    director: PropTypes.string,
+    starring: PropTypes.array,
+  }),
 };
 
 export {Overview};

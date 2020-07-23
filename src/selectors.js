@@ -18,5 +18,9 @@ export const getAuthorizationStatus = (state) => {
 };
 
 export const getCurrentMovie = (state) => {
-  return state[NameSpace.FILMS].activeFilmId;
+  return state[NameSpace.FILMS].currentMovie;
+};
+
+export const getAllComments = (state) => {
+  return state[NameSpace.FILMS].comments;
 };

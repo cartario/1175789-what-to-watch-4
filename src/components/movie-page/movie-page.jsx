@@ -1,5 +1,5 @@
 import React from "react";
-import GenresList from "../genres-list/genres-list.jsx";
+
 import MoviesList from "../movies-list/movies-list.jsx";
 import Header from "../header/header.jsx";
 import PropTypes from "prop-types";
@@ -7,10 +7,11 @@ import Tabs from "../tabs/tabs.jsx";
 import ControlsBtnList from "../controls-btn-list/controls-btn-list.jsx";
 
 const MoviePage = (props) => {
-  const {films, currentMovie, currentGenre, onFilterClick, authorizationStatus} = props;
+  const {films, currentMovie, authorizationStatus} = props;
 
-  const {title, posterImage,
-    genre, released} = films[currentMovie - 1];
+  const {title, posterImage, genre, released} = currentMovie;
+
+  const showSimilar = `similar`;
 
   return (
   <>
@@ -57,13 +58,7 @@ const MoviePage = (props) => {
       <section className="catalog catalog--like-this">
         <h2 className="catalog__title">More like this</h2>
 
-        <GenresList
-          films = {films}
-          currentGenre={currentGenre}
-          onFilterClick = {onFilterClick}
-        />
-
-        <MoviesList/>
+        <MoviesList showSimilar = {showSimilar}/>
       </section>
 
       <footer className="page-footer">
@@ -84,11 +79,16 @@ const MoviePage = (props) => {
 };
 
 MoviePage.propTypes = {
-  currentMovie: PropTypes.number.isRequired,
   films: PropTypes.array.isRequired,
   currentGenre: PropTypes.string.isRequired,
   onFilterClick: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
+  currentMovie: PropTypes.shape({
+    title: PropTypes.string,
+    genre: PropTypes.string,
+    released: PropTypes.number,
+    posterImage: PropTypes.string,
+  }),
 };
 
 export default MoviePage;

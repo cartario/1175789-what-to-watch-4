@@ -66,7 +66,7 @@ App.propTypes = {
   addListClick: PropTypes.func.isRequired,
   removeListClick: PropTypes.func.isRequired,
   activeFilm: PropTypes.func.isRequired,
-  currentMovie: PropTypes.number.isRequired,
+  currentMovie: PropTypes.shape({}),
 };
 
 const mapStateToProps = (state) => ({
@@ -95,8 +95,8 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(UserOperation.login(authData));
   },
 
-  activeFilm(userId) {
-    dispatch(FilmsReducerAC.activeFilm(userId));
+  activeFilm(film) {
+    dispatch(FilmsReducerAC.activeFilm(film));
   },
 });
 

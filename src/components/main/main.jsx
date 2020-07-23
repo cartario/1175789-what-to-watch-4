@@ -10,8 +10,7 @@ const Main = (props) => {
   const {onMovieButtonClick, films, currentGenre, onFilterClick, authorizationStatus,
     currentMovie} = props;
 
-  const {title, posterImage,
-    genre, released} = films[currentMovie - 1];
+  const {title, posterImage, genre, released} = currentMovie;
 
   return (
     <React.Fragment>
@@ -97,7 +96,12 @@ Main.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
   addListClick: PropTypes.func.isRequired,
   removeListClick: PropTypes.func.isRequired,
-  currentMovie: PropTypes.number.isRequired,
+  currentMovie: PropTypes.shape({
+    title: PropTypes.string,
+    genre: PropTypes.string,
+    released: PropTypes.number,
+    posterImage: PropTypes.string,
+  }),
 };
 
 export default Main;
