@@ -31,7 +31,7 @@ MovieCard.propTypes = {
   }),
   handlerMouseLeave: PropTypes.func.isRequired,
   handlerMouseOver: PropTypes.func.isRequired,
-  isPlaying: PropTypes.bool.isRequired,
+  
   clickHandler: PropTypes.func.isRequired,
 };
 

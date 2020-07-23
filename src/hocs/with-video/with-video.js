@@ -46,10 +46,10 @@ const withVideo = (Component) => {
     }
 
     render() {
-      const {isPause, isMuted} = this.state;
+      
       return (
         <Component {...this.props }
-          isPause={isPause} isMuted={isMuted} videoRef = {this._videoRef}
+          videoRef = {this._videoRef}
         />
       );
     }

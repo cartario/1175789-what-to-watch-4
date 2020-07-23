@@ -1,18 +1,11 @@
-import React, {PureComponent} from 'react';
+import React from 'react';
 import PropTypes from "prop-types";
 import withVideo from "../../hocs/with-video/with-video.js";
 
-class Player extends PureComponent {
-  constructor() {
-    super();
-  }
-
-  render() {
-    return (
-      <video ref = {this.props.videoRef}/>
-    );
-  }
-}
+const Player = (props) => {
+  const {videoRef} = props;
+  return <video ref={videoRef} />
+};
 
 Player.propTypes = {
   film: PropTypes.shape({
@@ -20,8 +13,7 @@ Player.propTypes = {
     title: PropTypes.string.isRequired,
     preview: PropTypes.string.isRequired,
   }),
-  isPlaying: PropTypes.bool.isRequired,
-  isMuted: PropTypes.bool.isRequired,
+  
   videoRef: PropTypes.any,
 };
 

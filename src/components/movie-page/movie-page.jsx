@@ -6,6 +6,9 @@ import PropTypes from "prop-types";
 import Tabs from "../tabs/tabs.jsx";
 import ControlsBtnList from "../controls-btn-list/controls-btn-list.jsx";
 
+
+
+
 const MoviePage = (props) => {
   const {films, currentMovie, authorizationStatus} = props;
 

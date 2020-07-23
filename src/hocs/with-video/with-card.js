@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 const withCard = (Component) => {
   class WithCard extends PureComponent {
     constructor(props) {
+    
       super(props);
       this.state = {
         isPlaying: false,
