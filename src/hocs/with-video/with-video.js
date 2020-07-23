@@ -1,16 +1,22 @@
-import React, {PureComponent, createRef} from 'react';
+import React, {PureComponent, createRef} from "react";
 import PropTypes from "prop-types";
 
-const withVideo = (Component) => {
-  class WithVideo extends PureComponent {
-    constructor(props) {
+const withCard = (Component) => {
+  class WithCard extends PureComponent {
+    constructor(props) {    
       super(props);
+
       this._videoRef = createRef();
       this._timeout = null;
+
       this.state = {
-        isPause: true,
+        isPlaying: false,
         isMuted: true,
+        activeFilmId: null,
       };
+
+      this._handlerMouseOver = this._handlerMouseOver.bind(this);
+      this._handlerMouseLeave = this._handlerMouseLeave.bind(this);
     }
 
     componentDidMount() {
@@ -25,7 +31,7 @@ const withVideo = (Component) => {
 
     componentDidUpdate() {
       const video = this._videoRef.current;
-      if (this.props.isPlaying) {
+      if (this.state.isPlaying) {
         this._timeout = setTimeout(() => {
           this._videoRef.current.play();
         }, 1000);
@@ -44,27 +50,40 @@ const withVideo = (Component) => {
       video.height = null;
       video.muted = null;
     }
+    
+    _handlerMouseOver() {      
+      this.setState({
+        isPlaying: true,        
+      });
+    }
+
+    _handlerMouseLeave() {      
+      this.setState({
+        isPlaying: false,
+      });
+    }
 
     render() {
-      
       return (
-        <Component {...this.props }
+        <Component
+          {...this.props}
           videoRef = {this._videoRef}
-        />
+          handlerMouseOver = {this._handlerMouseOver}
+          handlerMouseLeave = {this._handlerMouseLeave}>
+        </Component>
       );
     }
   }
 
-  WithVideo.propTypes = {
+  WithCard.propTypes = {
     film: PropTypes.shape({
       src: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
       preview: PropTypes.string.isRequired,
     }),
-    isPlaying: PropTypes.bool.isRequired,
   };
 
-  return WithVideo;
+  return WithCard;
 };
 
-export default withVideo;
+export default withCard;

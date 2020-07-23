@@ -7,7 +7,7 @@ import {TabNames} from "../../const.js";
 import {Operation} from "../../reducer/films-by-genre/films-by-genre.js";
 import {connect} from "react-redux";
 import {getCurrentMovie} from "../../selectors.js";
-import withTabs from "../../hocs/with-tabs/with-tabs.js";
+import withActiveTabs from "../../hocs/with-active-tabs/with-active-tabs.js";
 
 const renderCurrentTab = (currentTab) => {
   switch (currentTab) {
@@ -65,4 +65,4 @@ Tabs.propTypes = {
 };
 
 export {Tabs};
-export default withTabs(connect(mapStateToProps, mapDispatchToProps)(Tabs));
+export default withActiveTabs(connect(mapStateToProps, mapDispatchToProps)(Tabs));

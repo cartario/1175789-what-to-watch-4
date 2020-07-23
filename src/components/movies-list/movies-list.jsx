@@ -5,14 +5,13 @@ import {history} from "../../history.js";
 import {connect} from "react-redux";
 import {getFilmsByFilter, getCurrentMovie} from "../../selectors.js";
 import {ActionCreator as FilmsReducerAC} from "../../reducer/films-by-genre/films-by-genre.js";
-import withActiveFilm from "../../hocs/with-active-film/with-active-film.js";
 
 const MoviesList = (props) => {
-  const {currentMovie, filmsByGenre, handleHover, handleMouseLeave, activeFilm, showSimilar} = props;
+  const {currentMovie, filmsByGenre, activeFilm, showSimilar} = props;
 
-  const setActiveFilm = (film) => {
-    activeFilm(film);
-    history.push(`/moviepage/${film.id}`);
+  const setActiveFilm = (film) => {    
+    activeFilm(film);    
+    history.push(`/moviepage/${film.id}`);    
   };
 
   switch (showSimilar) {
@@ -25,8 +24,6 @@ const MoviesList = (props) => {
             <MovieCard
               film = {film}
               key = {film.id}
-              onHover = {handleHover}
-              onMouseLeave= {handleMouseLeave}
               clickHandler = {setActiveFilm}
             />
           ).slice(0, 4)}
@@ -39,8 +36,6 @@ const MoviesList = (props) => {
             <MovieCard
               film = {film}
               key = {film.id}
-              onHover = {handleHover}
-              onMouseLeave= {handleMouseLeave}
               clickHandler = {setActiveFilm}
             />
           )}
@@ -65,14 +60,10 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-
   activeFilm(film) {
     dispatch(FilmsReducerAC.activeFilm(film));
   },
 });
 
 export {MoviesList};
-
-const MoviesListConnected = connect(mapStateToProps, mapDispatchToProps)(MoviesList);
-
-export default withActiveFilm(MoviesListConnected);
+export default connect(mapStateToProps, mapDispatchToProps)(MoviesList);
