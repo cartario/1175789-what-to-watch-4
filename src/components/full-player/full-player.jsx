@@ -1,5 +1,6 @@
 import React, {PureComponent, createRef} from 'react';
 import {getTimeElapsed} from "../../utils.js";
+import {history} from "../../history.js";
 
 class FullPlayer extends PureComponent {
   constructor(props) {
@@ -42,7 +43,7 @@ class FullPlayer extends PureComponent {
   }
 
   _exitClickHandler() {
-    // const video = this._videoRef.current;
+    history.push(`/`);
 
   }
 
