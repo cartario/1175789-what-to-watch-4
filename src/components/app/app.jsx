@@ -12,8 +12,11 @@ import {Switch, Route, Router} from "react-router-dom";
 import {AppRoutes} from "../../const.js";
 import MoviePage from "../movie-page/movie-page.jsx";
 import {getCurrentGenre, getCurrentMovie, getAllFilms, getFilmsByFilter, getAuthorizationStatus} from "../../selectors.js";
+import withCountFilms from "../../hocs/with-count-films/with-count-films.js";
 
 const onMovieButtonClick = () => {};
+
+const MainWrapped = withCountFilms(Main);
 
 const App = (props) => {
   const {films, filmsByGenre, currentGenre, onFilterClick, login, authorizationStatus,
@@ -23,7 +26,7 @@ const App = (props) => {
     <Router history = {history}>
       <Switch>
         <Route exact path={AppRoutes.ROOT}>
-          <Main
+          <MainWrapped
             onMovieButtonClick = {onMovieButtonClick}
             films = {films}
             filmsByGenre = {filmsByGenre}

@@ -7,7 +7,7 @@ import {getFilmsByFilter, getCurrentMovie} from "../../selectors.js";
 import {ActionCreator as FilmsReducerAC} from "../../reducer/films-by-genre/films-by-genre.js";
 
 const MoviesList = (props) => {
-  const {currentMovie, filmsByGenre, activeFilm, showSimilar} = props;
+  const {currentMovie, filmsByGenre, activeFilm, showSimilar, showingFilmsCount} = props;
 
   const setActiveFilm = (film) => {
     activeFilm(film);
@@ -38,7 +38,7 @@ const MoviesList = (props) => {
               key = {film.id}
               clickHandler = {setActiveFilm}
             />
-          )}
+          ).slice(0, showingFilmsCount)}
         </div>
       );
   }
@@ -52,6 +52,7 @@ MoviesList.propTypes = {
   }),
   mode: PropTypes.string,
   showSimilar: PropTypes.string,
+  showingFilmsCount: PropTypes.number,
 };
 
 const mapStateToProps = (state) => ({
