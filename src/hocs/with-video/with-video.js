@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 const withCard = (Component) => {
   class WithCard extends PureComponent {
-    constructor(props) {    
+    constructor(props) {
       super(props);
 
       this._videoRef = createRef();
@@ -50,14 +50,14 @@ const withCard = (Component) => {
       video.height = null;
       video.muted = null;
     }
-    
-    _handlerMouseOver() {      
+
+    _handlerMouseOver() {
       this.setState({
-        isPlaying: true,        
+        isPlaying: true,
       });
     }
 
-    _handlerMouseLeave() {      
+    _handlerMouseLeave() {
       this.setState({
         isPlaying: false,
       });

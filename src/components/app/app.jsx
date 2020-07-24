@@ -37,7 +37,7 @@ const App = (props) => {
           />
         </Route>
         <Route exact path={AppRoutes.LOGIN}>
-          <SignIn login = {login} authorizationStatus= {authorizationStatus}/>
+          <SignIn login = {login}/>
         </Route>
         <Route exact path={AppRoutes.MY_LIST}>
           <h1>MyList</h1>

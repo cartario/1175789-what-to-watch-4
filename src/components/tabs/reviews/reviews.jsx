@@ -1,13 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {getAllFilms, getCurrentMovie, getAllComments} from "../../../selectors.js";
-
+import {getAllComments} from "../../../selectors.js";
 
 const Reviews = (props) => {
-
   const {comments} = props;
-
 
   return (
     <>
@@ -32,8 +29,6 @@ const Reviews = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-  films: getAllFilms(state),
-  currentMovie: getCurrentMovie(state),
   comments: getAllComments(state),
 });
 

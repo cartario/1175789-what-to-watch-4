@@ -30,8 +30,9 @@ MovieCard.propTypes = {
     preview: PropTypes.string.isRequired,
   }),
   handlerMouseLeave: PropTypes.func.isRequired,
-  handlerMouseOver: PropTypes.func.isRequired,  
+  handlerMouseOver: PropTypes.func.isRequired,
   clickHandler: PropTypes.func.isRequired,
+  videoRef: PropTypes.any,
 };
 
 export default withVideo(MovieCard);

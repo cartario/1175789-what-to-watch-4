@@ -1,11 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {connect} from "react-redux";
-import {getAllFilms, getCurrentMovie} from "../../../selectors.js";
 
 const Details = (props) => {
   const {currentMovie} = props;
-
   const {director, starring, runTime, released, genre} = currentMovie;
 
   return (
@@ -43,13 +40,7 @@ const Details = (props) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  films: getAllFilms(state),
-  currentMovie: getCurrentMovie(state),
-});
-
 Details.propTypes = {
-  films: PropTypes.array.isRequired,
   currentMovie: PropTypes.shape({
     runTime: PropTypes.date,
     genre: PropTypes.string,
@@ -59,5 +50,4 @@ Details.propTypes = {
   }),
 };
 
-export {Details};
-export default connect(mapStateToProps)(Details);
+export default Details;

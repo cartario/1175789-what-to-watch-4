@@ -9,9 +9,9 @@ import {ActionCreator as FilmsReducerAC} from "../../reducer/films-by-genre/film
 const MoviesList = (props) => {
   const {currentMovie, filmsByGenre, activeFilm, showSimilar} = props;
 
-  const setActiveFilm = (film) => {    
-    activeFilm(film);    
-    history.push(`/moviepage/${film.id}`);    
+  const setActiveFilm = (film) => {
+    activeFilm(film);
+    history.push(`/moviepage/${film.id}`);
   };
 
   switch (showSimilar) {
@@ -41,7 +41,7 @@ const MoviesList = (props) => {
           )}
         </div>
       );
-  }  
+  }
 };
 
 MoviesList.propTypes = {

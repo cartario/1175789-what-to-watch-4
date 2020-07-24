@@ -1,13 +1,12 @@
 import React from 'react';
 import PropTypes from "prop-types";
-import withVideo from "../../hocs/with-video/with-video.js";
 
-const Player = (props) => {  
+const Player = (props) => {
   const {videoRef} = props;
-  return <video ref={videoRef} />
+  return <video ref={videoRef} />;
 };
 
-Player.propTypes = {  
+Player.propTypes = {
   videoRef: PropTypes.any,
 };
 

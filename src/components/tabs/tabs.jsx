@@ -9,14 +9,14 @@ import {connect} from "react-redux";
 import {getCurrentMovie} from "../../selectors.js";
 import withActiveTabs from "../../hocs/with-active-tabs/with-active-tabs.js";
 
-const renderCurrentTab = (currentTab) => {
+const renderCurrentTab = (currentTab, currentMovie) => {
   switch (currentTab) {
     case TabNames.DETAILS:
-      return <Details/>;
+      return <Details currentMovie = {currentMovie}/>;
     case TabNames.REVIEWS:
       return <Reviews/>;
     default :
-      return <Overview/>;
+      return <Overview currentMovie = {currentMovie}/>;
   }
 };
 
@@ -39,7 +39,7 @@ const Tabs = (props) => {
             )}
           </ul>
         </nav>
-        {renderCurrentTab(currentTab)}
+        {renderCurrentTab(currentTab, currentMovie)}
       </div>
     </>
   );
