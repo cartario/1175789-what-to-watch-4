@@ -12,8 +12,11 @@ import {Switch, Route, Router} from "react-router-dom";
 import {AppRoutes} from "../../const.js";
 import MoviePage from "../movie-page/movie-page.jsx";
 import {getCurrentGenre, getCurrentMovie, getAllFilms, getFilmsByFilter, getAuthorizationStatus} from "../../selectors.js";
+import withCountFilms from "../../hocs/with-count-films/with-count-films.js";
 
 const onMovieButtonClick = () => {};
+
+const MainWrapped = withCountFilms(Main);
 
 const App = (props) => {
   const {films, filmsByGenre, currentGenre, onFilterClick, login, authorizationStatus,
@@ -23,7 +26,7 @@ const App = (props) => {
     <Router history = {history}>
       <Switch>
         <Route exact path={AppRoutes.ROOT}>
-          <Main
+          <MainWrapped
             onMovieButtonClick = {onMovieButtonClick}
             films = {films}
             filmsByGenre = {filmsByGenre}
@@ -37,12 +40,12 @@ const App = (props) => {
           />
         </Route>
         <Route exact path={AppRoutes.LOGIN}>
-          <SignIn login = {login} authorizationStatus= {authorizationStatus}/>
+          <SignIn login = {login}/>
         </Route>
         <Route exact path={AppRoutes.MY_LIST}>
           <h1>MyList</h1>
         </Route>
-        <Route exact path={AppRoutes.MOVIE_PAGE}>
+        <Route path={AppRoutes.MOVIE_PAGE}>
           <MoviePage
             authorizationStatus= {authorizationStatus}
             films={films}

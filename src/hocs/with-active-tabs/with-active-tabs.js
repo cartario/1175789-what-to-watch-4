@@ -1,8 +1,8 @@
 import React, {PureComponent} from 'react';
 import {TabNames} from "../../const.js";
 
-const withTabs = (Component) => {
-  class WithTabs extends PureComponent {
+const withActiveTabs = (Component) => {
+  class WithActiveTabs extends PureComponent {
     constructor(props) {
       super(props);
 
@@ -25,7 +25,7 @@ const withTabs = (Component) => {
     }
   }
 
-  return WithTabs;
+  return WithActiveTabs;
 };
 
-export default withTabs;
+export default withActiveTabs;

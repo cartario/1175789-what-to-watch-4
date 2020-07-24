@@ -1,5 +1,4 @@
 import React from "react";
-
 import MoviesList from "../movies-list/movies-list.jsx";
 import Header from "../header/header.jsx";
 import PropTypes from "prop-types";

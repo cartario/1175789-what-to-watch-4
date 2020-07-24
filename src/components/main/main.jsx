@@ -4,11 +4,12 @@ import MoviesList from "../movies-list/movies-list.jsx";
 import Header from "../header/header.jsx";
 import GenresList from "../genres-list/genres-list.jsx";
 import ControlsBtnList from "../controls-btn-list/controls-btn-list.jsx";
+import ShowMore from "../show-more/show-more.jsx";
 
 const Main = (props) => {
 
   const {onMovieButtonClick, films, currentGenre, onFilterClick, authorizationStatus,
-    currentMovie} = props;
+    currentMovie, showMoreClickHandler, showingFilmsCount, isVisible} = props;
 
   const {title, posterImage, genre, released} = currentMovie;
 
@@ -56,11 +57,13 @@ const Main = (props) => {
             onFilterClick = {onFilterClick}
           />
 
-          <MoviesList/>
+          <MoviesList
+            showingFilmsCount = {showingFilmsCount}
+          />
 
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
-          </div>
+          {isVisible ?
+            <ShowMore showMoreClickHandler = {showMoreClickHandler}/>
+            : ``}
         </section>
 
         <footer className="page-footer">
@@ -102,6 +105,9 @@ Main.propTypes = {
     released: PropTypes.number,
     posterImage: PropTypes.string,
   }),
+  showMoreClickHandler: PropTypes.func.isRequired,
+  showingFilmsCount: PropTypes.number.isRequired,
+  isVisible: PropTypes.bool.isRequired,
 };
 
 export default Main;

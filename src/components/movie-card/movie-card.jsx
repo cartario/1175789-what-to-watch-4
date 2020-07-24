@@ -1,11 +1,11 @@
 import React from "react";
 import Player from "../player/player.jsx";
-import withCard from "../../hocs/with-video/with-card.js";
+import withVideo from "../../hocs/with-video/with-video.js";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
 
 const MovieCard = (props) => {
-  const {film, handlerMouseLeave, handlerMouseOver, isPlaying, clickHandler} = props;
+  const {film, handlerMouseLeave, handlerMouseOver, clickHandler, videoRef} = props;
 
   return (
     <article
@@ -14,7 +14,7 @@ const MovieCard = (props) => {
       onClick = {() => clickHandler(film)}
       className="small-movie-card catalog__movies-card" >
       <div className="small-movie-card__image">
-        <Player film={film} isPlaying = {isPlaying}/>
+        <Player videoRef = {videoRef}/>
       </div>
       <h3 className="small-movie-card__title">
         <Link className="small-movie-card__link" to="/">{film.title}</Link>
@@ -31,8 +31,8 @@ MovieCard.propTypes = {
   }),
   handlerMouseLeave: PropTypes.func.isRequired,
   handlerMouseOver: PropTypes.func.isRequired,
-  isPlaying: PropTypes.bool.isRequired,
   clickHandler: PropTypes.func.isRequired,
+  videoRef: PropTypes.any,
 };
 
-export default withCard(MovieCard);
+export default withVideo(MovieCard);
