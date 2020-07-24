@@ -12,11 +12,9 @@ import {Switch, Route, Router} from "react-router-dom";
 import {AppRoutes} from "../../const.js";
 import MoviePage from "../movie-page/movie-page.jsx";
 import {getCurrentGenre, getCurrentMovie, getAllFilms, getFilmsByFilter, getAuthorizationStatus} from "../../selectors.js";
-import withCountFilms from "../../hocs/with-count-films/with-count-films.js";
+import FullPlayer from "../full-player/full-player.jsx";
 
 const onMovieButtonClick = () => {};
-
-const MainWrapped = withCountFilms(Main);
 
 const App = (props) => {
   const {films, filmsByGenre, currentGenre, onFilterClick, login, authorizationStatus,
@@ -26,7 +24,7 @@ const App = (props) => {
     <Router history = {history}>
       <Switch>
         <Route exact path={AppRoutes.ROOT}>
-          <MainWrapped
+          <Main
             onMovieButtonClick = {onMovieButtonClick}
             films = {films}
             filmsByGenre = {filmsByGenre}
@@ -52,6 +50,9 @@ const App = (props) => {
             currentMovie={currentMovie}
             onFilterClick = {onFilterClick}
             currentGenre = {currentGenre}/>
+        </Route>
+        <Route path="/fullplayer">
+          <FullPlayer />
         </Route>
       </Switch>
     </Router>

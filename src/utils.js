@@ -28,3 +28,15 @@ export const getTextRate = (rate) => {
   }
   return TextRates.AWESOME;
 };
+
+const getFormatLessTen = (time) => {
+  return time < 10 ? `0${time}` : time;
+};
+
+export const getTimeElapsed = (duration, currentTime) => {
+  const timeDiff = duration - currentTime;
+  const seconds = getFormatLessTen((timeDiff) % 60);
+  const minutes = getFormatLessTen(Math.trunc(timeDiff / 60));
+  const hours = getFormatLessTen(Math.trunc(minutes / 60));
+  return `${hours}:${minutes}:${seconds}`;
+};

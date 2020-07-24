@@ -5,6 +5,8 @@ import Header from "../header/header.jsx";
 import GenresList from "../genres-list/genres-list.jsx";
 import ControlsBtnList from "../controls-btn-list/controls-btn-list.jsx";
 import ShowMore from "../show-more/show-more.jsx";
+import withCountFilms from "../../hocs/with-count-films/with-count-films.js";
+
 
 const Main = (props) => {
 
@@ -110,4 +112,4 @@ Main.propTypes = {
   isVisible: PropTypes.bool.isRequired,
 };
 
-export default Main;
+export default withCountFilms(Main);
