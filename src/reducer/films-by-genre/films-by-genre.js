@@ -76,6 +76,7 @@ const adapter = (data) => {
     posterImage: film.poster_image,
     runTime: film.run_time,
     isFavorite: film.is_favorite,
+    videoLink: film.video_link,
 
   }));
 };

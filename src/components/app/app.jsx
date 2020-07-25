@@ -52,7 +52,7 @@ const App = (props) => {
             currentGenre = {currentGenre}/>
         </Route>
         <Route path="/fullplayer">
-          <FullPlayer />
+          <FullPlayer currentMovie={currentMovie}/>
         </Route>
       </Switch>
     </Router>

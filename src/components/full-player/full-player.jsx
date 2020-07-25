@@ -1,6 +1,7 @@
 import React, {PureComponent, createRef} from 'react';
 import {getTimeElapsed} from "../../utils.js";
 import {history} from "../../history.js";
+import PropTypes from "prop-types";
 
 class FullPlayer extends PureComponent {
   constructor(props) {
@@ -59,8 +60,9 @@ class FullPlayer extends PureComponent {
   }
 
   render() {
-    const poster = `img/player-poster.jpg`;
-    const source = `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`;
+    const {currentMovie} = this.props;
+    const {poster, videoLink} = currentMovie;
+
     const elapsedTime = getTimeElapsed(this.state.duration, this.state.currentTime);
     const position = this.state.currentTime / this.state.duration * 100;
 
@@ -70,7 +72,7 @@ class FullPlayer extends PureComponent {
       <div className="player">
         <video ref = {this._videoRef}
 
-          src={source} className="player__video" poster={poster}></video>
+          src={videoLink} className="player__video" poster={poster}></video>
 
         <button onClick={this._exitClickHandler} type="button" className="player__exit">Exit</button>
 
@@ -104,4 +106,7 @@ class FullPlayer extends PureComponent {
   }
 }
 
+FullPlayer.propTypes = {
+  currentMovie: PropTypes.any,
+};
 export default FullPlayer;
