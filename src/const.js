@@ -3,6 +3,7 @@ export const AppRoutes = {
   LOGIN: `/login`,
   MY_LIST: `/mylist`,
   MOVIE_PAGE: `/moviepage`,
+  PLAYER: `/player`,
 };
 
 export const TextRates = {

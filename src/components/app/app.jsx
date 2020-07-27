@@ -51,7 +51,7 @@ const App = (props) => {
             onFilterClick = {onFilterClick}
             currentGenre = {currentGenre}/>
         </Route>
-        <Route path="/fullplayer">
+        <Route path={`${AppRoutes.PLAYER}/:id`}>
           <FullPlayer currentMovie={currentMovie}/>
         </Route>
       </Switch>

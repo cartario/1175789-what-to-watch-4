@@ -3,10 +3,11 @@ import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {getAllFilms, getCurrentMovie} from "../../selectors.js";
 import {ActionCreator as FilmsReducerAC} from "../../reducer/films-by-genre/films-by-genre.js";
-import {history} from "../../history.js";
+import {Link} from "react-router-dom";
+import {AppRoutes} from "../../const.js";
 
 const ControlsBtnList = (props) => {
-  const {films, addListClick, removeListClick} = props;
+  const {films, addListClick, removeListClick, currentMovie} = props;
 
   const addListHandler = () => {
     addListClick(currentId);
@@ -18,7 +19,7 @@ const ControlsBtnList = (props) => {
 
   let isListed;
 
-  const currentId = 3;
+  const currentId = currentMovie.id;
 
   const currentFilm = films.filter((film)=> film.id === currentId)[0];
 
@@ -28,14 +29,12 @@ const ControlsBtnList = (props) => {
 
   return (
     <>
-      <button onClick = { ()=>{
-        history.push(`/fullplayer`);
-      }} className="btn btn--play movie-card__button" type="button">
+      <Link to={`${AppRoutes.PLAYER}/${currentMovie.id}`} className="btn btn--play movie-card__button" type="button">
         <svg viewBox="0 0 19 19" width="19" height="19">
           <use xlinkHref="#play-s"></use>
         </svg>
         <span>Play</span>
-      </button>
+      </Link>
 
 
     {isListed ?
@@ -76,6 +75,7 @@ ControlsBtnList.propTypes = {
   films: PropTypes.array.isRequired,
   addListClick: PropTypes.func.isRequired,
   removeListClick: PropTypes.func.isRequired,
+  currentMovie: PropTypes.any,
 };
 
 export {ControlsBtnList};

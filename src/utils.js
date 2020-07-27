@@ -30,7 +30,7 @@ export const getTextRate = (rate) => {
 };
 
 const getFormatLessTen = (time) => {
-  return time < 10 ? `0${time}` : time;
+  return time < 10 ? `0${time}` : `${time}`;
 };
 
 export const getTimeElapsed = (duration, currentTime) => {
