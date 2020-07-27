@@ -1,4 +1,13 @@
 import {TextRates} from "./const.js";
+import moment from "moment";
+
+
+export const getDateFormat = (date) => {
+  if (date) {
+    return moment(date).format(`MMMM D, YYYY`);
+  }
+  return null;
+};
 
 export const extend = (oldData, newData) => {
   return Object.assign({}, oldData, newData);
