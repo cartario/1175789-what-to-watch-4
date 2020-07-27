@@ -1,5 +1,5 @@
 import React, {PureComponent, createRef} from 'react';
-import {getTimeElapsed} from "../../utils.js";
+import {getTimeElapsed, getPosition} from "../../utils.js";
 import {history} from "../../history.js";
 import PropTypes from "prop-types";
 
@@ -12,7 +12,7 @@ const withFullPlayer = (Component) => {
       this.state = {
         isPlaying: true,
         currentTime: 0,
-        duration: 0.000001,
+        duration: 0,
       };
 
       this._exitClickHandler = this._exitClickHandler.bind(this);
@@ -58,10 +58,19 @@ const withFullPlayer = (Component) => {
       });
     }
 
+    componentWillUnmount() {
+      const video = this._videoRef.current;
+      video.src = ``;
+      // video.poster = ``;
+      // video.width = null;
+      // video.height = null;
+      // video.muted = null;
+    }
+
     render() {
       const {currentMovie} = this.props;
       const elapsedTime = getTimeElapsed(this.state.duration, this.state.currentTime);
-      const position = this.state.currentTime / this.state.duration * 100;
+      const position = getPosition(this.state.currentTime, this.state.duration);
       return (
         <Component {...this.props}
           videoRef= {this._videoRef}

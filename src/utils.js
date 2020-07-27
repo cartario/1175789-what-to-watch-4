@@ -40,3 +40,10 @@ export const getTimeElapsed = (duration, currentTime) => {
   const hours = getFormatLessTen(Math.trunc(minutes / 60));
   return `${hours}:${minutes}:${seconds}`;
 };
+
+export const getPosition = (currentTime, duration) => {
+  if (duration === 0) {
+    return 0;
+  }
+  return currentTime / duration * 100;
+};
