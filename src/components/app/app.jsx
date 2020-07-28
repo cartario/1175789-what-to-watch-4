@@ -51,9 +51,20 @@ const App = (props) => {
             onFilterClick = {onFilterClick}
             currentGenre = {currentGenre}/>
         </Route>
-        <Route path={`${AppRoutes.PLAYER}/:id`}>
-          <FullPlayer currentMovie={currentMovie}/>
-        </Route>
+        <Route path={`${AppRoutes.PLAYER}/:id`}
+          render = {(pros) => {
+            return (
+              <FullPlayer
+                currentMovie={currentMovie}
+                activeFilm = {activeFilm}
+                films = {films}
+                match = {pros.match}
+              />
+            );
+          }}
+        />
+
+
       </Switch>
     </Router>
   );
@@ -70,6 +81,7 @@ App.propTypes = {
   addListClick: PropTypes.func.isRequired,
   removeListClick: PropTypes.func.isRequired,
   activeFilm: PropTypes.func.isRequired,
+  match: PropTypes.any,
   currentMovie: PropTypes.shape({}),
 };
 
