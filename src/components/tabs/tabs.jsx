@@ -6,7 +6,7 @@ import Reviews from "./reviews/reviews.jsx";
 import {TabNames} from "../../const.js";
 import {Operation} from "../../reducer/films-by-genre/films-by-genre.js";
 import {connect} from "react-redux";
-import {getCurrentMovie} from "../../selectors.js";
+import {getCurrentMovie, getReadyData, getActiveFilmId, getAllFilms} from "../../selectors.js";
 import withActiveTabs from "../../hocs/with-active-tabs/with-active-tabs.js";
 
 const renderCurrentTab = (currentTab, currentMovie) => {
@@ -21,8 +21,9 @@ const renderCurrentTab = (currentTab, currentMovie) => {
 };
 
 const Tabs = (props) => {
-  const {clickHandler, currentTab, currentMovie, loadComments} = props;
+  const {clickHandler, currentTab, loadComments, films, activeFilmId} = props;
 
+  const currentMovie = films.find((film) => film.id === activeFilmId);
   return (
     <>
       <div className="movie-card__desc">
@@ -32,7 +33,7 @@ const Tabs = (props) => {
               <li key = {tab}
                 onClick = { ()=>{
                   clickHandler(tab);
-                  loadComments(currentMovie.id);
+                  loadComments(activeFilmId);
                 } } className={currentTab === tab ? `movie-nav__item movie-nav__item--active` : `movie-nav__item`}>
                 <a onClick={(e)=>e.preventDefault()} href="#" className="movie-nav__link">{tab}</a>
               </li>
@@ -47,6 +48,9 @@ const Tabs = (props) => {
 
 const mapStateToProps = (state) => ({
   currentMovie: getCurrentMovie(state),
+  activeFilmId: getActiveFilmId(state),
+  isDataReady: getReadyData(state),
+  films: getAllFilms(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

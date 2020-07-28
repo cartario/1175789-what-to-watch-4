@@ -3,9 +3,15 @@ import {Link} from "react-router-dom";
 import {AuthorizationStatus} from "../../reducer/user/user.js";
 import {AppRoutes} from "../../const.js";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import {ActionCreator as FilmsReducerAC} from "../../reducer/films-by-genre/films-by-genre.js";
+import {getActiveFilmId, getAllFilms, getReadyData} from "../../selectors";
 
 const Header = (props) => {
-  const {authorizationStatus, currentMovie} = props;
+  if(!props.isReady) return null;
+
+  const {authorizationStatus, activeFilmId, films} = props;
+  const currentMovie = films.find((film) => film.id === activeFilmId);
   const {title, backgroundImage} = currentMovie;
   return (
     <>
@@ -54,4 +60,20 @@ Header.propTypes = {
   }),
 };
 
-export default Header;
+const mapStateToProps = (state) => {
+ 
+  return ({  
+    isReady: getReadyData(state),
+    activeFilmId: getActiveFilmId(state),
+    films: getAllFilms(state),
+  })
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  setActiveFilmId(filmId) {
+    dispatch(FilmsReducerAC.setActiveFilmId(filmId));
+  }
+});
+
+export {Header};
+export default connect(mapStateToProps, mapDispatchToProps)(Header)

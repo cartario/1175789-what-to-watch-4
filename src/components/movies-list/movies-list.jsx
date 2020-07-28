@@ -3,14 +3,19 @@ import MovieCard from "../movie-card/movie-card.jsx";
 import PropTypes from "prop-types";
 import {history} from "../../history.js";
 import {connect} from "react-redux";
-import {getFilmsByFilter, getCurrentMovie} from "../../selectors.js";
+import {getFilmsByFilter, getCurrentMovie, getReadyData, getActiveFilmId} from "../../selectors.js";
 import {ActionCreator as FilmsReducerAC} from "../../reducer/films-by-genre/films-by-genre.js";
 
 const MoviesList = (props) => {
-  const {currentMovie, filmsByGenre, activeFilm, showSimilar, showingFilmsCount} = props;
+  if(!props.isDataReady) return null;
+  const {filmsByGenre, activeFilm, setActiveFilmId, showSimilar, showingFilmsCount, activeFilmId} = props;
+
+  const currentMovie = filmsByGenre.find((film) => film.id === activeFilmId);
+  
 
   const setActiveFilm = (film) => {
-    activeFilm(film);
+    // activeFilm(film);
+    setActiveFilmId(film.id)
     history.push(`/moviepage/${film.id}`);
   };
 
@@ -58,11 +63,17 @@ MoviesList.propTypes = {
 const mapStateToProps = (state) => ({
   filmsByGenre: getFilmsByFilter(state),
   currentMovie: getCurrentMovie(state),
+  activeFilmId: getActiveFilmId(state),
+  isDataReady: getReadyData(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   activeFilm(film) {
     dispatch(FilmsReducerAC.activeFilm(film));
+  },
+
+  setActiveFilmId(filmId) {
+    dispatch(FilmsReducerAC.setActiveFilmId(filmId));
   },
 });
 

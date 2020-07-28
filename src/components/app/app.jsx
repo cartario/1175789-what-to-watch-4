@@ -11,14 +11,14 @@ import {history} from "../../history.js";
 import {Switch, Route, Router} from "react-router-dom";
 import {AppRoutes} from "../../const.js";
 import MoviePage from "../movie-page/movie-page.jsx";
-import {getCurrentGenre, getCurrentMovie, getAllFilms, getFilmsByFilter, getAuthorizationStatus} from "../../selectors.js";
+import {getCurrentGenre, getCurrentMovie, getAllFilms, getFilmsByFilter, getAuthorizationStatus, getActiveFilmId} from "../../selectors.js";
 import FullPlayer from "../full-player/full-player.jsx";
 
 const onMovieButtonClick = () => {};
 
 const App = (props) => {
   const {films, filmsByGenre, currentGenre, onFilterClick, login, authorizationStatus,
-    addListClick, removeListClick, activeFilm, currentMovie} = props;
+    addListClick, removeListClick, activeFilm, activeFilmId, currentMovie} = props;    
 
   return (
     <Router history = {history}>
@@ -34,6 +34,7 @@ const App = (props) => {
             addListClick = {addListClick}
             removeListClick = {removeListClick}
             activeFilm = {activeFilm}
+            
             currentMovie={currentMovie}
           />
         </Route>
@@ -91,6 +92,7 @@ const mapStateToProps = (state) => ({
   filmsByGenre: getFilmsByFilter(state),
   authorizationStatus: getAuthorizationStatus(state),
   currentMovie: getCurrentMovie(state),
+  activeFilmId: getActiveFilmId(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

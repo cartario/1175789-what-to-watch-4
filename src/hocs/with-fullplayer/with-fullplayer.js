@@ -22,25 +22,30 @@ const withFullPlayer = (Component) => {
 
     componentDidMount() {
       const video = this._videoRef.current;
-      video.play();
-      video.muted = true;
-
-      video.ontimeupdate = () => this.setState({
-        currentTime: Math.trunc(video.currentTime),
-      });
-
-      video.onloadedmetadata = () => this.setState({
-        duration: Math.trunc(video.duration),
-      });
+      if(video) {
+        video.play();
+        video.muted = true;
+  
+        video.ontimeupdate = () => this.setState({
+          currentTime: Math.trunc(video.currentTime),
+        });
+  
+        video.onloadedmetadata = () => this.setState({
+          duration: Math.trunc(video.duration),
+        });
+      }
+      
 
     }
 
     componentDidUpdate() {
       const video = this._videoRef.current;
-      if (this.state.isPlaying) {
-        return video.play();
-      }
-      return video.pause();
+      if(video) {
+        if (this.state.isPlaying) {
+          return video.play();
+        }
+        return video.pause();
+      }      
     }
 
     _exitClickHandler() {
@@ -68,13 +73,12 @@ const withFullPlayer = (Component) => {
     }
 
     render() {
-      const {currentMovie} = this.props;
+      
       const elapsedTime = getTimeElapsed(this.state.duration, this.state.currentTime);
       const position = getPosition(this.state.currentTime, this.state.duration);
       return (
         <Component {...this.props}
-          videoRef= {this._videoRef}
-          currentMovie = {currentMovie}
+          videoRef= {this._videoRef}          
           elapsedTime = {elapsedTime}
           position = {position}
           exitClickHandler = {this._exitClickHandler}
@@ -86,9 +90,9 @@ const withFullPlayer = (Component) => {
     }
   }
 
-  WithFullPlayer.propTypes = {
-    currentMovie: PropTypes.any,
-  };
+  // WithFullPlayer.propTypes = {
+  //   currentMovie: PropTypes.any,
+  // };
 
   return WithFullPlayer;
 };

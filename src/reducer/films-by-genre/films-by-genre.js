@@ -7,7 +7,9 @@ const initialState = {
   films,
   comments: [],
   filmsByGenre: [],
-  currentMovie: {},
+  // currentMovie: {},
+  activeFilmId: 1,
+  isDataReady: false,
 };
 
 export const ActionType = {
@@ -17,6 +19,8 @@ export const ActionType = {
   ADD_WATCH_LIST: `ADD_WATCH_LIST`,
   REMOVE_WATCH_LIST: `REMOVE_WATCH_LIST`,
   SET_ACTIVE_FILM: `SET_ACTIVE_FILM`,
+  SET_ACTIVE_FILM_ID: `SET_ACTIVE_FILM_ID`,
+  TOGGLE_IS_DATA_READY: `TOGGLE_IS_DATA_READY`,
 };
 
 export const ActionCreator = {
@@ -48,6 +52,20 @@ export const ActionCreator = {
     return {
       type: ActionType.SET_ACTIVE_FILM,
       payload: film,
+    };
+  },
+
+  setActiveFilmId: (filmId) => {
+    return {
+      type: ActionType.SET_ACTIVE_FILM_ID,
+      payload: filmId,
+    };
+  },
+
+  setIsDataReady: (value) => {
+    return {
+      type: ActionType.TOGGLE_IS_DATA_READY,
+      payload: value,
     };
   },
 
@@ -90,6 +108,7 @@ export const Operation = {
         dispatch(ActionCreator.loadFilms(dataFromAdapter));
         dispatch({type: ActionType.GET_MOVIES_BY_FILTER, payload: ALL_GENRE});
         dispatch({type: ActionType.SET_ACTIVE_FILM, payload: adapter((response.data))[0]});
+        dispatch(ActionCreator.setIsDataReady(true));
       });
   },
 
@@ -146,6 +165,12 @@ export const reducer = (state = initialState, action) => {
 
     case ActionType.GET_COMMENTS_FROM_SERVER:
       return extend(state, {comments: action.payload});
+
+    case ActionType.SET_ACTIVE_FILM_ID:
+      return extend(state, {activeFilmId: action.payload});
+
+    case ActionType.TOGGLE_IS_DATA_READY:
+      return extend(state, {isDataReady: action.payload});
 
     default:
       return state;

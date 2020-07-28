@@ -1,13 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {getAllFilms, getCurrentMovie} from "../../selectors.js";
+import {getAllFilms, getCurrentMovie, getReadyData, getActiveFilmId} from "../../selectors.js";
 import {ActionCreator as FilmsReducerAC} from "../../reducer/films-by-genre/films-by-genre.js";
 import {Link} from "react-router-dom";
 import {AppRoutes} from "../../const.js";
 
 const ControlsBtnList = (props) => {
-  const {films, addListClick, removeListClick, currentMovie} = props;
+  const {films, addListClick, removeListClick, activeFilmId} = props;
+
+  const currentMovie = films.find((film) => film.id === activeFilmId);
 
   const addListHandler = () => {
     addListClick(currentId);
@@ -57,7 +59,10 @@ const ControlsBtnList = (props) => {
 
 const mapStateToProps = (state) => ({
   films: getAllFilms(state),
-  currentMovie: getCurrentMovie(state),
+  currentMovie: getCurrentMovie(state),  
+  activeFilmId: getActiveFilmId(state),
+  isDataReady: getReadyData(state),
+
 });
 
 const mapDispatchToProps = (dispatch) => ({

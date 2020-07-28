@@ -6,13 +6,17 @@ import GenresList from "../genres-list/genres-list.jsx";
 import ControlsBtnList from "../controls-btn-list/controls-btn-list.jsx";
 import ShowMore from "../show-more/show-more.jsx";
 import withCountFilms from "../../hocs/with-count-films/with-count-films.js";
+import {connect} from "react-redux";
+import {getAllFilms, getCurrentMovie, getReadyData, getActiveFilmId} from "../../selectors.js";
 
 
 const Main = (props) => {
+  if(!props.isDataReady) return null;
 
   const {onMovieButtonClick, films, currentGenre, onFilterClick, authorizationStatus,
-    currentMovie, showMoreClickHandler, showingFilmsCount, isVisible} = props;
+    showMoreClickHandler, showingFilmsCount, isVisible, activeFilmId} = props;
 
+  const currentMovie = films.find((film) => film.id === activeFilmId); 
   const {title, posterImage, genre, released} = currentMovie;
 
   return (
@@ -22,7 +26,7 @@ const Main = (props) => {
         <Header
           films ={films}
           authorizationStatus = {authorizationStatus}
-          currentMovie = {currentMovie}
+          
         />
 
         <div className="movie-card__wrap">
@@ -112,4 +116,10 @@ Main.propTypes = {
   isVisible: PropTypes.bool.isRequired,
 };
 
-export default withCountFilms(Main);
+const mapStateToProps = (state) => ({
+  isDataReady: getReadyData(state),
+  activeFilmId: getActiveFilmId(state),
+  films: getAllFilms(state),
+})
+export {Main}
+export default withCountFilms(connect(mapStateToProps)(Main));

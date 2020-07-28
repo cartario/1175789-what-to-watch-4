@@ -24,3 +24,11 @@ export const getCurrentMovie = (state) => {
 export const getAllComments = (state) => {
   return state[NameSpace.FILMS].comments;
 };
+
+export const getActiveFilmId = (state) => {
+  return state[NameSpace.FILMS].activeFilmId;
+};
+
+export const getReadyData = (state) => {
+  return state[NameSpace.FILMS].isDataReady;
+};
