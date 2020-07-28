@@ -6,7 +6,7 @@ import Reviews from "./reviews/reviews.jsx";
 import {TabNames} from "../../const.js";
 import {Operation} from "../../reducer/films-by-genre/films-by-genre.js";
 import {connect} from "react-redux";
-import {getCurrentMovie, getReadyData, getActiveFilmId, getAllFilms} from "../../selectors.js";
+import {getReadyData, getActiveFilmId, getAllFilms} from "../../selectors.js";
 import withActiveTabs from "../../hocs/with-active-tabs/with-active-tabs.js";
 
 const renderCurrentTab = (currentTab, currentMovie) => {
@@ -47,7 +47,7 @@ const Tabs = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-  currentMovie: getCurrentMovie(state),
+  
   activeFilmId: getActiveFilmId(state),
   isDataReady: getReadyData(state),
   films: getAllFilms(state),

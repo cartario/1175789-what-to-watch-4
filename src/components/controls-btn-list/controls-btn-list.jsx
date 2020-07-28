@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {getAllFilms, getCurrentMovie, getReadyData, getActiveFilmId} from "../../selectors.js";
+import {getAllFilms, getReadyData, getActiveFilmId} from "../../selectors.js";
 import {ActionCreator as FilmsReducerAC} from "../../reducer/films-by-genre/films-by-genre.js";
 import {Link} from "react-router-dom";
 import {AppRoutes} from "../../const.js";
@@ -59,7 +59,6 @@ const ControlsBtnList = (props) => {
 
 const mapStateToProps = (state) => ({
   films: getAllFilms(state),
-  currentMovie: getCurrentMovie(state),  
   activeFilmId: getActiveFilmId(state),
   isDataReady: getReadyData(state),
 
@@ -81,6 +80,7 @@ ControlsBtnList.propTypes = {
   addListClick: PropTypes.func.isRequired,
   removeListClick: PropTypes.func.isRequired,
   currentMovie: PropTypes.any,
+  activeFilmId: PropTypes.any,
 };
 
 export {ControlsBtnList};

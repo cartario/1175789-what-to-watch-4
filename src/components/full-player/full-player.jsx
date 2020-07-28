@@ -6,7 +6,9 @@ import {getFilmsByFilter, getReadyData, getActiveFilmId} from "../../selectors.j
 import {ActionCreator as FilmsReducerAC} from "../../reducer/films-by-genre/films-by-genre.js";
 
 const FullPlayer = (props) => {
-  if(!props.isDataReady) return null;
+  if (!props.isDataReady) {
+    return null;
+  }
 
   const {isPlaying, elapsedTime, exitClickHandler, playChangeHandler,
     fullScreenClickHandler, position, videoRef, match, films, activeFilm, setActiveFilmId, activeFilmId} = props;
@@ -76,14 +78,15 @@ FullPlayer.propTypes = {
   isPlaying: PropTypes.any,
   films: PropTypes.any,
   match: PropTypes.any,
-  activeFilm: PropTypes.any,
+  activeFilmId: PropTypes.any,
+  isDataReady: PropTypes.any,
+  setActiveFilmId: PropTypes.any,
 };
 
 const mapStateToProps = (state) => ({
   films: getFilmsByFilter(state),
   activeFilmId: getActiveFilmId(state),
   isDataReady: getReadyData(state),
-
 });
 
 const mapDispatchToProps = (dispatch) => ({

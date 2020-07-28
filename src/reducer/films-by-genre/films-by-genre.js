@@ -1,13 +1,11 @@
-import films from "../../mocks/films.js";
 import {extend} from "../../utils.js";
 
 const ALL_GENRE = `All genres`;
 
 const initialState = {
-  films,
+  films: [],
   comments: [],
   filmsByGenre: [],
-  // currentMovie: {},
   activeFilmId: 1,
   isDataReady: false,
 };
@@ -18,7 +16,6 @@ export const ActionType = {
   GET_COMMENTS_FROM_SERVER: `GET_COMMENTS_FROM_SERVER`,
   ADD_WATCH_LIST: `ADD_WATCH_LIST`,
   REMOVE_WATCH_LIST: `REMOVE_WATCH_LIST`,
-  SET_ACTIVE_FILM: `SET_ACTIVE_FILM`,
   SET_ACTIVE_FILM_ID: `SET_ACTIVE_FILM_ID`,
   TOGGLE_IS_DATA_READY: `TOGGLE_IS_DATA_READY`,
 };
@@ -26,7 +23,6 @@ export const ActionType = {
 export const ActionCreator = {
 
   loadFilms: (filmsList) => {
-
     return {
       type: ActionType.GET_MOVIES_FROM_SERVER,
       payload: filmsList,
@@ -34,7 +30,6 @@ export const ActionCreator = {
   },
 
   addWatchList: (userId) => {
-
     return {
       type: ActionType.ADD_WATCH_LIST,
       payload: userId,
@@ -45,13 +40,6 @@ export const ActionCreator = {
     return {
       type: ActionType.REMOVE_WATCH_LIST,
       payload: userId,
-    };
-  },
-
-  activeFilm: (film) => {
-    return {
-      type: ActionType.SET_ACTIVE_FILM,
-      payload: film,
     };
   },
 
@@ -95,25 +83,21 @@ const adapter = (data) => {
     runTime: film.run_time,
     isFavorite: film.is_favorite,
     videoLink: film.video_link,
-
   }));
 };
 
 export const Operation = {
-
   loadFilms: () => (dispatch, getState, api) => {
     return api.get(`/films`)
       .then((response) => {
         const dataFromAdapter = adapter(response.data);
         dispatch(ActionCreator.loadFilms(dataFromAdapter));
         dispatch({type: ActionType.GET_MOVIES_BY_FILTER, payload: ALL_GENRE});
-        dispatch({type: ActionType.SET_ACTIVE_FILM, payload: adapter((response.data))[0]});
         dispatch(ActionCreator.setIsDataReady(true));
       });
   },
 
   loadComments: (filmId) => (dispatch, getState, api) => {
-
     return api.get(`/comments/${filmId}`)
       .then((response) => {
         dispatch(ActionCreator.loadComments(response.data));
@@ -122,14 +106,12 @@ export const Operation = {
 };
 
 export const reducer = (state = initialState, action) => {
-
   switch (action.type) {
     case ActionType.GET_MOVIES_BY_FILTER:
       const selectedGenre = action.payload;
       let filteredFilms = [...state.films];
       if (selectedGenre !== ALL_GENRE) {
         filteredFilms = state.films.filter((film) => film.genre === selectedGenre);
-
       }
       return extend(state, {filmsByGenre: filteredFilms});
 
@@ -143,7 +125,6 @@ export const reducer = (state = initialState, action) => {
         }
         return film;
       });
-
       return extend(state, {films: filmsList});
     }
 
@@ -156,11 +137,6 @@ export const reducer = (state = initialState, action) => {
       });
 
       return extend(state, {films: filmsList});
-    }
-
-    case ActionType.SET_ACTIVE_FILM: {
-
-      return extend(state, {currentMovie: action.payload});
     }
 
     case ActionType.GET_COMMENTS_FROM_SERVER:

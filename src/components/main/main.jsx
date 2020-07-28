@@ -13,7 +13,7 @@ import {getAllFilms, getCurrentMovie, getReadyData, getActiveFilmId} from "../..
 const Main = (props) => {
   if(!props.isDataReady) return null;
 
-  const {onMovieButtonClick, films, currentGenre, onFilterClick, authorizationStatus,
+  const {films, currentGenre, onFilterClick, authorizationStatus,
     showMoreClickHandler, showingFilmsCount, isVisible, activeFilmId} = props;
 
   const currentMovie = films.find((film) => film.id === activeFilmId); 
@@ -36,7 +36,7 @@ const Main = (props) => {
             </div>
 
             <div className="movie-card__desc">
-              <h2 onClick = {onMovieButtonClick} className="movie-card__title">{title}</h2>
+              <h2 className="movie-card__title">{title}</h2>
               <p className="movie-card__meta">
                 <span className="movie-card__genre">{genre}</span>
                 <span className="movie-card__year">{released}</span>
@@ -96,21 +96,12 @@ Main.propTypes = {
     YEAR: PropTypes.number.isRequired,
     TITLE: PropTypes.string.isRequired,
   }),
-  onMovieButtonClick: PropTypes.func,
-  filmsByGenre: PropTypes.array.isRequired,
-  films: PropTypes.array.isRequired,
-  activeFilm: PropTypes.func.isRequired,
+
+  
+  films: PropTypes.array.isRequired,  
   currentGenre: PropTypes.string.isRequired,
   onFilterClick: PropTypes.func.isRequired,
-  authorizationStatus: PropTypes.string.isRequired,
-  addListClick: PropTypes.func.isRequired,
-  removeListClick: PropTypes.func.isRequired,
-  currentMovie: PropTypes.shape({
-    title: PropTypes.string,
-    genre: PropTypes.string,
-    released: PropTypes.number,
-    posterImage: PropTypes.string,
-  }),
+  authorizationStatus: PropTypes.string.isRequired,  
   showMoreClickHandler: PropTypes.func.isRequired,
   showingFilmsCount: PropTypes.number.isRequired,
   isVisible: PropTypes.bool.isRequired,

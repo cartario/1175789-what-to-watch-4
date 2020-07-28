@@ -5,14 +5,13 @@ import PropTypes from "prop-types";
 import Tabs from "../tabs/tabs.jsx";
 import ControlsBtnList from "../controls-btn-list/controls-btn-list.jsx";
 import { connect } from "react-redux";
-import {getFilmsByFilter, getCurrentMovie, getReadyData, getActiveFilmId} from "../../selectors.js";
+import {getAllFilms, getReadyData, getActiveFilmId} from "../../selectors.js";
 
 const MoviePage = (props) => {
   // if(!props.isDataReady) return null;
 
   const {films, authorizationStatus, activeFilmId} = props;
-
-
+  
   const currentMovie = films.find((film) => film.id === activeFilmId);
 
   const {title, posterImage, genre, released} = currentMovie;
@@ -52,7 +51,7 @@ const MoviePage = (props) => {
     <div className="movie-card__wrap movie-card__translate-top">
       <div className="movie-card__info">
         <div className="movie-card__poster movie-card__poster--big">
-          <img src={posterImage} alt="The Grand Budapest Hotel poster" width="218" height="327"/>
+          <img src={posterImage} alt={title} width="218" height="327"/>
         </div>
 
         <Tabs/>
@@ -85,21 +84,14 @@ const MoviePage = (props) => {
 };
 
 MoviePage.propTypes = {
-  films: PropTypes.array.isRequired,
-  currentGenre: PropTypes.string.isRequired,
-  onFilterClick: PropTypes.func.isRequired,
-  authorizationStatus: PropTypes.string.isRequired,
-  currentMovie: PropTypes.shape({
-    title: PropTypes.string,
-    genre: PropTypes.string,
-    released: PropTypes.number,
-    posterImage: PropTypes.string,
-  }),
+  films: PropTypes.array.isRequired, 
+  authorizationStatus: PropTypes.string.isRequired, 
 };
 
 const mapStateToProps = (state) => ({
   activeFilmId: getActiveFilmId(state),
   isDataReady: getReadyData(state),
+  films: getAllFilms(state),
 })
 
 export {MoviePage};

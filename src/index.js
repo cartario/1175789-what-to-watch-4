@@ -9,7 +9,6 @@ import {Operation} from "./reducer/films-by-genre/films-by-genre.js";
 import {ActionCreator, AuthorizationStatus} from "./reducer/user/user.js";
 import {createApi} from "./api.js";
 
-
 const onUnauthorized = () => {
   store.dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH));
 };
@@ -21,11 +20,9 @@ const store = createStore(
         applyMiddleware(thunkMiddleware.withExtraArgument(api)),
         window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f
     )
-
 );
 
 store.dispatch(Operation.loadFilms());
-
 
 ReactDOM.render(
 

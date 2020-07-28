@@ -3,7 +3,7 @@ import MovieCard from "../movie-card/movie-card.jsx";
 import PropTypes from "prop-types";
 import {history} from "../../history.js";
 import {connect} from "react-redux";
-import {getFilmsByFilter, getCurrentMovie, getReadyData, getActiveFilmId} from "../../selectors.js";
+import {getFilmsByFilter, getReadyData, getActiveFilmId} from "../../selectors.js";
 import {ActionCreator as FilmsReducerAC} from "../../reducer/films-by-genre/films-by-genre.js";
 
 const MoviesList = (props) => {
@@ -62,7 +62,7 @@ MoviesList.propTypes = {
 
 const mapStateToProps = (state) => ({
   filmsByGenre: getFilmsByFilter(state),
-  currentMovie: getCurrentMovie(state),
+  
   activeFilmId: getActiveFilmId(state),
   isDataReady: getReadyData(state),
 });
