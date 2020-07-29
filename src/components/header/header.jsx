@@ -3,8 +3,6 @@ import {Link} from "react-router-dom";
 import {AuthorizationStatus} from "../../reducer/user/user.js";
 import {AppRoutes} from "../../const.js";
 import PropTypes from "prop-types";
-import {connect} from "react-redux";
-import {getAllFilms} from "../../selectors";
 
 const Header = (props) => {
   const {authorizationStatus, currentMovie} = props;
