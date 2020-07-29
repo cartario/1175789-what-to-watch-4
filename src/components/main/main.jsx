@@ -7,26 +7,27 @@ import ControlsBtnList from "../controls-btn-list/controls-btn-list.jsx";
 import ShowMore from "../show-more/show-more.jsx";
 import withCountFilms from "../../hocs/with-count-films/with-count-films.js";
 import {connect} from "react-redux";
-import {getAllFilms, getCurrentMovie, getReadyData, getActiveFilmId} from "../../selectors.js";
+import {getReadyData, getActiveFilmId} from "../../selectors.js";
 
 
 const Main = (props) => {
-  if(!props.isDataReady) return null;
+  if (!props.isDataReady) {
+    return null;
+  }
 
-  const {films, currentGenre, onFilterClick, authorizationStatus,
-    showMoreClickHandler, showingFilmsCount, isVisible, activeFilmId} = props;
+  const {films, authorizationStatus, currentGenre, onFilterClick,
+    activeFilmId,
+    showMoreClickHandler, showingFilmsCount, isVisible} = props;
 
-  const currentMovie = films.find((film) => film.id === activeFilmId); 
+  const currentMovie = films.find((film) => film.id === activeFilmId);
   const {title, posterImage, genre, released} = currentMovie;
 
   return (
     <React.Fragment>
       <section className="movie-card">
-
         <Header
           films ={films}
           authorizationStatus = {authorizationStatus}
-          
         />
 
         <div className="movie-card__wrap">
@@ -91,17 +92,12 @@ const Main = (props) => {
 };
 
 Main.propTypes = {
-  movieInfo: PropTypes.shape({
-    GENRE: PropTypes.string.isRequired,
-    YEAR: PropTypes.number.isRequired,
-    TITLE: PropTypes.string.isRequired,
-  }),
-
-  
-  films: PropTypes.array.isRequired,  
+  films: PropTypes.array.isRequired,
   currentGenre: PropTypes.string.isRequired,
   onFilterClick: PropTypes.func.isRequired,
-  authorizationStatus: PropTypes.string.isRequired,  
+  authorizationStatus: PropTypes.string.isRequired,
+  activeFilmId: PropTypes.any,
+  isDataReady: PropTypes.any,
   showMoreClickHandler: PropTypes.func.isRequired,
   showingFilmsCount: PropTypes.number.isRequired,
   isVisible: PropTypes.bool.isRequired,
@@ -110,7 +106,6 @@ Main.propTypes = {
 const mapStateToProps = (state) => ({
   isDataReady: getReadyData(state),
   activeFilmId: getActiveFilmId(state),
-  films: getAllFilms(state),
-})
-export {Main}
+});
+export {Main};
 export default withCountFilms(connect(mapStateToProps)(Main));

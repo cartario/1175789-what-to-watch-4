@@ -47,7 +47,7 @@ const Tabs = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-  
+
   activeFilmId: getActiveFilmId(state),
   isDataReady: getReadyData(state),
   films: getAllFilms(state),
@@ -66,6 +66,8 @@ Tabs.propTypes = {
   loadComments: PropTypes.func,
   clickHandler: PropTypes.func,
   currentTab: PropTypes.string,
+  films: PropTypes.any,
+  activeFilmId: PropTypes.any,
 };
 
 export {Tabs};

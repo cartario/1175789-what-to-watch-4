@@ -4,14 +4,14 @@ import Header from "../header/header.jsx";
 import PropTypes from "prop-types";
 import Tabs from "../tabs/tabs.jsx";
 import ControlsBtnList from "../controls-btn-list/controls-btn-list.jsx";
-import { connect } from "react-redux";
+import {connect} from "react-redux";
 import {getAllFilms, getReadyData, getActiveFilmId} from "../../selectors.js";
 
 const MoviePage = (props) => {
   // if(!props.isDataReady) return null;
 
   const {films, authorizationStatus, activeFilmId} = props;
-  
+
   const currentMovie = films.find((film) => film.id === activeFilmId);
 
   const {title, posterImage, genre, released} = currentMovie;
@@ -84,15 +84,17 @@ const MoviePage = (props) => {
 };
 
 MoviePage.propTypes = {
-  films: PropTypes.array.isRequired, 
-  authorizationStatus: PropTypes.string.isRequired, 
+  films: PropTypes.array.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
+  isDataReady: PropTypes.any,
+  activeFilmId: PropTypes.any,
 };
 
 const mapStateToProps = (state) => ({
   activeFilmId: getActiveFilmId(state),
   isDataReady: getReadyData(state),
   films: getAllFilms(state),
-})
+});
 
 export {MoviePage};
-export default connect(mapStateToProps)(MoviePage)
+export default connect(mapStateToProps)(MoviePage);

@@ -11,7 +11,7 @@ const FullPlayer = (props) => {
   }
 
   const {isPlaying, elapsedTime, exitClickHandler, playChangeHandler,
-    fullScreenClickHandler, position, videoRef, match, films, activeFilm, setActiveFilmId, activeFilmId} = props;
+    fullScreenClickHandler, position, videoRef, match, films, setActiveFilmId, activeFilmId} = props;
 
 
   const currentMovie = films.find((film) => film.id === activeFilmId);
