@@ -1,4 +1,4 @@
-import React, {PureComponent} from 'react';
+import React, {PureComponent} from "react";
 import {TabNames} from "../../const.js";
 
 const withActiveTabs = (Component) => {
@@ -20,7 +20,11 @@ const withActiveTabs = (Component) => {
     render() {
       const {currentTab} = this.state;
       return (
-        <Component currentTab={currentTab} clickHandler = {this.clickHandler}/>
+        <Component
+          currentTab={currentTab}
+          clickHandler={this.clickHandler}
+          {...this.props}
+        />
       );
     }
   }

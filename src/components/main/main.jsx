@@ -6,8 +6,6 @@ import GenresList from "../genres-list/genres-list.jsx";
 import ControlsBtnList from "../controls-btn-list/controls-btn-list.jsx";
 import ShowMore from "../show-more/show-more.jsx";
 import withCountFilms from "../../hocs/with-count-films/with-count-films.js";
-import {connect} from "react-redux";
-import {getActiveFilmId} from "../../selectors.js";
 
 const Main = (props) => {
   const {
@@ -15,19 +13,22 @@ const Main = (props) => {
     authorizationStatus,
     currentGenre,
     onFilterClick,
-    activeFilmId,
     showMoreClickHandler,
     showingFilmsCount,
     isVisible,
   } = props;
 
-  const currentMovie = films.find((film) => film.id === activeFilmId);
+  const currentMovie = films.find((film) => film.id === 1);
   const {title, posterImage, genre, released} = currentMovie;
 
   return (
     <React.Fragment>
       <section className="movie-card">
-        <Header films={films} authorizationStatus={authorizationStatus} />
+        <Header
+          films={films}
+          authorizationStatus={authorizationStatus}
+          currentMovie={films[0]}
+        />
 
         <div className="movie-card__wrap">
           <div className="movie-card__info">
@@ -92,14 +93,10 @@ Main.propTypes = {
   currentGenre: PropTypes.string.isRequired,
   onFilterClick: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
-  activeFilmId: PropTypes.any,
   showMoreClickHandler: PropTypes.func.isRequired,
   showingFilmsCount: PropTypes.number.isRequired,
   isVisible: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  activeFilmId: getActiveFilmId(state),
-});
 export {Main};
-export default withCountFilms(connect(mapStateToProps)(Main));
+export default withCountFilms(Main);

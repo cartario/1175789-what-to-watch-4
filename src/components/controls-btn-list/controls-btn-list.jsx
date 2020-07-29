@@ -1,38 +1,27 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {getAllFilms, getActiveFilmId} from "../../selectors.js";
 import {ActionCreator as FilmsReducerAC} from "../../reducer/films-by-genre/films-by-genre.js";
 import {Link} from "react-router-dom";
 import {AppRoutes} from "../../const.js";
 
 const ControlsBtnList = (props) => {
-  const {films, addListClick, removeListClick, activeFilmId} = props;
-
-  const currentMovie = films.find((film) => film.id === activeFilmId);
+  const {addListClick, removeListClick, activeFilmId = 1} = props;
 
   const addListHandler = () => {
-    addListClick(currentId);
+    addListClick(activeFilmId);
   };
 
   const removeListHandler = () => {
-    removeListClick(currentId);
+    removeListClick(activeFilmId);
   };
 
-  let isListed;
-
-  const currentId = currentMovie.id;
-
-  const currentFilm = films.filter((film) => film.id === currentId)[0];
-
-  if (currentFilm) {
-    isListed = currentFilm.isFavorite;
-  }
+  const isListed = false;
 
   return (
     <>
       <Link
-        to={`${AppRoutes.PLAYER}/${currentMovie.id}`}
+        to={`${AppRoutes.PLAYER}/${activeFilmId}`}
         className="btn btn--play movie-card__button"
         type="button"
       >
@@ -69,11 +58,6 @@ const ControlsBtnList = (props) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  films: getAllFilms(state),
-  activeFilmId: getActiveFilmId(state),
-});
-
 const mapDispatchToProps = (dispatch) => ({
   addListClick(currentId) {
     dispatch(FilmsReducerAC.addWatchList(currentId));
@@ -85,7 +69,6 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 ControlsBtnList.propTypes = {
-  films: PropTypes.array.isRequired,
   addListClick: PropTypes.func.isRequired,
   removeListClick: PropTypes.func.isRequired,
   currentMovie: PropTypes.any,
@@ -93,4 +76,4 @@ ControlsBtnList.propTypes = {
 };
 
 export {ControlsBtnList};
-export default connect(mapStateToProps, mapDispatchToProps)(ControlsBtnList);
+export default connect(null, mapDispatchToProps)(ControlsBtnList);

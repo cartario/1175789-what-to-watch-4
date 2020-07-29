@@ -35,7 +35,6 @@ const withCard = (Component) => {
         this._timeout = setTimeout(() => {
           this._videoRef.current.play();
         }, 1000);
-
       } else {
         clearTimeout(this._timeout);
         video.load();
@@ -66,11 +65,11 @@ const withCard = (Component) => {
     render() {
       return (
         <Component
+          videoRef={this._videoRef}
+          handlerMouseOver={this._handlerMouseOver}
+          handlerMouseLeave={this._handlerMouseLeave}
           {...this.props}
-          videoRef = {this._videoRef}
-          handlerMouseOver = {this._handlerMouseOver}
-          handlerMouseLeave = {this._handlerMouseLeave}>
-        </Component>
+        ></Component>
       );
     }
   }

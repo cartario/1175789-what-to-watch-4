@@ -5,12 +5,12 @@ import PropTypes from "prop-types";
 import Tabs from "../tabs/tabs.jsx";
 import ControlsBtnList from "../controls-btn-list/controls-btn-list.jsx";
 import {connect} from "react-redux";
-import {getAllFilms, getActiveFilmId} from "../../selectors.js";
+import {getAllFilms} from "../../selectors.js";
 
 const MoviePage = (props) => {
   const {films, authorizationStatus, activeFilmId} = props;
 
-  const currentMovie = films.find((film) => film.id === activeFilmId);
+  const currentMovie = films.find((film) => film.id === Number(activeFilmId));
 
   const {title, posterImage, genre, released} = currentMovie;
 
@@ -35,7 +35,7 @@ const MoviePage = (props) => {
               </p>
 
               <div className="movie-card__buttons">
-                <ControlsBtnList />
+                <ControlsBtnList activeFilmId={activeFilmId} />
 
                 <a href="add-review.html" className="btn movie-card__button">
                   Add review
@@ -51,7 +51,7 @@ const MoviePage = (props) => {
               <img src={posterImage} alt={title} width="218" height="327" />
             </div>
 
-            <Tabs />
+            <Tabs activeFilmId={activeFilmId}/>
           </div>
         </div>
       </section>
@@ -59,7 +59,7 @@ const MoviePage = (props) => {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          <MoviesList showSimilar={showSimilar} />
+          <MoviesList showSimilar={showSimilar} activeFilmId={activeFilmId}/>
         </section>
 
         <footer className="page-footer">
@@ -87,7 +87,6 @@ MoviePage.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  activeFilmId: getActiveFilmId(state),
   films: getAllFilms(state),
 });
 

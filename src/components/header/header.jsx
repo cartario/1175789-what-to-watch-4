@@ -4,12 +4,11 @@ import {AuthorizationStatus} from "../../reducer/user/user.js";
 import {AppRoutes} from "../../const.js";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {ActionCreator as FilmsReducerAC} from "../../reducer/films-by-genre/films-by-genre.js";
-import {getActiveFilmId, getAllFilms} from "../../selectors";
+import {getAllFilms} from "../../selectors";
 
 const Header = (props) => {
-  const {authorizationStatus, activeFilmId, films} = props;
-  const currentMovie = films.find((film) => film.id === activeFilmId);
+  const {authorizationStatus, currentMovie} = props;
+
   const {title, backgroundImage} = currentMovie;
   return (
     <>
@@ -57,7 +56,6 @@ Header.propTypes = {
         backgroundImage: PropTypes.string,
       })
   ),
-  activeFilmId: PropTypes.any.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
   currentMovie: PropTypes.shape({
     title: PropTypes.string,
@@ -65,18 +63,4 @@ Header.propTypes = {
   }),
 };
 
-const mapStateToProps = (state) => {
-  return {
-    activeFilmId: getActiveFilmId(state),
-    films: getAllFilms(state),
-  };
-};
-
-const mapDispatchToProps = (dispatch) => ({
-  setActiveFilmId(filmId) {
-    dispatch(FilmsReducerAC.setActiveFilmId(filmId));
-  },
-});
-
-export {Header};
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default Header;

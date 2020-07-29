@@ -13,16 +13,11 @@ export const getFilmsByFilter = (state) => {
 };
 
 export const getAuthorizationStatus = (state) => {
-
   return state[NameSpace.USER].authorizationStatus;
 };
 
 export const getAllComments = (state) => {
   return state[NameSpace.FILMS].comments;
-};
-
-export const getActiveFilmId = (state) => {
-  return state[NameSpace.FILMS].activeFilmId;
 };
 
 export const getReadyData = (state) => {

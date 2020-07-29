@@ -2,11 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import withFullPlayer from "../../hocs/with-fullplayer/with-fullplayer.js";
 import {connect} from "react-redux";
-import {getFilmsByFilter, getActiveFilmId} from "../../selectors.js";
-import {ActionCreator as FilmsReducerAC} from "../../reducer/films-by-genre/films-by-genre.js";
+import {getFilmsByFilter} from "../../selectors.js";
 
 const FullPlayer = (props) => {
-
   const {
     isPlaying,
     elapsedTime,
@@ -17,21 +15,13 @@ const FullPlayer = (props) => {
     videoRef,
     match,
     films,
-    setActiveFilmId,
-    activeFilmId,
   } = props;
 
-  const currentMovie = films.find((film) => film.id === activeFilmId);
+  const currentMovie = films.find(
+      (film) => film.id === Number(match.params.id)
+  );
 
   const {posterImage, videoLink} = currentMovie;
-  const currentUrlId = match.params.id;
-
-  setActiveFilmId(Number(currentUrlId));
-  // if (currentUrlId !== undefined && films.length !== 0) {
-  //   const currentFilm = films.find((film) => film.id === Number(currentUrlId));
-  //   // activeFilm(currentFilm);
-  //   setActiveFilmId(Number(currentUrlId))
-  // }
 
   return (
     <>
@@ -111,27 +101,11 @@ FullPlayer.propTypes = {
   isPlaying: PropTypes.any,
   films: PropTypes.any,
   match: PropTypes.any,
-  activeFilmId: PropTypes.any,
-  setActiveFilmId: PropTypes.any,
 };
 
 const mapStateToProps = (state) => ({
   films: getFilmsByFilter(state),
-  activeFilmId: getActiveFilmId(state),
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  activeFilm(film) {
-    dispatch(FilmsReducerAC.activeFilm(film));
-  },
-
-  setActiveFilmId(filmId) {
-    dispatch(FilmsReducerAC.setActiveFilmId(filmId));
-  },
-});
-
-const connectedFullPlayer = connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(FullPlayer);
+const connectedFullPlayer = connect(mapStateToProps)(FullPlayer);
 export default withFullPlayer(connectedFullPlayer);

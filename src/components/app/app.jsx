@@ -51,9 +51,15 @@ const App = (props) => {
         <Route exact path={AppRoutes.MY_LIST}>
           <h1>MyList</h1>
         </Route>
-        <Route path={AppRoutes.MOVIE_PAGE}>
-          <MoviePage authorizationStatus={authorizationStatus} />
-        </Route>
+        <Route
+          path={`${AppRoutes.MOVIE_PAGE}/:id`}
+          render={({match}) => (
+            <MoviePage
+              authorizationStatus={authorizationStatus}
+              activeFilmId={match.params.id}
+            />
+          )}
+        ></Route>
         <Route
           path={`${AppRoutes.PLAYER}/:id`}
           render={(pros) => {
