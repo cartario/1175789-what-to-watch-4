@@ -1,7 +1,6 @@
-import React, {PureComponent, createRef} from 'react';
+import React, {PureComponent, createRef} from "react";
 import {getTimeElapsed, getPosition} from "../../utils.js";
 import {history} from "../../history.js";
-
 
 const withFullPlayer = (Component) => {
   class WithFullPlayer extends PureComponent {
@@ -18,6 +17,7 @@ const withFullPlayer = (Component) => {
       this._exitClickHandler = this._exitClickHandler.bind(this);
       this._playChangeHandler = this._playChangeHandler.bind(this);
       this._fullScreenClickHandler = this._fullScreenClickHandler.bind(this);
+      this._updateTime = this._updateTime.bind(this);
     }
 
     componentDidMount() {
@@ -26,16 +26,13 @@ const withFullPlayer = (Component) => {
         video.play();
         video.muted = true;
 
-        video.ontimeupdate = () => this.setState({
-          currentTime: Math.trunc(video.currentTime),
-        });
+        video.ontimeupdate = this._updateTime;
 
-        video.onloadedmetadata = () => this.setState({
-          duration: Math.trunc(video.duration),
-        });
+        video.onloadedmetadata = () =>
+          this.setState({
+            duration: Math.trunc(video.duration),
+          });
       }
-
-
     }
 
     componentDidUpdate() {
@@ -64,9 +61,18 @@ const withFullPlayer = (Component) => {
       });
     }
 
+    _updateTime() {
+      if (this._videoRef.current) {
+        this.setState({
+          currentTime: Math.trunc(this._videoRef.current.currentTime),
+        });
+      }
+    }
+
     componentWillUnmount() {
       const video = this._videoRef.current;
       video.src = ``;
+      video.removeEventListener(`timeupdate`, this._updateTime);
       // video.poster = ``;
       // video.width = null;
       // video.height = null;
@@ -74,18 +80,21 @@ const withFullPlayer = (Component) => {
     }
 
     render() {
-
-      const elapsedTime = getTimeElapsed(this.state.duration, this.state.currentTime);
+      const elapsedTime = getTimeElapsed(
+          this.state.duration,
+          this.state.currentTime
+      );
       const position = getPosition(this.state.currentTime, this.state.duration);
       return (
-        <Component {...this.props}
-          videoRef= {this._videoRef}
-          elapsedTime = {elapsedTime}
-          position = {position}
-          exitClickHandler = {this._exitClickHandler}
-          playChangeHandler = {this._playChangeHandler}
-          fullScreenClickHandler = {this._fullScreenClickHandler}
-          isPlaying = {this.state.isPlaying}
+        <Component
+          {...this.props}
+          videoRef={this._videoRef}
+          elapsedTime={elapsedTime}
+          position={position}
+          exitClickHandler={this._exitClickHandler}
+          playChangeHandler={this._playChangeHandler}
+          fullScreenClickHandler={this._fullScreenClickHandler}
+          isPlaying={this.state.isPlaying}
         />
       );
     }
@@ -97,6 +106,5 @@ const withFullPlayer = (Component) => {
 
   return WithFullPlayer;
 };
-
 
 export default withFullPlayer;
