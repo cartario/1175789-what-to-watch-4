@@ -64,7 +64,6 @@ MoviesList.propTypes = {
   mode: PropTypes.string,
   showSimilar: PropTypes.string,
   showingFilmsCount: PropTypes.number,
-  isDataReady: PropTypes.any,
   activeFilmId: PropTypes.any,
   setActiveFilmId: PropTypes.any,
 };

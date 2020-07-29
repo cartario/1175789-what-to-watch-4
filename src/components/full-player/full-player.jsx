@@ -6,9 +6,6 @@ import {getFilmsByFilter, getActiveFilmId} from "../../selectors.js";
 import {ActionCreator as FilmsReducerAC} from "../../reducer/films-by-genre/films-by-genre.js";
 
 const FullPlayer = (props) => {
-  if (!props.isDataReady) {
-    return null;
-  }
 
   const {
     isPlaying,
@@ -115,7 +112,6 @@ FullPlayer.propTypes = {
   films: PropTypes.any,
   match: PropTypes.any,
   activeFilmId: PropTypes.any,
-  isDataReady: PropTypes.any,
   setActiveFilmId: PropTypes.any,
 };
 

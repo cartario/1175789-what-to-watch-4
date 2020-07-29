@@ -58,7 +58,6 @@ Header.propTypes = {
       })
   ),
   activeFilmId: PropTypes.any.isRequired,
-  isDataReady: PropTypes.any.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
   currentMovie: PropTypes.shape({
     title: PropTypes.string,

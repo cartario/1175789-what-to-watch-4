@@ -71,6 +71,7 @@ App.propTypes = {
   login: PropTypes.func.isRequired,
   currentGenre: PropTypes.string.isRequired,
   onFilterClick: PropTypes.func.isRequired,
+  isDataReady: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({

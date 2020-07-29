@@ -83,7 +83,6 @@ const MoviePage = (props) => {
 MoviePage.propTypes = {
   films: PropTypes.array.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
-  isDataReady: PropTypes.any,
   activeFilmId: PropTypes.any,
 };
 

@@ -93,7 +93,6 @@ Main.propTypes = {
   onFilterClick: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
   activeFilmId: PropTypes.any,
-  isDataReady: PropTypes.any,
   showMoreClickHandler: PropTypes.func.isRequired,
   showingFilmsCount: PropTypes.number.isRequired,
   isVisible: PropTypes.bool.isRequired,
