@@ -7,7 +7,12 @@ import {history} from "../../history.js";
 import {Switch, Route, Router} from "react-router-dom";
 
 import {connect} from "react-redux";
-import {getCurrentGenre, getAllFilms, getAuthorizationStatus} from "../../selectors.js";
+import {
+  getCurrentGenre,
+  getAllFilms,
+  getAuthorizationStatus,
+  getReadyData,
+} from "../../selectors.js";
 import {ActionCreator} from "../../reducer/reducer.js";
 import {Operation as UserOperation} from "../../reducer/user/user.js";
 
@@ -17,37 +22,42 @@ import MoviePage from "../movie-page/movie-page.jsx";
 import FullPlayer from "../full-player/full-player.jsx";
 
 const App = (props) => {
-  const {films, authorizationStatus, login, currentGenre, onFilterClick} = props;
+  const {
+    films,
+    authorizationStatus,
+    login,
+    currentGenre,
+    onFilterClick,
+  } = props;
+
+  if (!props.isDataReady) {
+    return null;
+  }
 
   return (
-    <Router history = {history}>
+    <Router history={history}>
       <Switch>
         <Route exact path={AppRoutes.ROOT}>
           <Main
-            films = {films}
-            authorizationStatus= {authorizationStatus}
-            currentGenre = {currentGenre}
-            onFilterClick = {onFilterClick}
+            films={films}
+            authorizationStatus={authorizationStatus}
+            currentGenre={currentGenre}
+            onFilterClick={onFilterClick}
           />
         </Route>
         <Route exact path={AppRoutes.LOGIN}>
-          <SignIn login = {login}/>
+          <SignIn login={login} />
         </Route>
         <Route exact path={AppRoutes.MY_LIST}>
           <h1>MyList</h1>
         </Route>
         <Route path={AppRoutes.MOVIE_PAGE}>
-          <MoviePage
-            authorizationStatus= {authorizationStatus}
-          />
+          <MoviePage authorizationStatus={authorizationStatus} />
         </Route>
-        <Route path={`${AppRoutes.PLAYER}/:id`}
-          render = {(pros) => {
-            return (
-              <FullPlayer
-                match = {pros.match}
-              />
-            );
+        <Route
+          path={`${AppRoutes.PLAYER}/:id`}
+          render={(pros) => {
+            return <FullPlayer match={pros.match} />;
           }}
         />
       </Switch>
@@ -67,6 +77,7 @@ const mapStateToProps = (state) => ({
   films: getAllFilms(state),
   authorizationStatus: getAuthorizationStatus(state),
   currentGenre: getCurrentGenre(state),
+  isDataReady: getReadyData(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

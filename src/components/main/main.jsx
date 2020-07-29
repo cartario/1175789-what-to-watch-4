@@ -7,17 +7,19 @@ import ControlsBtnList from "../controls-btn-list/controls-btn-list.jsx";
 import ShowMore from "../show-more/show-more.jsx";
 import withCountFilms from "../../hocs/with-count-films/with-count-films.js";
 import {connect} from "react-redux";
-import {getReadyData, getActiveFilmId} from "../../selectors.js";
-
+import {getActiveFilmId} from "../../selectors.js";
 
 const Main = (props) => {
-  if (!props.isDataReady) {
-    return null;
-  }
-
-  const {films, authorizationStatus, currentGenre, onFilterClick,
+  const {
+    films,
+    authorizationStatus,
+    currentGenre,
+    onFilterClick,
     activeFilmId,
-    showMoreClickHandler, showingFilmsCount, isVisible} = props;
+    showMoreClickHandler,
+    showingFilmsCount,
+    isVisible,
+  } = props;
 
   const currentMovie = films.find((film) => film.id === activeFilmId);
   const {title, posterImage, genre, released} = currentMovie;
@@ -25,15 +27,12 @@ const Main = (props) => {
   return (
     <React.Fragment>
       <section className="movie-card">
-        <Header
-          films ={films}
-          authorizationStatus = {authorizationStatus}
-        />
+        <Header films={films} authorizationStatus={authorizationStatus} />
 
         <div className="movie-card__wrap">
           <div className="movie-card__info">
             <div className="movie-card__poster">
-              <img src={posterImage} alt={title} width="218" height="327"/>
+              <img src={posterImage} alt={title} width="218" height="327" />
             </div>
 
             <div className="movie-card__desc">
@@ -44,9 +43,7 @@ const Main = (props) => {
               </p>
 
               <div className="movie-card__buttons">
-
-                <ControlsBtnList/>
-
+                <ControlsBtnList />
               </div>
             </div>
           </div>
@@ -54,23 +51,22 @@ const Main = (props) => {
       </section>
 
       <div className="page-content">
-
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
           <GenresList
-            films = {films}
+            films={films}
             currentGenre={currentGenre}
-            onFilterClick = {onFilterClick}
+            onFilterClick={onFilterClick}
           />
 
-          <MoviesList
-            showingFilmsCount = {showingFilmsCount}
-          />
+          <MoviesList showingFilmsCount={showingFilmsCount} />
 
-          {isVisible ?
-            <ShowMore showMoreClickHandler = {showMoreClickHandler}/>
-            : ``}
+          {isVisible ? (
+            <ShowMore showMoreClickHandler={showMoreClickHandler} />
+          ) : (
+            ``
+          )}
         </section>
 
         <footer className="page-footer">
@@ -104,7 +100,6 @@ Main.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  isDataReady: getReadyData(state),
   activeFilmId: getActiveFilmId(state),
 });
 export {Main};
