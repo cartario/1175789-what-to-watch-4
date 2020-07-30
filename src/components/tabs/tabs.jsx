@@ -6,37 +6,52 @@ import Reviews from "./reviews/reviews.jsx";
 import {TabNames} from "../../const.js";
 import {Operation} from "../../reducer/films-by-genre/films-by-genre.js";
 import {connect} from "react-redux";
-import {getCurrentMovie} from "../../selectors.js";
+import {getAllFilms} from "../../selectors.js";
 import withActiveTabs from "../../hocs/with-active-tabs/with-active-tabs.js";
 
 const renderCurrentTab = (currentTab, currentMovie) => {
   switch (currentTab) {
     case TabNames.DETAILS:
-      return <Details currentMovie = {currentMovie}/>;
+      return <Details currentMovie={currentMovie} />;
     case TabNames.REVIEWS:
-      return <Reviews/>;
-    default :
-      return <Overview currentMovie = {currentMovie}/>;
+      return <Reviews />;
+    default:
+      return <Overview currentMovie={currentMovie} />;
   }
 };
 
 const Tabs = (props) => {
-  const {clickHandler, currentTab, currentMovie, loadComments} = props;
+  const {clickHandler, currentTab, loadComments, films, activeFilmId} = props;
+
+  const currentMovie = films.find((film) => film.id === Number(activeFilmId));
 
   return (
     <>
       <div className="movie-card__desc">
         <nav className="movie-nav movie-card__nav">
           <ul className="movie-nav__list">
-            {Object.values(TabNames).map((tab) =>
-              <li key = {tab}
-                onClick = { ()=>{
+            {Object.values(TabNames).map((tab) => (
+              <li
+                key={tab}
+                onClick={() => {
                   clickHandler(tab);
-                  loadComments(currentMovie.id);
-                } } className={currentTab === tab ? `movie-nav__item movie-nav__item--active` : `movie-nav__item`}>
-                <a onClick={(e)=>e.preventDefault()} href="#" className="movie-nav__link">{tab}</a>
+                  loadComments(activeFilmId);
+                }}
+                className={
+                  currentTab === tab
+                    ? `movie-nav__item movie-nav__item--active`
+                    : `movie-nav__item`
+                }
+              >
+                <a
+                  onClick={(e) => e.preventDefault()}
+                  href="#"
+                  className="movie-nav__link"
+                >
+                  {tab}
+                </a>
               </li>
-            )}
+            ))}
           </ul>
         </nav>
         {renderCurrentTab(currentTab, currentMovie)}
@@ -46,13 +61,13 @@ const Tabs = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-  currentMovie: getCurrentMovie(state),
+  films: getAllFilms(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   loadComments(filmId) {
     dispatch(Operation.loadComments(filmId));
-  }
+  },
 });
 
 Tabs.propTypes = {
@@ -62,7 +77,11 @@ Tabs.propTypes = {
   loadComments: PropTypes.func,
   clickHandler: PropTypes.func,
   currentTab: PropTypes.string,
+  films: PropTypes.any,
+  activeFilmId: PropTypes.any,
 };
 
 export {Tabs};
-export default withActiveTabs(connect(mapStateToProps, mapDispatchToProps)(Tabs));
+export default withActiveTabs(
+    connect(mapStateToProps, mapDispatchToProps)(Tabs)
+);

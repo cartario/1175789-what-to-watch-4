@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {getAllComments} from "../../../selectors.js";
+import {getDateFormat} from "../../../utils.js";
 
 const Reviews = (props) => {
   const {comments} = props;
@@ -11,17 +12,20 @@ const Reviews = (props) => {
     <div className="movie-card__reviews movie-card__row">
       <div className="movie-card__reviews-col">
         {comments.map((comment) =>
+
           <div key={comment.date} className="review">
             <blockquote className="review__quote">
               <p className="review__text">{comment.comment}</p>
               <footer className="review__details">
                 <cite className="review__author">{comment.user.name}</cite>
-                <time className="review__date" dateTime={comment.date}>{comment.date}</time>
+                <time className="review__date" dateTime={comment.date}>{getDateFormat(comment.date)}</time>
               </footer>
             </blockquote>
             <div className="review__rating">{comment.rating}</div>
           </div>
-        )}
+        )
+
+        }
       </div>
     </div>
     </>

@@ -1,62 +1,62 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {getAllFilms, getCurrentMovie} from "../../selectors.js";
 import {ActionCreator as FilmsReducerAC} from "../../reducer/films-by-genre/films-by-genre.js";
+import {Link} from "react-router-dom";
+import {AppRoutes} from "../../const.js";
 
 const ControlsBtnList = (props) => {
-  const {films, addListClick, removeListClick} = props;
+  const {addListClick, removeListClick, activeFilmId = 1} = props;
 
   const addListHandler = () => {
-    addListClick(currentId);
+    addListClick(activeFilmId);
   };
 
   const removeListHandler = () => {
-    removeListClick(currentId);
+    removeListClick(activeFilmId);
   };
 
-  let isListed;
-
-  const currentId = 3;
-
-  const currentFilm = films.filter((film)=> film.id === currentId)[0];
-
-  if (currentFilm) {
-    isListed = currentFilm.isFavorite;
-  }
+  const isListed = false;
 
   return (
     <>
-      <button className="btn btn--play movie-card__button" type="button">
+      <Link
+        to={`${AppRoutes.PLAYER}/${activeFilmId}`}
+        className="btn btn--play movie-card__button"
+        type="button"
+      >
         <svg viewBox="0 0 19 19" width="19" height="19">
           <use xlinkHref="#play-s"></use>
         </svg>
         <span>Play</span>
-      </button>
+      </Link>
 
-
-    {isListed ?
-      <button onClick={removeListHandler} className="btn btn--list movie-card__button" type="button">
-        <svg viewBox="0 0 19 20" width="19" height="20">
-          <use xlinkHref="#in-list"></use>
-        </svg>
-        <span>My list</span>
-      </button>
-      :
-      <button onClick={addListHandler} className="btn btn--list movie-card__button" type="button">
-        <svg viewBox="0 0 19 20" width="19" height="20">
-          <use xlinkHref="#add"></use>
-        </svg>
-        <span>My list</span>
-      </button>}
+      {isListed ? (
+        <button
+          onClick={removeListHandler}
+          className="btn btn--list movie-card__button"
+          type="button"
+        >
+          <svg viewBox="0 0 19 20" width="19" height="20">
+            <use xlinkHref="#in-list"></use>
+          </svg>
+          <span>My list</span>
+        </button>
+      ) : (
+        <button
+          onClick={addListHandler}
+          className="btn btn--list movie-card__button"
+          type="button"
+        >
+          <svg viewBox="0 0 19 20" width="19" height="20">
+            <use xlinkHref="#add"></use>
+          </svg>
+          <span>My list</span>
+        </button>
+      )}
     </>
   );
 };
-
-const mapStateToProps = (state) => ({
-  films: getAllFilms(state),
-  currentMovie: getCurrentMovie(state),
-});
 
 const mapDispatchToProps = (dispatch) => ({
   addListClick(currentId) {
@@ -66,14 +66,14 @@ const mapDispatchToProps = (dispatch) => ({
   removeListClick(currentId) {
     dispatch(FilmsReducerAC.removeWatchList(currentId));
   },
-
 });
 
 ControlsBtnList.propTypes = {
-  films: PropTypes.array.isRequired,
   addListClick: PropTypes.func.isRequired,
   removeListClick: PropTypes.func.isRequired,
+  currentMovie: PropTypes.any,
+  activeFilmId: PropTypes.any,
 };
 
 export {ControlsBtnList};
-export default connect(mapStateToProps, mapDispatchToProps)(ControlsBtnList);
+export default connect(null, mapDispatchToProps)(ControlsBtnList);

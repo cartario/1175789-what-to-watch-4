@@ -1,83 +1,90 @@
 import React from "react";
-import Main from "../main/main.jsx";
-import SignIn from "../sign-in/sign-in.jsx";
 import PropTypes from "prop-types";
-import {connect} from "react-redux";
-import {ActionCreator} from "../../reducer/reducer.js";
-import {Operation as UserOperation} from "../../reducer/user/user.js";
-import {ActionCreator as FilmsReducerAC} from "../../reducer/films-by-genre/films-by-genre.js";
-// import {AuthorizationStatus} from "../../reducer/user/user.js";
+
+import {AppRoutes} from "../../const.js";
+
 import {history} from "../../history.js";
 import {Switch, Route, Router} from "react-router-dom";
-import {AppRoutes} from "../../const.js";
+
+import {connect} from "react-redux";
+import {
+  getCurrentGenre,
+  getAllFilms,
+  getAuthorizationStatus,
+  getReadyData,
+} from "../../selectors.js";
+import {ActionCreator} from "../../reducer/reducer.js";
+import {Operation as UserOperation} from "../../reducer/user/user.js";
+
+import Main from "../main/main.jsx";
+import SignIn from "../sign-in/sign-in.jsx";
 import MoviePage from "../movie-page/movie-page.jsx";
-import {getCurrentGenre, getCurrentMovie, getAllFilms, getFilmsByFilter, getAuthorizationStatus} from "../../selectors.js";
-import withCountFilms from "../../hocs/with-count-films/with-count-films.js";
-
-const onMovieButtonClick = () => {};
-
-const MainWrapped = withCountFilms(Main);
+import FullPlayer from "../full-player/full-player.jsx";
 
 const App = (props) => {
-  const {films, filmsByGenre, currentGenre, onFilterClick, login, authorizationStatus,
-    addListClick, removeListClick, activeFilm, currentMovie} = props;
+  const {
+    films,
+    authorizationStatus,
+    login,
+    currentGenre,
+    onFilterClick,
+  } = props;
+
+  if (!props.isDataReady) {
+    return null;
+  }
 
   return (
-    <Router history = {history}>
+    <Router history={history}>
       <Switch>
         <Route exact path={AppRoutes.ROOT}>
-          <MainWrapped
-            onMovieButtonClick = {onMovieButtonClick}
-            films = {films}
-            filmsByGenre = {filmsByGenre}
-            currentGenre = {currentGenre}
-            onFilterClick = {onFilterClick}
-            authorizationStatus= {authorizationStatus}
-            addListClick = {addListClick}
-            removeListClick = {removeListClick}
-            activeFilm = {activeFilm}
-            currentMovie={currentMovie}
+          <Main
+            films={films}
+            authorizationStatus={authorizationStatus}
+            currentGenre={currentGenre}
+            onFilterClick={onFilterClick}
           />
         </Route>
         <Route exact path={AppRoutes.LOGIN}>
-          <SignIn login = {login}/>
+          <SignIn login={login} />
         </Route>
         <Route exact path={AppRoutes.MY_LIST}>
           <h1>MyList</h1>
         </Route>
-        <Route path={AppRoutes.MOVIE_PAGE}>
-          <MoviePage
-            authorizationStatus= {authorizationStatus}
-            films={films}
-            currentMovie={currentMovie}
-            onFilterClick = {onFilterClick}
-            currentGenre = {currentGenre}/>
-        </Route>
+        <Route
+          path={`${AppRoutes.MOVIE_PAGE}/:id`}
+          render={({match}) => (
+            <MoviePage
+              authorizationStatus={authorizationStatus}
+              activeFilmId={match.params.id}
+            />
+          )}
+        ></Route>
+        <Route
+          path={`${AppRoutes.PLAYER}/:id`}
+          render={(pros) => {
+            return <FullPlayer match={pros.match} />;
+          }}
+        />
       </Switch>
     </Router>
   );
 };
 
 App.propTypes = {
-  onMovieButtonClick: PropTypes.func,
   films: PropTypes.array.isRequired,
-  filmsByGenre: PropTypes.array.isRequired,
-  currentGenre: PropTypes.string.isRequired,
-  onFilterClick: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
   login: PropTypes.func.isRequired,
-  addListClick: PropTypes.func.isRequired,
-  removeListClick: PropTypes.func.isRequired,
-  activeFilm: PropTypes.func.isRequired,
-  currentMovie: PropTypes.shape({}),
+  currentGenre: PropTypes.string.isRequired,
+  onFilterClick: PropTypes.func.isRequired,
+  isDataReady: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  currentGenre: getCurrentGenre(state),
   films: getAllFilms(state),
-  filmsByGenre: getFilmsByFilter(state),
   authorizationStatus: getAuthorizationStatus(state),
-  currentMovie: getCurrentMovie(state),
+  currentGenre: getCurrentGenre(state),
+  isDataReady: getReadyData(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -86,20 +93,8 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(ActionCreator.getFilmsByFilter(genre));
   },
 
-  addListClick(userId) {
-    dispatch(FilmsReducerAC.addWatchList(userId));
-  },
-
-  removeListClick(userId) {
-    dispatch(FilmsReducerAC.removeWatchList(userId));
-  },
-
   login(authData) {
     dispatch(UserOperation.login(authData));
-  },
-
-  activeFilm(film) {
-    dispatch(FilmsReducerAC.activeFilm(film));
   },
 });
 

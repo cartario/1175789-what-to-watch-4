@@ -1,13 +1,12 @@
-import films from "../../mocks/films.js";
 import {extend} from "../../utils.js";
 
 const ALL_GENRE = `All genres`;
 
 const initialState = {
-  films,
+  films: [],
   comments: [],
   filmsByGenre: [],
-  currentMovie: {},
+  isDataReady: false,
 };
 
 export const ActionType = {
@@ -16,13 +15,11 @@ export const ActionType = {
   GET_COMMENTS_FROM_SERVER: `GET_COMMENTS_FROM_SERVER`,
   ADD_WATCH_LIST: `ADD_WATCH_LIST`,
   REMOVE_WATCH_LIST: `REMOVE_WATCH_LIST`,
-  SET_ACTIVE_FILM: `SET_ACTIVE_FILM`,
+  TOGGLE_IS_DATA_READY: `TOGGLE_IS_DATA_READY`,
 };
 
 export const ActionCreator = {
-
   loadFilms: (filmsList) => {
-
     return {
       type: ActionType.GET_MOVIES_FROM_SERVER,
       payload: filmsList,
@@ -30,7 +27,6 @@ export const ActionCreator = {
   },
 
   addWatchList: (userId) => {
-
     return {
       type: ActionType.ADD_WATCH_LIST,
       payload: userId,
@@ -44,10 +40,10 @@ export const ActionCreator = {
     };
   },
 
-  activeFilm: (film) => {
+  setIsDataReady: (value) => {
     return {
-      type: ActionType.SET_ACTIVE_FILM,
-      payload: film,
+      type: ActionType.TOGGLE_IS_DATA_READY,
+      payload: value,
     };
   },
 
@@ -76,40 +72,36 @@ const adapter = (data) => {
     posterImage: film.poster_image,
     runTime: film.run_time,
     isFavorite: film.is_favorite,
-
+    videoLink: film.video_link,
   }));
 };
 
 export const Operation = {
-
   loadFilms: () => (dispatch, getState, api) => {
-    return api.get(`/films`)
-      .then((response) => {
-        const dataFromAdapter = adapter(response.data);
-        dispatch(ActionCreator.loadFilms(dataFromAdapter));
-        dispatch({type: ActionType.GET_MOVIES_BY_FILTER, payload: ALL_GENRE});
-        dispatch({type: ActionType.SET_ACTIVE_FILM, payload: adapter((response.data))[0]});
-      });
+    return api.get(`/films`).then((response) => {
+      const dataFromAdapter = adapter(response.data);
+      dispatch(ActionCreator.loadFilms(dataFromAdapter));
+      dispatch({type: ActionType.GET_MOVIES_BY_FILTER, payload: ALL_GENRE});
+      dispatch(ActionCreator.setIsDataReady(true));
+    });
   },
 
   loadComments: (filmId) => (dispatch, getState, api) => {
-
-    return api.get(`/comments/${filmId}`)
-      .then((response) => {
-        dispatch(ActionCreator.loadComments(response.data));
-      });
+    return api.get(`/comments/${filmId}`).then((response) => {
+      dispatch(ActionCreator.loadComments(response.data));
+    });
   },
 };
 
 export const reducer = (state = initialState, action) => {
-
   switch (action.type) {
     case ActionType.GET_MOVIES_BY_FILTER:
       const selectedGenre = action.payload;
       let filteredFilms = [...state.films];
       if (selectedGenre !== ALL_GENRE) {
-        filteredFilms = state.films.filter((film) => film.genre === selectedGenre);
-
+        filteredFilms = state.films.filter(
+            (film) => film.genre === selectedGenre
+        );
       }
       return extend(state, {filmsByGenre: filteredFilms});
 
@@ -117,18 +109,17 @@ export const reducer = (state = initialState, action) => {
       return extend(state, {films: action.payload});
 
     case ActionType.ADD_WATCH_LIST: {
-      const filmsList = state.films.map((film)=> {
+      const filmsList = state.films.map((film) => {
         if (film.id === action.payload) {
           return extend(film, {isFavorite: true});
         }
         return film;
       });
-
       return extend(state, {films: filmsList});
     }
 
     case ActionType.REMOVE_WATCH_LIST: {
-      const filmsList = state.films.map((film)=> {
+      const filmsList = state.films.map((film) => {
         if (film.id === action.payload) {
           return extend(film, {isFavorite: false});
         }
@@ -138,17 +129,13 @@ export const reducer = (state = initialState, action) => {
       return extend(state, {films: filmsList});
     }
 
-    case ActionType.SET_ACTIVE_FILM: {
-
-      return extend(state, {currentMovie: action.payload});
-    }
-
     case ActionType.GET_COMMENTS_FROM_SERVER:
       return extend(state, {comments: action.payload});
+
+    case ActionType.TOGGLE_IS_DATA_READY:
+      return extend(state, {isDataReady: action.payload});
 
     default:
       return state;
   }
 };
-
-

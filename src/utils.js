@@ -1,4 +1,13 @@
 import {TextRates} from "./const.js";
+import moment from "moment";
+
+
+export const getDateFormat = (date) => {
+  if (date) {
+    return moment(date).format(`MMMM D, YYYY`);
+  }
+  return null;
+};
 
 export const extend = (oldData, newData) => {
   return Object.assign({}, oldData, newData);
@@ -27,4 +36,23 @@ export const getTextRate = (rate) => {
     return TextRates.VERY_GOOD;
   }
   return TextRates.AWESOME;
+};
+
+const getFormatLessTen = (time) => {
+  return time < 10 ? `0${time}` : `${time}`;
+};
+
+export const getTimeElapsed = (duration, currentTime) => {
+  const timeDiff = duration - currentTime;
+  const seconds = getFormatLessTen((timeDiff) % 60);
+  const minutes = getFormatLessTen(Math.trunc(timeDiff / 60));
+  const hours = getFormatLessTen(Math.trunc(minutes / 60));
+  return `${hours}:${minutes}:${seconds}`;
+};
+
+export const getPosition = (currentTime, duration) => {
+  if (duration === 0) {
+    return 0;
+  }
+  return currentTime / duration * 100;
 };
