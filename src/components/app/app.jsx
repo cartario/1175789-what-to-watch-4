@@ -20,6 +20,7 @@ import Main from "../main/main.jsx";
 import SignIn from "../sign-in/sign-in.jsx";
 import MoviePage from "../movie-page/movie-page.jsx";
 import FullPlayer from "../full-player/full-player.jsx";
+import AddReview from "../add-review/add-review.jsx";
 
 const App = (props) => {
   const {
@@ -52,7 +53,7 @@ const App = (props) => {
           <h1>MyList</h1>
         </Route>
         <Route
-          path={`${AppRoutes.MOVIE_PAGE}/:id`}
+          exact path={`${AppRoutes.MOVIE_PAGE}/:id`}
           render={({match}) => (
             <MoviePage
               authorizationStatus={authorizationStatus}
@@ -65,6 +66,15 @@ const App = (props) => {
           render={(pros) => {
             return <FullPlayer match={pros.match} />;
           }}
+        />
+        <Route
+          path={`${AppRoutes.MOVIE_PAGE}/:id/review`}
+          render={({match}) => (
+            <AddReview
+              films = {films}
+              activeFilmId = {match.params.id}
+            />
+          )}
         />
       </Switch>
     </Router>

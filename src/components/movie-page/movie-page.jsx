@@ -6,6 +6,9 @@ import Tabs from "../tabs/tabs.jsx";
 import ControlsBtnList from "../controls-btn-list/controls-btn-list.jsx";
 import {connect} from "react-redux";
 import {getAllFilms} from "../../selectors.js";
+import {Link} from "react-router-dom";
+import {AppRoutes} from "../../const.js";
+import {AuthorizationStatus} from "../../reducer/user/user.js";
 
 const MoviePage = (props) => {
   const {films, authorizationStatus, activeFilmId} = props;
@@ -36,10 +39,13 @@ const MoviePage = (props) => {
 
               <div className="movie-card__buttons">
                 <ControlsBtnList activeFilmId={activeFilmId} />
+                {authorizationStatus === AuthorizationStatus.AUTH
+                  ?
+                  <Link to={`${AppRoutes.MOVIE_PAGE}/${activeFilmId}/review`} className="btn movie-card__button">
+                    Add review
+                  </Link>
+                  : ``}
 
-                <a href="add-review.html" className="btn movie-card__button">
-                  Add review
-                </a>
               </div>
             </div>
           </div>
