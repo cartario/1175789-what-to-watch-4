@@ -12,6 +12,18 @@ const MoviesList = (props) => {
   );
 
   switch (showSimilar) {
+    case `showFavorite`:
+      const favoriteFilms = filmsByGenre.filter((film)=> film.isFavorite);
+      return (
+        <div className="catalog__movies-list">
+          {favoriteFilms.map((film) =>
+            <MovieCard
+              film = {film}
+              key = {film.id}
+            />
+          )}
+        </div>
+      );
     case `similar`:
       const similarFilms = filmsByGenre.filter(
           (film) => film.genre === currentMovie.genre

@@ -118,6 +118,10 @@ export const Operation = {
       dispatch(ActionCreator.loadComments(response.data));
     });
   },
+
+  postFavoriteFilm: (filmId, isFavorite) => (dispatch, getState, api) => {
+    return api.post(`favorite/${filmId}/${isFavorite}`);
+  },
 };
 
 export const reducer = (state = initialState, action) => {

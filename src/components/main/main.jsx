@@ -44,7 +44,7 @@ const Main = (props) => {
               </p>
 
               <div className="movie-card__buttons">
-                <ControlsBtnList />
+                <ControlsBtnList currentMovie={films[0]}/>
               </div>
             </div>
           </div>

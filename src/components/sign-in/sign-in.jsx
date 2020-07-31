@@ -1,6 +1,7 @@
 import React, {createRef} from "react";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
+import {history} from "../../history.js";
 
 const SignIn = (props) => {
   const {login} = props;
@@ -14,6 +15,8 @@ const SignIn = (props) => {
       login: loginRef.current.value,
       password: passwordRef.current.value};
     login(data);
+
+    history.push(`/`);
   };
 
   return (
@@ -32,7 +35,7 @@ const SignIn = (props) => {
         </header>
 
         <div className="sign-in user-page__content">
-          <form onSubmit = {submitHandler} action="#" className="sign-in__form">
+          <form onSubmit={submitHandler} action="#" className="sign-in__form">
             <div className="sign-in__fields">
               <div className="sign-in__field">
                 <input ref = {loginRef} className="sign-in__input" type="email" placeholder="Email address" name="user-email" id="user-email"/>
@@ -44,7 +47,9 @@ const SignIn = (props) => {
               </div>
             </div>
             <div className="sign-in__submit">
-              <button className="sign-in__btn" type="submit">Sign in</button>
+              <button type="submit" className="sign-in__btn" >
+                Sign in
+              </button>
             </div>
           </form>
         </div>
