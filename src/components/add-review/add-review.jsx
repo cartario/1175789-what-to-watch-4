@@ -9,6 +9,9 @@ class AddReview extends PureComponent {
   constructor(props) {
     super(props);
 
+    this.sendReviewErr = null;
+    this.sendReviewOk = null;
+
     this._textRef = createRef();
 
     this._changeRatingComment = this._changeRatingComment.bind(this);
@@ -48,14 +51,40 @@ class AddReview extends PureComponent {
     this._textRef.current.value = ``;
   }
 
+  getFeedbackStatus() {
+    if (this.sendReviewErr) {
+      return (
+        <div>
+          <p style={
+            {
+              padding: `5px`,
+              backgroundColor: `red`
+            }}>Something went wrong...</p>
+        </div>
+      );
+    } else if (this.sendReviewOk) {
+      return (
+        <div>
+          <p style={
+            {
+              padding: `5px`,
+              backgroundColor: `green`
+            }}>Succesfull!</p>
+        </div>);
+    } return null;
+  }
+
   render() {
-    const {films, activeFilmId, isCommentLoading} = this.props;
+    const {films, activeFilmId, isCommentLoading, isReviewSent, isReviewErr} = this.props;
 
     const currentMovie = films.find(
         (film) => film.id === Number(activeFilmId)
     );
     const {title, backgroundImage, posterImage} = currentMovie;
     const isSubmitBtnBlocked = !(this.state.comment && this.state.rating && !isCommentLoading);
+
+    this.sendReviewOk = isReviewSent;
+    this.sendReviewErr = isReviewErr;
 
     return (
       <>
@@ -140,6 +169,7 @@ class AddReview extends PureComponent {
                 </div>
               </div>
             </form>
+            {this.getFeedbackStatus()}
           </div>
 
         </section>
@@ -160,10 +190,14 @@ AddReview.propTypes = {
   isCommentLoading: PropTypes.any,
   films: PropTypes.any,
   activeFilmId: PropTypes.any,
+  isReviewSent: PropTypes.any,
+  isReviewErr: PropTypes.any,
 };
 
 const mapStateToProps = (state) => ({
   isCommentLoading: state.FILMS.isCommentLoading,
+  isReviewSent: state.FILMS.isReviewSent,
+  isReviewErr: state.FILMS.isReviewError,
 });
 
 const mapDispatchToProps = (dispatch) => ({
