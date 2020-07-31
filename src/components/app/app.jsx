@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import {AppRoutes} from "../../const.js";
 
 import {history} from "../../history.js";
-import {Switch, Route, Router} from "react-router-dom";
+import {Switch, Route, Router, Redirect} from "react-router-dom";
 
 import {connect} from "react-redux";
 import {
@@ -38,17 +38,21 @@ const App = (props) => {
   return (
     <Router history={history}>
       <Switch>
-        <Route exact path={AppRoutes.ROOT}>
-          <Main
-            films={films}
-            authorizationStatus={authorizationStatus}
-            currentGenre={currentGenre}
-            onFilterClick={onFilterClick}
-          />
-        </Route>
-        <Route exact path={AppRoutes.LOGIN}>
-          <SignIn login={login} />
-        </Route>
+        <Route exact path={AppRoutes.ROOT}
+          render={()=>
+            authorizationStatus === `NO_AUTH` ? <SignIn login={login}/> :
+              <Main
+                films={films}
+                authorizationStatus={authorizationStatus}
+                currentGenre={currentGenre}
+                onFilterClick={onFilterClick}/>}
+        />
+        <Route exact path={AppRoutes.LOGIN}
+          render={()=>
+            authorizationStatus === `NO_AUTH` ? <SignIn login={login}/> :
+              <Redirect to={AppRoutes.ROOT}/>
+          }
+        />
         <Route exact path={AppRoutes.MY_LIST}>
           <h1>MyList</h1>
         </Route>
