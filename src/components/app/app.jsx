@@ -40,7 +40,7 @@ const App = (props) => {
       <Switch>
         <Route exact path={AppRoutes.ROOT}
           render={()=>
-            authorizationStatus === `NO_AUTH` ? <SignIn login={login}/> :
+            // authorizationStatus === `NO_AUTH` ? <SignIn login={login}/> :
               <Main
                 films={films}
                 authorizationStatus={authorizationStatus}
