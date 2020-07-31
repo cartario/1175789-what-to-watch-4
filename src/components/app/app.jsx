@@ -41,11 +41,11 @@ const App = (props) => {
         <Route exact path={AppRoutes.ROOT}
           render={()=>
             // authorizationStatus === `NO_AUTH` ? <SignIn login={login}/> :
-              <Main
-                films={films}
-                authorizationStatus={authorizationStatus}
-                currentGenre={currentGenre}
-                onFilterClick={onFilterClick}/>}
+            <Main
+              films={films}
+              authorizationStatus={authorizationStatus}
+              currentGenre={currentGenre}
+              onFilterClick={onFilterClick}/>}
         />
         <Route exact path={AppRoutes.LOGIN}
           render={()=>
