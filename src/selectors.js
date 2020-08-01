@@ -23,3 +23,10 @@ export const getAllComments = (state) => {
 export const getReadyData = (state) => {
   return state[NameSpace.FILMS].isDataReady;
 };
+
+export const getCurrentMovie = (films, activeFilmId) => {
+  const res = films.find(
+      (film) => film.id === Number(activeFilmId)
+  );
+  return res;
+};

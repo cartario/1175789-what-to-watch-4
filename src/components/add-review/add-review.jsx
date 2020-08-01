@@ -1,31 +1,26 @@
-import React, {PureComponent, createRef} from "react";
+import React, {PureComponent} from "react";
 import {Link} from "react-router-dom";
 import {AppRoutes} from "../../const.js";
 import {connect} from "react-redux";
 import {Operation} from "../../reducer/films-by-genre/films-by-genre.js";
 import PropTypes from "prop-types";
+import {history} from "../../history.js";
+import {getCurrentMovie} from "../../selectors.js";
 
 class AddReview extends PureComponent {
   constructor(props) {
     super(props);
-
-    this.sendReviewErr = null;
-    this.sendReviewOk = null;
-
-    this._textRef = createRef();
 
     this._changeRatingComment = this._changeRatingComment.bind(this);
     this._changeTextComment = this._changeTextComment.bind(this);
     this._postNewCommentHandler = this._postNewCommentHandler.bind(this);
 
     this.state = {
-      rating: null,
+      rating: 0,
       comment: null,
+      maxLength: 400,
+      minLength: 50,
     };
-  }
-
-  componentidUpdate() {
-
   }
 
   _changeRatingComment(e) {
@@ -47,44 +42,13 @@ class AddReview extends PureComponent {
       rating: this.state.rating,
       comment: this.state.comment,
     });
-
-    this._textRef.current.value = ``;
-  }
-
-  getFeedbackStatus() {
-    if (this.sendReviewErr) {
-      return (
-        <div>
-          <p style={
-            {
-              padding: `5px`,
-              backgroundColor: `red`
-            }}>Something went wrong...</p>
-        </div>
-      );
-    } else if (this.sendReviewOk) {
-      return (
-        <div>
-          <p style={
-            {
-              padding: `5px`,
-              backgroundColor: `green`
-            }}>Succesfull!</p>
-        </div>);
-    } return null;
   }
 
   render() {
     const {films, activeFilmId, isCommentLoading, isReviewSent, isReviewErr} = this.props;
-
-    const currentMovie = films.find(
-        (film) => film.id === Number(activeFilmId)
-    );
+    const currentMovie = getCurrentMovie(films, activeFilmId);
     const {title, backgroundImage, posterImage} = currentMovie;
     const isSubmitBtnBlocked = !(this.state.comment && this.state.rating && !isCommentLoading);
-
-    this.sendReviewOk = isReviewSent;
-    this.sendReviewErr = isReviewErr;
 
     return (
       <>
@@ -141,7 +105,7 @@ class AddReview extends PureComponent {
                         type="radio"
                         name="rating"
                         value={star}
-
+                        defaultChecked = {star === 1 && true}
                       />
                       <label className="rating__label" htmlFor={`star-${star}`}>Rating {star}</label>
                     </React.Fragment>
@@ -149,14 +113,14 @@ class AddReview extends PureComponent {
                 </div>
                 <div className="add-review__text">
                   <textarea
-                    ref={this._textRef}
+
                     onChange={this._changeTextComment}
                     className="add-review__textarea"
                     name="review-text"
                     id="review-text"
                     placeholder="Review text"
-                    maxLength="400"
-                    minLength="50"
+                    maxLength={this.state.maxLength}
+                    minLength={this.state.minLength}
                   >
 
                   </textarea>
@@ -169,7 +133,8 @@ class AddReview extends PureComponent {
                 </div>
               </div>
             </form>
-            {this.getFeedbackStatus()}
+            {isReviewErr && <p style={{backgroundColor: `red`}}>Something went wrong...</p>}
+            {isReviewSent && history.goBack()}
           </div>
 
         </section>
