@@ -9,11 +9,12 @@ import {getAllFilms} from "../../selectors.js";
 import {Link} from "react-router-dom";
 import {AppRoutes} from "../../const.js";
 import {AuthorizationStatus} from "../../reducer/user/user.js";
+import {getCurrentMovie} from "../../selectors.js";
 
 const MoviePage = (props) => {
   const {films, authorizationStatus, activeFilmId} = props;
 
-  const currentMovie = films.find((film) => film.id === Number(activeFilmId));
+  const currentMovie = getCurrentMovie(films, activeFilmId);
 
   const {title, posterImage, genre, released} = currentMovie;
 
