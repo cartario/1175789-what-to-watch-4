@@ -1,11 +1,3 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`должен отрисовать видеоплеер 1`] = `
-<video
-  height="175"
-  muted={true}
-  poster=""
-  src=""
-  width="280"
-/>
-`;
+exports[`должен отрисовать видеоплеер 1`] = `<video />`;

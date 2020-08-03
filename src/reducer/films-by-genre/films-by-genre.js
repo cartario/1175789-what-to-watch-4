@@ -7,6 +7,10 @@ const initialState = {
   comments: [],
   filmsByGenre: [],
   isDataReady: false,
+  newComment: {},
+  isCommentLoading: false,
+  isReviewError: false,
+  isReviewSent: false,
 };
 
 export const ActionType = {
@@ -16,9 +20,41 @@ export const ActionType = {
   ADD_WATCH_LIST: `ADD_WATCH_LIST`,
   REMOVE_WATCH_LIST: `REMOVE_WATCH_LIST`,
   TOGGLE_IS_DATA_READY: `TOGGLE_IS_DATA_READY`,
+  POST_NEW_COMENT: `POST_NEW_COMENT`,
+  IS_COMMENT_LOADING: `IS_COMMENT_LOADING`,
+  IS_REVIEW_ERROR: `IS_REVIEW_ERROR`,
+  IS_REVIEW_SENT: `IS_REVIEW_SENT`,
 };
 
 export const ActionCreator = {
+  postNewComment: (commentPost) => {
+    return {
+      type: ActionType.POST_NEW_COMENT,
+      payload: commentPost,
+    };
+  },
+
+  setIsCommentLoading: (value) => {
+    return {
+      type: ActionType.IS_COMMENT_LOADING,
+      payload: value,
+    };
+  },
+
+  setIsReviewError: (value) => {
+    return {
+      type: ActionType.IS_REVIEW_ERROR,
+      payload: value,
+    };
+  },
+
+  setIsReviewSent: (value) => {
+    return {
+      type: ActionType.IS_REVIEW_SENT,
+      payload: value,
+    };
+  },
+
   loadFilms: (filmsList) => {
     return {
       type: ActionType.GET_MOVIES_FROM_SERVER,
@@ -77,6 +113,20 @@ const adapter = (data) => {
 };
 
 export const Operation = {
+  postNewComment: (userId, commentPost) => (dispatch, getState, api) => {
+    return api.post(`/comments/${userId}`, commentPost)
+      .then((response) => {
+        dispatch(ActionCreator.setIsCommentLoading(true));
+        dispatch(ActionCreator.postNewComment(response.data));
+        dispatch(ActionCreator.setIsCommentLoading(false));
+        dispatch(ActionCreator.setIsReviewSent(true));
+      })
+      .catch((err) => {
+        dispatch(ActionCreator.setIsReviewError(true));
+        throw err;
+      });
+  },
+
   loadFilms: () => (dispatch, getState, api) => {
     return api.get(`/films`).then((response) => {
       const dataFromAdapter = adapter(response.data);
@@ -134,6 +184,18 @@ export const reducer = (state = initialState, action) => {
 
     case ActionType.TOGGLE_IS_DATA_READY:
       return extend(state, {isDataReady: action.payload});
+
+    case ActionType.POST_NEW_COMENT:
+      return extend(state, {newComment: action.payload});
+
+    case ActionType.IS_COMMENT_LOADING:
+      return extend(state, {isCommentLoading: action.payload});
+
+    case ActionType.IS_REVIEW_ERROR:
+      return extend(state, {isReviewError: action.payload});
+
+    case ActionType.IS_REVIEW_SENT:
+      return extend(state, {isReviewSent: action.payload});
 
     default:
       return state;
