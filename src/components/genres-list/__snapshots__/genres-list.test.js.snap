@@ -3,5 +3,26 @@
 exports[`should render genres-list 1`] = `
 <ul
   className="catalog__genres-list"
-/>
+>
+  <li
+    className="catalog__genres-item"
+  >
+    <a
+      className="catalog__genres-link"
+      href="#"
+      onClick={[Function]}
+    >
+      All genres
+    </a>
+  </li>
+  <li
+    className="catalog__genres-item"
+  >
+    <a
+      className="catalog__genres-link"
+      href="#"
+      onClick={[Function]}
+    />
+  </li>
+</ul>
 `;

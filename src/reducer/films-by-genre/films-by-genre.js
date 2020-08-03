@@ -9,6 +9,8 @@ const initialState = {
   isDataReady: false,
   newComment: {},
   isCommentLoading: false,
+  isReviewError: false,
+  isReviewSent: false,
 };
 
 export const ActionType = {
@@ -20,6 +22,8 @@ export const ActionType = {
   TOGGLE_IS_DATA_READY: `TOGGLE_IS_DATA_READY`,
   POST_NEW_COMENT: `POST_NEW_COMENT`,
   IS_COMMENT_LOADING: `IS_COMMENT_LOADING`,
+  IS_REVIEW_ERROR: `IS_REVIEW_ERROR`,
+  IS_REVIEW_SENT: `IS_REVIEW_SENT`,
 };
 
 export const ActionCreator = {
@@ -33,6 +37,20 @@ export const ActionCreator = {
   setIsCommentLoading: (value) => {
     return {
       type: ActionType.IS_COMMENT_LOADING,
+      payload: value,
+    };
+  },
+
+  setIsReviewError: (value) => {
+    return {
+      type: ActionType.IS_REVIEW_ERROR,
+      payload: value,
+    };
+  },
+
+  setIsReviewSent: (value) => {
+    return {
+      type: ActionType.IS_REVIEW_SENT,
       payload: value,
     };
   },
@@ -101,6 +119,11 @@ export const Operation = {
         dispatch(ActionCreator.setIsCommentLoading(true));
         dispatch(ActionCreator.postNewComment(response.data));
         dispatch(ActionCreator.setIsCommentLoading(false));
+        dispatch(ActionCreator.setIsReviewSent(true));
+      })
+      .catch((err) => {
+        dispatch(ActionCreator.setIsReviewError(true));
+        throw err;
       });
   },
 
@@ -171,6 +194,12 @@ export const reducer = (state = initialState, action) => {
 
     case ActionType.IS_COMMENT_LOADING:
       return extend(state, {isCommentLoading: action.payload});
+
+    case ActionType.IS_REVIEW_ERROR:
+      return extend(state, {isReviewError: action.payload});
+
+    case ActionType.IS_REVIEW_SENT:
+      return extend(state, {isReviewSent: action.payload});
 
     default:
       return state;

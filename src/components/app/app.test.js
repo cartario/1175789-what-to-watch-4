@@ -14,11 +14,11 @@ const MovieInfo = {
   YEAR: 2014,
 
 };
-
 const filmsByGenre = [];
-
+const authorizationStatus = ``;
+const login = () => {};
+const isDataReady = false;
 const genres = [];
-
 const currentGenre = ``;
 
 const films = [
@@ -79,6 +79,9 @@ it(`renderApp`, () => {
             genres = {genres}
             currentGenre = {currentGenre}
             onFilterClick = {() => {}}
+            authorizationStatus = {authorizationStatus}
+            login = {login}
+            isDataReady = {isDataReady}
           />
         </Provider>
     )

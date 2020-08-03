@@ -38,10 +38,7 @@ const MoviePage = (props) => {
               </p>
 
               <div className="movie-card__buttons">
-                <ControlsBtnList
-                  activeFilmId={activeFilmId}
-                  currentMovie={currentMovie}
-                />
+                <ControlsBtnList activeFilmId={activeFilmId} />
                 {authorizationStatus === AuthorizationStatus.AUTH
                   ?
                   <Link to={`${AppRoutes.MOVIE_PAGE}/${activeFilmId}/review`} className="btn movie-card__button">
