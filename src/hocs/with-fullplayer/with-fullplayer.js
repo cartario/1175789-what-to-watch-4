@@ -73,10 +73,6 @@ const withFullPlayer = (Component) => {
       const video = this._videoRef.current;
       video.src = ``;
       video.removeEventListener(`timeupdate`, this._updateTime);
-      // video.poster = ``;
-      // video.width = null;
-      // video.height = null;
-      // video.muted = null;
     }
 
     render() {
@@ -99,10 +95,6 @@ const withFullPlayer = (Component) => {
       );
     }
   }
-
-  // WithFullPlayer.propTypes = {
-  //   currentMovie: PropTypes.any,
-  // };
 
   return WithFullPlayer;
 };

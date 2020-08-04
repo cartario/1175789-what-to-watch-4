@@ -75,8 +75,10 @@ const mapDispatchToProps = (dispatch) => ({
 ControlsBtnList.propTypes = {
   addListClick: PropTypes.func.isRequired,
   removeListClick: PropTypes.func.isRequired,
-  currentMovie: PropTypes.any,
-  activeFilmId: PropTypes.any,
+  currentMovie: PropTypes.shape({
+    isFavorite: PropTypes.bool.isRequired,
+  }).isRequired,
+  activeFilmId: PropTypes.string.isRequired,
 };
 
 export {ControlsBtnList};

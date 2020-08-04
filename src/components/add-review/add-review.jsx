@@ -143,19 +143,18 @@ class AddReview extends PureComponent {
 }
 
 AddReview.propTypes = {
-
-  currentMovie: PropTypes.shape({
-    id: PropTypes.any,
-    title: PropTypes.string,
-    backgroundImage: PropTypes.string,
-    posterImage: PropTypes.string,
-  }),
   postNewComment: PropTypes.func.isRequired,
-  isCommentLoading: PropTypes.any,
-  films: PropTypes.any,
-  activeFilmId: PropTypes.any,
-  isReviewSent: PropTypes.any,
-  isReviewErr: PropTypes.any,
+  isCommentLoading: PropTypes.bool.isRequired,
+  films: PropTypes.arrayOf(
+      PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        backgroundImage: PropTypes.string.isRequired,
+        posterImage: PropTypes.string.isRequired,
+      })
+  ).isRequired,
+  activeFilmId: PropTypes.string.isRequired,
+  isReviewSent: PropTypes.bool.isRequired,
+  isReviewErr: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
