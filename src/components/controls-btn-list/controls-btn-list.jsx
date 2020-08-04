@@ -78,7 +78,7 @@ ControlsBtnList.propTypes = {
   currentMovie: PropTypes.shape({
     isFavorite: PropTypes.bool.isRequired,
   }).isRequired,
-  activeFilmId: PropTypes.string.isRequired,
+  activeFilmId: PropTypes.string,
 };
 
 export {ControlsBtnList};

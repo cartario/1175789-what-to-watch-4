@@ -88,9 +88,17 @@ const MoviePage = (props) => {
 };
 
 MoviePage.propTypes = {
-  films: PropTypes.array.isRequired,
+  films: PropTypes.arrayOf(
+      PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        posterImage: PropTypes.string.isRequired,
+        genre: PropTypes.string.isRequired,
+        released: PropTypes.number.isRequired,
+        id: PropTypes.number.isRequired,
+      })
+  ).isRequired,
   authorizationStatus: PropTypes.string.isRequired,
-  activeFilmId: PropTypes.any,
+  activeFilmId: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
