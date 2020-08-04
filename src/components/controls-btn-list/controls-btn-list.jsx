@@ -9,11 +9,13 @@ const ControlsBtnList = (props) => {
   const {currentMovie, addListClick, removeListClick, activeFilmId = 1} = props;
 
   const addListHandler = () => {
-    addListClick(activeFilmId);
+
+    addListClick(Number(activeFilmId));
+
   };
 
   const removeListHandler = () => {
-    removeListClick(activeFilmId);
+    removeListClick(Number(activeFilmId));
   };
 
   const isListed = currentMovie.isFavorite;

@@ -1,5 +1,4 @@
 import axios from "axios";
-// import {Redirect} from "react-router-dom";
 import {AppRoutes} from "./const.js";
 import {history} from "./history.js";
 
@@ -16,7 +15,6 @@ export const createApi = (onUnauthorized)=> {
   });
 
   const onSuccess = (response) => {
-    // history.push(AppRoutes.ROOT);
     return response;
   };
 
