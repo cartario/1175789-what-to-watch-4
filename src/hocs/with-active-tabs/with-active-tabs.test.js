@@ -1,9 +1,7 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import withCountFilms from "./with-count-films.js";
+import withActiveTabs from "./with-active-tabs.js";
 import PropTypes from "prop-types";
-
-const films = [];
 
 const MockComponent = (props) => {
   const {children} = props;
@@ -22,20 +20,19 @@ MockComponent.propTypes = {
   ]).isRequired,
 };
 
-const MockComponentWrapped = withCountFilms(MockComponent);
+const MockComponentWrapped = withActiveTabs(MockComponent);
 
-describe(`withCountFilms Test`, () => {
-  it(`should render withCountFilms`, () => {
-    const tree = renderer.create(
-        (
-          <MockComponentWrapped
-            films = {films}
-          />
-        ), {
-          createNodeMock() {
-            return {};
-          }
-        }
+describe(`withActiveTabs Test`, () => {
+  it(`should render withActiveTabs`, () => {
+    const tree = renderer.create((
+      <MockComponentWrapped
+
+      />
+    ), {
+      createNodeMock() {
+        return {};
+      }
+    }
     ).toJSON();
     expect(tree).toMatchSnapshot();
   });
