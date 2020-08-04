@@ -7,7 +7,7 @@ const Player = (props) => {
 };
 
 Player.propTypes = {
-  videoRef: PropTypes.any,
+  videoRef: PropTypes.shape().isRequired,
 };
 
 export default Player;

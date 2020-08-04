@@ -37,7 +37,9 @@ const mapStateToProps = (state) => ({
 });
 
 Reviews.propTypes = {
-  comments: PropTypes.array.isRequired,
+  comments: PropTypes.arrayOf(
+      PropTypes.shape()
+  ).isRequired,
 };
 
 export {Reviews};

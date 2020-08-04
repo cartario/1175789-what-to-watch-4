@@ -71,14 +71,15 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 Tabs.propTypes = {
-  currentMovie: PropTypes.shape({
-    id: PropTypes.number,
-  }),
   loadComments: PropTypes.func,
   clickHandler: PropTypes.func,
   currentTab: PropTypes.string,
-  films: PropTypes.any,
-  activeFilmId: PropTypes.any,
+  films: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+      })
+  ).isRequired,
+  activeFilmId: PropTypes.string.isRequired,
 };
 
 export {Tabs};

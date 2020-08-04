@@ -47,11 +47,15 @@ const MoviesList = (props) => {
 };
 
 MoviesList.propTypes = {
-  filmsByGenre: PropTypes.array.isRequired,
-  mode: PropTypes.string,
+  filmsByGenre: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        genre: PropTypes.string.isRequired,
+      })
+  ).isRequired,
   showSimilar: PropTypes.string,
   showingFilmsCount: PropTypes.number,
-  activeFilmId: PropTypes.any,
+  activeFilmId: PropTypes.string,
 };
 
 const mapStateToProps = (state) => ({
