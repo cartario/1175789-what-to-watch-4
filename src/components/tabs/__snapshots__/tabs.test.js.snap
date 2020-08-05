@@ -60,7 +60,7 @@ exports[`Tabs test should render tabs 1`] = `
       <span
         className="movie-rating__level"
       >
-        Awesome
+        incorrect_rate
       </span>
       <span
         className="movie-rating__count"

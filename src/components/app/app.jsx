@@ -13,7 +13,7 @@ import {
   getAuthorizationStatus,
   getReadyData,
 } from "../../selectors.js";
-import {ActionCreator} from "../../reducer/reducer.js";
+import {ActionCreator} from "../../reducer/films-by-genre/films-by-genre.js";
 import {Operation as UserOperation} from "../../reducer/user/user.js";
 
 import Main from "../main/main.jsx";

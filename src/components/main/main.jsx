@@ -6,16 +6,18 @@ import GenresList from "../genres-list/genres-list.jsx";
 import ControlsBtnList from "../controls-btn-list/controls-btn-list.jsx";
 import ShowMore from "../show-more/show-more.jsx";
 import withCountFilms from "../../hocs/with-count-films/with-count-films.js";
+import {getFilmsByFilter} from "../../selectors.js";
+import {connect} from "react-redux";
 
 const Main = (props) => {
   const {
     films,
+    filmsByGenre,
     authorizationStatus,
     currentGenre,
     onFilterClick,
     showMoreClickHandler,
     showingFilmsCount,
-    isVisible,
   } = props;
 
   const currentMovie = films.find((film) => film.id === 1);
@@ -63,7 +65,7 @@ const Main = (props) => {
 
           <MoviesList showingFilmsCount={showingFilmsCount} />
 
-          {isVisible ? (
+          {filmsByGenre.length > showingFilmsCount ? (
             <ShowMore showMoreClickHandler={showMoreClickHandler} />
           ) : (
             ``
@@ -97,13 +99,22 @@ Main.propTypes = {
         released: PropTypes.number.isRequired,
       })
   ).isRequired,
+  filmsByGenre: PropTypes.arrayOf(
+      PropTypes.shape({
+        genre: PropTypes.string.isRequired,
+        id: PropTypes.number.isRequired,
+      })
+  ).isRequired,
   currentGenre: PropTypes.string.isRequired,
   onFilterClick: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
   showMoreClickHandler: PropTypes.func.isRequired,
   showingFilmsCount: PropTypes.number.isRequired,
-  isVisible: PropTypes.bool.isRequired,
 };
 
+const mapStateToProps = (state) => ({
+  filmsByGenre: getFilmsByFilter(state),
+});
+
 export {Main};
-export default withCountFilms(Main);
+export default withCountFilms(connect(mapStateToProps)(Main));
