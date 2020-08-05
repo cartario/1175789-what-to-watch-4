@@ -30,7 +30,11 @@ const GenresList = (props) => {
 
 
 GenresList.propTypes = {
-  films: PropTypes.array.isRequired,
+  films: PropTypes.arrayOf(
+      PropTypes.shape({
+        genre: PropTypes.string.isRequired,
+      })
+  ).isRequired,
   currentGenre: PropTypes.string.isRequired,
   onFilterClick: PropTypes.func.isRequired,
 };

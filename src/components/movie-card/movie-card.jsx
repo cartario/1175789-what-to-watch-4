@@ -31,14 +31,12 @@ const MovieCard = (props) => {
 
 MovieCard.propTypes = {
   film: PropTypes.shape({
-    src: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
-    preview: PropTypes.string.isRequired,
     id: PropTypes.number.isRequired,
   }),
   handlerMouseLeave: PropTypes.func.isRequired,
   handlerMouseOver: PropTypes.func.isRequired,
-  videoRef: PropTypes.any,
+  videoRef: PropTypes.shape().isRequired,
 };
 
 export default withVideo(MovieCard);

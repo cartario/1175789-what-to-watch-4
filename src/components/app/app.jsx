@@ -21,6 +21,8 @@ import SignIn from "../sign-in/sign-in.jsx";
 import MoviePage from "../movie-page/movie-page.jsx";
 import FullPlayer from "../full-player/full-player.jsx";
 import AddReview from "../add-review/add-review.jsx";
+import PrivateRoute from "../private-route/private-route.jsx";
+import MyList from "../my-list/my-list.jsx";
 
 const App = (props) => {
   const {
@@ -40,7 +42,6 @@ const App = (props) => {
       <Switch>
         <Route exact path={AppRoutes.ROOT}
           render={()=>
-            // authorizationStatus === `NO_AUTH` ? <SignIn login={login}/> :
             <Main
               films={films}
               authorizationStatus={authorizationStatus}
@@ -54,7 +55,7 @@ const App = (props) => {
           }
         />
         <Route exact path={AppRoutes.MY_LIST}>
-          <h1>MyList</h1>
+          <MyList />
         </Route>
         <Route
           exact path={`${AppRoutes.MOVIE_PAGE}/:id`}
@@ -79,6 +80,15 @@ const App = (props) => {
               activeFilmId = {match.params.id}
             />
           )}
+        />
+        <PrivateRoute
+          path={AppRoutes.MY_LIST}
+          exact
+          render = {() => {
+            return (
+              <MyList/>
+            );
+          }}
         />
       </Switch>
     </Router>

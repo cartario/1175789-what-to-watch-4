@@ -43,10 +43,12 @@ const Details = (props) => {
 Details.propTypes = {
   currentMovie: PropTypes.shape({
     runTime: PropTypes.date,
-    genre: PropTypes.string,
-    released: PropTypes.number,
-    director: PropTypes.string,
-    starring: PropTypes.array,
+    genre: PropTypes.string.isRequired,
+    released: PropTypes.number.isRequired,
+    director: PropTypes.string.isRequired,
+    starring: PropTypes.arrayOf(
+        PropTypes.string.isRequired
+    ).isRequired,
   }),
 };
 

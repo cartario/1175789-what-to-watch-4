@@ -7,6 +7,9 @@ import {history} from "../../history.js";
 
 import ControlsBtnList from './controls-btn-list.jsx';
 
+const currentMovie = {
+  id: 1,
+};
 
 const mockStore = configureStore([]);
 
@@ -22,6 +25,7 @@ test(`should render control-btn-list`, () => {
               addListClick = {() => {}}
               removeListClick = {() => {}}
               activeFilmId = {``}
+              currentMovie = {currentMovie}
             />
           </Provider>
         </Router>

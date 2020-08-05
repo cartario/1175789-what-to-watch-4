@@ -25,14 +25,15 @@ const Overview = (props) => {
 };
 
 Overview.propTypes = {
-
   currentMovie: PropTypes.shape({
-    rating: PropTypes.number,
-    scoresCount: PropTypes.number,
-    description: PropTypes.string,
-    director: PropTypes.string,
-    starring: PropTypes.array,
-  }),
+    scoresCount: PropTypes.number.isRequired,
+    description: PropTypes.string.isRequired,
+    rating: PropTypes.number.isRequired,
+    director: PropTypes.string.isRequired,
+    starring: PropTypes.arrayOf(
+        PropTypes.string.isRequired
+    ).isRequired,
+  }).isRequired,
 };
 
 export default Overview;

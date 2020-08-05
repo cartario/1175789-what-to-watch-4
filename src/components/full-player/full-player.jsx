@@ -91,16 +91,25 @@ const FullPlayer = (props) => {
 };
 
 FullPlayer.propTypes = {
-  elapsedTime: PropTypes.string,
-  exitClickHandler: PropTypes.func,
-  playChangeHandler: PropTypes.func,
-  fullScreenClickHandler: PropTypes.func,
-  position: PropTypes.number,
-  videoRef: PropTypes.any,
-  currentMovie: PropTypes.any,
-  isPlaying: PropTypes.any,
-  films: PropTypes.any,
-  match: PropTypes.any,
+  elapsedTime: PropTypes.string.isRequired,
+  exitClickHandler: PropTypes.func.isRequired,
+  playChangeHandler: PropTypes.func.isRequired,
+  fullScreenClickHandler: PropTypes.func.isRequired,
+  position: PropTypes.number.isRequired,
+  videoRef: PropTypes.shape().isRequired,
+  isPlaying: PropTypes.bool.isRequired,
+  films: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        posterImage: PropTypes.string.isRequired,
+        videoLink: PropTypes.string.isRequired,
+      })
+  ).isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string.isRequired
+    })
+  }).isRequired,
 };
 
 const mapStateToProps = (state) => ({

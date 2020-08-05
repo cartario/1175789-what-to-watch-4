@@ -44,7 +44,7 @@ const Main = (props) => {
               </p>
 
               <div className="movie-card__buttons">
-                <ControlsBtnList />
+                <ControlsBtnList currentMovie={films[0]}/>
               </div>
             </div>
           </div>
@@ -89,7 +89,14 @@ const Main = (props) => {
 };
 
 Main.propTypes = {
-  films: PropTypes.array.isRequired,
+  films: PropTypes.arrayOf(
+      PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        posterImage: PropTypes.string.isRequired,
+        genre: PropTypes.string.isRequired,
+        released: PropTypes.number.isRequired,
+      })
+  ).isRequired,
   currentGenre: PropTypes.string.isRequired,
   onFilterClick: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired,

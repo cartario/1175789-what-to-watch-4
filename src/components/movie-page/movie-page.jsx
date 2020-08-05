@@ -9,11 +9,12 @@ import {getAllFilms} from "../../selectors.js";
 import {Link} from "react-router-dom";
 import {AppRoutes} from "../../const.js";
 import {AuthorizationStatus} from "../../reducer/user/user.js";
+import {getCurrentMovie} from "../../selectors.js";
 
 const MoviePage = (props) => {
   const {films, authorizationStatus, activeFilmId} = props;
 
-  const currentMovie = films.find((film) => film.id === Number(activeFilmId));
+  const currentMovie = getCurrentMovie(films, activeFilmId);
 
   const {title, posterImage, genre, released} = currentMovie;
 
@@ -38,7 +39,7 @@ const MoviePage = (props) => {
               </p>
 
               <div className="movie-card__buttons">
-                <ControlsBtnList activeFilmId={activeFilmId} />
+                <ControlsBtnList activeFilmId={activeFilmId} currentMovie = {currentMovie}/>
                 {authorizationStatus === AuthorizationStatus.AUTH
                   ?
                   <Link to={`${AppRoutes.MOVIE_PAGE}/${activeFilmId}/review`} className="btn movie-card__button">
@@ -87,9 +88,17 @@ const MoviePage = (props) => {
 };
 
 MoviePage.propTypes = {
-  films: PropTypes.array.isRequired,
+  films: PropTypes.arrayOf(
+      PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        posterImage: PropTypes.string.isRequired,
+        genre: PropTypes.string.isRequired,
+        released: PropTypes.number.isRequired,
+        id: PropTypes.number.isRequired,
+      })
+  ).isRequired,
   authorizationStatus: PropTypes.string.isRequired,
-  activeFilmId: PropTypes.any,
+  activeFilmId: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({

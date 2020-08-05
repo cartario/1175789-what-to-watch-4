@@ -1,22 +1,24 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {ActionCreator as FilmsReducerAC} from "../../reducer/films-by-genre/films-by-genre.js";
+import {ActionCreator as FilmsReducerAC, Operation} from "../../reducer/films-by-genre/films-by-genre.js";
 import {Link} from "react-router-dom";
 import {AppRoutes} from "../../const.js";
 
 const ControlsBtnList = (props) => {
-  const {addListClick, removeListClick, activeFilmId = 1} = props;
+  const {currentMovie, addListClick, removeListClick, activeFilmId = 1} = props;
 
   const addListHandler = () => {
-    addListClick(activeFilmId);
+
+    addListClick(Number(activeFilmId));
+
   };
 
   const removeListHandler = () => {
-    removeListClick(activeFilmId);
+    removeListClick(Number(activeFilmId));
   };
 
-  const isListed = false;
+  const isListed = currentMovie.isFavorite;
 
   return (
     <>
@@ -61,18 +63,22 @@ const ControlsBtnList = (props) => {
 const mapDispatchToProps = (dispatch) => ({
   addListClick(currentId) {
     dispatch(FilmsReducerAC.addWatchList(currentId));
+    dispatch(Operation.postFavoriteFilm(currentId, 1));
   },
 
   removeListClick(currentId) {
     dispatch(FilmsReducerAC.removeWatchList(currentId));
+    dispatch(Operation.postFavoriteFilm(currentId, 0));
   },
 });
 
 ControlsBtnList.propTypes = {
   addListClick: PropTypes.func.isRequired,
   removeListClick: PropTypes.func.isRequired,
-  currentMovie: PropTypes.any,
-  activeFilmId: PropTypes.any,
+  currentMovie: PropTypes.shape({
+    isFavorite: PropTypes.bool.isRequired,
+  }).isRequired,
+  activeFilmId: PropTypes.string,
 };
 
 export {ControlsBtnList};

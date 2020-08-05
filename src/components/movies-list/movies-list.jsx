@@ -12,6 +12,18 @@ const MoviesList = (props) => {
   );
 
   switch (showSimilar) {
+    case `showFavorite`:
+      const favoriteFilms = filmsByGenre.filter((film)=> film.isFavorite);
+      return (
+        <div className="catalog__movies-list">
+          {favoriteFilms.map((film) =>
+            <MovieCard
+              film = {film}
+              key = {film.id}
+            />
+          )}
+        </div>
+      );
     case `similar`:
       const similarFilms = filmsByGenre.filter(
           (film) => film.genre === currentMovie.genre
@@ -35,11 +47,15 @@ const MoviesList = (props) => {
 };
 
 MoviesList.propTypes = {
-  filmsByGenre: PropTypes.array.isRequired,
-  mode: PropTypes.string,
+  filmsByGenre: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        genre: PropTypes.string.isRequired,
+      })
+  ).isRequired,
   showSimilar: PropTypes.string,
   showingFilmsCount: PropTypes.number,
-  activeFilmId: PropTypes.any,
+  activeFilmId: PropTypes.string,
 };
 
 const mapStateToProps = (state) => ({

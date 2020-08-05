@@ -27,7 +27,7 @@ const Header = (props) => {
             <Link to={AppRoutes.MY_LIST}>
               <div className="user-block__avatar">
                 <img
-                  src="img/avatar.jpg"
+                  src="/img/avatar.jpg"
                   alt="User avatar"
                   width="63"
                   height="63"
@@ -46,18 +46,10 @@ const Header = (props) => {
 };
 
 Header.propTypes = {
-  films: PropTypes.arrayOf(
-      PropTypes.shape({
-        src: PropTypes.string.isRequired,
-        title: PropTypes.string.isRequired,
-        preview: PropTypes.string.isRequired,
-        backgroundImage: PropTypes.string,
-      })
-  ),
   authorizationStatus: PropTypes.string.isRequired,
   currentMovie: PropTypes.shape({
-    title: PropTypes.string,
-    backgroundImage: PropTypes.string,
+    title: PropTypes.string.isRequired,
+    backgroundImage: PropTypes.string.isRequired,
   }),
 };
 
