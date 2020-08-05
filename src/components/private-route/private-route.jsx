@@ -11,10 +11,10 @@ const PrivateRoute = (props) => {
     <Route
       path = {path}
       exact = {exact}
-      render={()=> {
+      render={({match})=> {
         return (
           authorizationStatus === AuthorizationStatus.AUTH
-            ? render()
+            ? render({match})
             : <Redirect to="/login" />
         );
       }}
@@ -24,8 +24,8 @@ const PrivateRoute = (props) => {
 
 PrivateRoute.propTypes = {
   render: PropTypes.func.isRequired,
-  path: PropTypes.string.isrequired,
-  exact: PropTypes.string.isRequired,
+  path: PropTypes.string,
+  exact: PropTypes.bool,
   authorizationStatus: PropTypes.string.isRequired,
 };
 

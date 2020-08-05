@@ -54,9 +54,17 @@ const App = (props) => {
               <Redirect to={AppRoutes.ROOT}/>
           }
         />
-        <Route exact path={AppRoutes.MY_LIST}>
-          <MyList />
-        </Route>
+        <PrivateRoute
+          path={`${AppRoutes.MOVIE_PAGE}/:id/review`}
+          render={({match}) => {
+            return (
+              <AddReview
+                films = {films}
+                activeFilmId = {match.params.id}
+              />);
+          }
+          }
+        />
         <Route
           exact path={`${AppRoutes.MOVIE_PAGE}/:id`}
           render={({match}) => (
@@ -72,15 +80,7 @@ const App = (props) => {
             return <FullPlayer match={pros.match} />;
           }}
         />
-        <Route
-          path={`${AppRoutes.MOVIE_PAGE}/:id/review`}
-          render={({match}) => (
-            <AddReview
-              films = {films}
-              activeFilmId = {match.params.id}
-            />
-          )}
-        />
+
         <PrivateRoute
           path={AppRoutes.MY_LIST}
           exact
