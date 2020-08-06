@@ -27,7 +27,8 @@ const MoviesList = (props) => {
     case `similar`:
       const similarFilms = filmsByGenre.filter(
           (film) => film.genre === currentMovie.genre
-      );
+      ).filter((film) => film.id !== Number(activeFilmId))
+      .sort(() => Math.random - 0.5);
       return (
         <div className="catalog__movies-list">
           {similarFilms
