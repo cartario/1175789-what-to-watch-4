@@ -27,6 +27,16 @@ export const ActionType = {
 };
 
 export const ActionCreator = {
+  changeFilter: (genre) => ({
+    type: `CHANGE_FILTER`,
+    payload: genre,
+  }),
+
+  getFilmsByFilter: (genre) => ({
+    type: `GET_MOVIES_BY_FILTER`,
+    payload: genre,
+  }),
+
   postNewComment: (commentPost) => {
     return {
       type: ActionType.POST_NEW_COMENT,

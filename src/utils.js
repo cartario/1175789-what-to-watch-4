@@ -26,16 +26,20 @@ export const getUniqGenres = (films) => {
 };
 
 export const getTextRate = (rate) => {
-  if (rate <= 3) {
-    return TextRates.BAD;
-  } else if (rate <= 5) {
-    return TextRates.NORMAL;
-  } else if (rate <= 8) {
-    return TextRates.GOOD;
-  } else if (rate <= 10) {
-    return TextRates.VERY_GOOD;
+  switch (true) {
+    case rate >= 0 && rate < 3:
+      return TextRates.BAD;
+    case rate >= 3 && rate < 5:
+      return TextRates.NORMAL;
+    case rate >= 5 && rate < 8:
+      return TextRates.GOOD;
+    case rate >= 8 && rate < 10:
+      return TextRates.VERY_GOOD;
+    case rate >= 10 && rate < 12:
+      return TextRates.AWESOME;
+    default:
+      return `incorrect_rate`;
   }
-  return TextRates.AWESOME;
 };
 
 const getFormatLessTen = (time) => {
