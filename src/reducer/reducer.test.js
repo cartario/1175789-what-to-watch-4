@@ -12,6 +12,7 @@ test(`Reducer without additional parameters should return initial state`, ()=> {
 
     FILMS: {
       films: [],
+      filmPromo: {},
       filmsByGenre: [],
       comments: [],
       isCommentLoading: false,

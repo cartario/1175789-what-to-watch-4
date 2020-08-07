@@ -4,6 +4,7 @@ const ALL_GENRE = `All genres`;
 
 const initialState = {
   films: [],
+  filmPromo: {},
   comments: [],
   filmsByGenre: [],
   isDataReady: false,
@@ -14,6 +15,7 @@ const initialState = {
 };
 
 export const ActionType = {
+  GET_FILM_PROMO: `GET_FILM_PROMO`,
   GET_MOVIES_BY_FILTER: `GET_MOVIES_BY_FILTER`,
   GET_MOVIES_FROM_SERVER: `GET_MOVIES_FROM_SERVER`,
   GET_COMMENTS_FROM_SERVER: `GET_COMMENTS_FROM_SERVER`,
@@ -72,6 +74,13 @@ export const ActionCreator = {
     };
   },
 
+  getFilmPromo: (filmPromo) => {
+    return {
+      type: ActionType.GET_FILM_PROMO,
+      payload: filmPromo,
+    };
+  },
+
   addWatchList: (userId) => {
     return {
       type: ActionType.ADD_WATCH_LIST,
@@ -122,6 +131,26 @@ const adapter = (data) => {
   }));
 };
 
+const adapterPromo = (film) => ({
+  id: film.id,
+  title: film.name,
+  src: film.preview_image,
+  preview: film.preview_video_link,
+  genre: film.genre,
+  rating: film.rating,
+  scoresCount: film.scores_count,
+  description: film.description,
+  director: film.director,
+  starring: film.starring,
+  released: film.released,
+  backgroundImage: film.background_image,
+  backgroundColor: film.background_color,
+  posterImage: film.poster_image,
+  runTime: film.run_time,
+  isFavorite: film.is_favorite,
+  videoLink: film.video_link,
+});
+
 export const Operation = {
   postNewComment: (userId, commentPost) => (dispatch, getState, api) => {
     return api.post(`/comments/${userId}`, commentPost)
@@ -143,6 +172,13 @@ export const Operation = {
       dispatch(ActionCreator.loadFilms(dataFromAdapter));
       dispatch({type: ActionType.GET_MOVIES_BY_FILTER, payload: ALL_GENRE});
       dispatch(ActionCreator.setIsDataReady(true));
+    });
+  },
+
+  loadFilmPromo: () => (dispatch, getState, api) => {
+    return api.get(`/films/promo`).then((response) => {
+      const dataFromAdapter = adapterPromo(response.data);
+      dispatch(ActionCreator.getFilmPromo(dataFromAdapter));
     });
   },
 
@@ -210,6 +246,9 @@ export const reducer = (state = initialState, action) => {
 
     case ActionType.IS_REVIEW_SENT:
       return extend(state, {isReviewSent: action.payload});
+
+    case ActionType.GET_FILM_PROMO:
+      return extend(state, {filmPromo: action.payload});
 
     default:
       return state;

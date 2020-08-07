@@ -4,6 +4,7 @@ describe(`test-reducer-films-by-genre`, () => {
   it(`should return initial state`, () => {
     expect(reducer(void 0, {})).toEqual({
       films: [],
+      filmPromo: {},
       comments: [],
       filmsByGenre: [],
       isDataReady: false,

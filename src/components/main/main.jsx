@@ -13,6 +13,7 @@ const Main = (props) => {
   const {
     films,
     filmsByGenre,
+    filmPromo,
     authorizationStatus,
     currentGenre,
     onFilterClick,
@@ -20,8 +21,7 @@ const Main = (props) => {
     showingFilmsCount,
   } = props;
 
-  const currentMovie = films.find((film) => film.id === 1);
-  const {title, posterImage, genre, released} = currentMovie;
+  const {title, posterImage, genre, released} = filmPromo;
 
   return (
     <React.Fragment>
@@ -99,6 +99,14 @@ Main.propTypes = {
         released: PropTypes.number.isRequired,
       })
   ).isRequired,
+  filmPromo: PropTypes.arrayOf(
+      PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        posterImage: PropTypes.string.isRequired,
+        genre: PropTypes.string.isRequired,
+        released: PropTypes.number.isRequired,
+      })
+  ).isRequired,
   filmsByGenre: PropTypes.arrayOf(
       PropTypes.shape({
         genre: PropTypes.string.isRequired,
@@ -114,6 +122,7 @@ Main.propTypes = {
 
 const mapStateToProps = (state) => ({
   filmsByGenre: getFilmsByFilter(state),
+  filmPromo: state.FILMS.filmPromo,
 });
 
 export {Main};
