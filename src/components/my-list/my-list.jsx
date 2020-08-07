@@ -3,7 +3,9 @@ import {Link} from "react-router-dom";
 import MoviesList from "../movies-list/movies-list.jsx";
 
 const MyList = () => {
-  const showFavorite = `showFavorite`;
+
+  const SHOW_FAVORITE = `showFavorite`;
+
   return (
     <>
       <div className="user-page">
@@ -28,7 +30,7 @@ const MyList = () => {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <MoviesList showSimilar = {showFavorite}/>
+          <MoviesList showSimilar = {SHOW_FAVORITE}/>
 
         </section>
 

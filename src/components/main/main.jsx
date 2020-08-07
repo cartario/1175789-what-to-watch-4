@@ -16,7 +16,7 @@ const Main = (props) => {
     authorizationStatus,
     currentGenre,
     onFilterClick,
-    showMoreClickHandler,
+    onShowMoreClickHandler,
     showingFilmsCount,
   } = props;
 
@@ -66,7 +66,7 @@ const Main = (props) => {
           <MoviesList showingFilmsCount={showingFilmsCount} />
 
           {filmsByGenre.length > showingFilmsCount ? (
-            <ShowMore showMoreClickHandler={showMoreClickHandler} />
+            <ShowMore onShowMoreClickHandler={onShowMoreClickHandler} />
           ) : (
             ``
           )}
@@ -108,7 +108,7 @@ Main.propTypes = {
   currentGenre: PropTypes.string.isRequired,
   onFilterClick: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
-  showMoreClickHandler: PropTypes.func.isRequired,
+  onShowMoreClickHandler: PropTypes.func.isRequired,
   showingFilmsCount: PropTypes.number.isRequired,
 };
 

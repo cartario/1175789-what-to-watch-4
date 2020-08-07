@@ -23,7 +23,7 @@ const withCountFilms = (Component) => {
       return (
         <Component
           {...this.props}
-          showMoreClickHandler = {this.showMoreClickHandler}
+          onShowMoreClickHandler = {this.showMoreClickHandler}
           showingFilmsCount = {this.state.showingFilmsCount}
         />
       );
