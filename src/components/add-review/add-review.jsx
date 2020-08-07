@@ -44,7 +44,7 @@ const AddReview = (props) => {
                 </ul>
               </nav>
               <div className="user-block">
-                <Link to={AppRoutes.ROOT}>
+                <Link to={AppRoutes.MY_LIST}>
                   <div className="user-block__avatar">
                     <img src="/img/avatar.jpg" alt="User avatar" width="63" height="63"/>
                   </div>

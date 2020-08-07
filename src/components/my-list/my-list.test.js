@@ -13,6 +13,7 @@ const store = mockStore({
   },
   FILMS: {
     filmsByGenre: [],
+    films: [],
   },
 });
 

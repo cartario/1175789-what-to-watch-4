@@ -24,6 +24,10 @@ export const getReadyData = (state) => {
   return state[NameSpace.FILMS].isDataReady;
 };
 
+export const getFavoriteFilms = (state) => {
+  return state[NameSpace.FILMS].films.filter((film)=>film.isFavorite);
+};
+
 export const getCurrentMovie = (films, activeFilmId) => {
   const res = films.find(
       (film) => film.id === Number(activeFilmId)
