@@ -22,7 +22,7 @@ const withActiveTabs = (Component) => {
       return (
         <Component
           currentTab={currentTab}
-          clickHandler={this.clickHandler}
+          onClickHandler={this.clickHandler}
           {...this.props}
         />
       );

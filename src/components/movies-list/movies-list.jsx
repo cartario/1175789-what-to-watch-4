@@ -2,10 +2,12 @@ import React from "react";
 import MovieCard from "../movie-card/movie-card.jsx";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {getFilmsByFilter} from "../../selectors.js";
+import {getFilmsByFilter, getFavoriteFilms} from "../../selectors.js";
+
+const SHOWING_SIMILAR_MOVIE_COUNT = 4;
 
 const MoviesList = (props) => {
-  const {filmsByGenre, showSimilar, showingFilmsCount, activeFilmId} = props;
+  const {filmsByGenre, showSimilar, showingFilmsCount, activeFilmId, favoriteFilms} = props;
 
   const currentMovie = filmsByGenre.find(
       (film) => film.id === Number(activeFilmId)
@@ -13,7 +15,7 @@ const MoviesList = (props) => {
 
   switch (showSimilar) {
     case `showFavorite`:
-      const favoriteFilms = filmsByGenre.filter((film)=> film.isFavorite);
+
       return (
         <div className="catalog__movies-list">
           {favoriteFilms.map((film) =>
@@ -33,7 +35,7 @@ const MoviesList = (props) => {
         <div className="catalog__movies-list">
           {similarFilms
             .map((film) => <MovieCard film={film} key={film.id} />)
-            .slice(0, 4)}
+            .slice(0, SHOWING_SIMILAR_MOVIE_COUNT)}
         </div>
       );
     default:
@@ -54,6 +56,12 @@ MoviesList.propTypes = {
         genre: PropTypes.string.isRequired,
       })
   ).isRequired,
+  favoriteFilms: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        genre: PropTypes.string.isRequired,
+      })
+  ).isRequired,
   showSimilar: PropTypes.string,
   showingFilmsCount: PropTypes.number,
   activeFilmId: PropTypes.string,
@@ -61,6 +69,7 @@ MoviesList.propTypes = {
 
 const mapStateToProps = (state) => ({
   filmsByGenre: getFilmsByFilter(state),
+  favoriteFilms: getFavoriteFilms(state),
 });
 
 export {MoviesList};

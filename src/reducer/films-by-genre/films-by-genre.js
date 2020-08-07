@@ -4,6 +4,7 @@ const ALL_GENRE = `All genres`;
 
 const initialState = {
   films: [],
+  filmPromo: {},
   comments: [],
   filmsByGenre: [],
   isDataReady: false,
@@ -11,9 +12,12 @@ const initialState = {
   isCommentLoading: false,
   isReviewError: false,
   isReviewSent: false,
+  isLoadFilmsError: false,
+  isCommentPostError: false,
 };
 
 export const ActionType = {
+  GET_FILM_PROMO: `GET_FILM_PROMO`,
   GET_MOVIES_BY_FILTER: `GET_MOVIES_BY_FILTER`,
   GET_MOVIES_FROM_SERVER: `GET_MOVIES_FROM_SERVER`,
   GET_COMMENTS_FROM_SERVER: `GET_COMMENTS_FROM_SERVER`,
@@ -24,9 +28,21 @@ export const ActionType = {
   IS_COMMENT_LOADING: `IS_COMMENT_LOADING`,
   IS_REVIEW_ERROR: `IS_REVIEW_ERROR`,
   IS_REVIEW_SENT: `IS_REVIEW_SENT`,
+  SET_LOAD_FILMS_ERROR: `SET_LOAD_FILMS_ERROR`,
+  SET_COMMENT_POST_ERROR: `SET_COMMENT_POST_ERROR`,
 };
 
 export const ActionCreator = {
+  setCommentPostError: (error) => ({
+    type: ActionType.SET_COMMENT_POST_ERROR,
+    payload: error,
+  }),
+
+  setLoadFilmsError: (error) => ({
+    type: ActionType.SET_LOAD_FILMS_ERROR,
+    payload: error,
+  }),
+
   changeFilter: (genre) => ({
     type: `CHANGE_FILTER`,
     payload: genre,
@@ -69,6 +85,13 @@ export const ActionCreator = {
     return {
       type: ActionType.GET_MOVIES_FROM_SERVER,
       payload: filmsList,
+    };
+  },
+
+  getFilmPromo: (filmPromo) => {
+    return {
+      type: ActionType.GET_FILM_PROMO,
+      payload: filmPromo,
     };
   },
 
@@ -122,6 +145,26 @@ const adapter = (data) => {
   }));
 };
 
+const adapterPromo = (film) => ({
+  id: film.id,
+  title: film.name,
+  src: film.preview_image,
+  preview: film.preview_video_link,
+  genre: film.genre,
+  rating: film.rating,
+  scoresCount: film.scores_count,
+  description: film.description,
+  director: film.director,
+  starring: film.starring,
+  released: film.released,
+  backgroundImage: film.background_image,
+  backgroundColor: film.background_color,
+  posterImage: film.poster_image,
+  runTime: film.run_time,
+  isFavorite: film.is_favorite,
+  videoLink: film.video_link,
+});
+
 export const Operation = {
   postNewComment: (userId, commentPost) => (dispatch, getState, api) => {
     return api.post(`/comments/${userId}`, commentPost)
@@ -133,6 +176,7 @@ export const Operation = {
       })
       .catch((err) => {
         dispatch(ActionCreator.setIsReviewError(true));
+        dispatch(ActionCreator.setCommentPostError(true));
         throw err;
       });
   },
@@ -143,12 +187,26 @@ export const Operation = {
       dispatch(ActionCreator.loadFilms(dataFromAdapter));
       dispatch({type: ActionType.GET_MOVIES_BY_FILTER, payload: ALL_GENRE});
       dispatch(ActionCreator.setIsDataReady(true));
+    })
+    .catch((err) => {
+      dispatch(ActionCreator.setLoadFilmsError(true));
+      throw err;
+    });
+  },
+
+  loadFilmPromo: () => (dispatch, getState, api) => {
+    return api.get(`/films/promo`).then((response) => {
+      const dataFromAdapter = adapterPromo(response.data);
+      dispatch(ActionCreator.getFilmPromo(dataFromAdapter));
     });
   },
 
   loadComments: (filmId) => (dispatch, getState, api) => {
     return api.get(`/comments/${filmId}`).then((response) => {
       dispatch(ActionCreator.loadComments(response.data));
+    })
+    .catch((err) => {
+      throw err;
     });
   },
 
@@ -210,6 +268,15 @@ export const reducer = (state = initialState, action) => {
 
     case ActionType.IS_REVIEW_SENT:
       return extend(state, {isReviewSent: action.payload});
+
+    case ActionType.GET_FILM_PROMO:
+      return extend(state, {filmPromo: action.payload});
+
+    case ActionType.SET_LOAD_FILMS_ERROR:
+      return extend(state, {isLoadFilmsError: action.payload});
+
+    case ActionType.SET_COMMENT_POST_ERROR:
+      return extend(state, {isCommentPostError: action.payload});
 
     default:
       return state;

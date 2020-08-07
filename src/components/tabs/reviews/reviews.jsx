@@ -6,7 +6,6 @@ import {getDateFormat} from "../../../utils.js";
 
 const Reviews = (props) => {
   const {comments} = props;
-
   return (
     <>
     <div className="movie-card__reviews movie-card__row">

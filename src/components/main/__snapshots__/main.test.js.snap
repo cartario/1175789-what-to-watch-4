@@ -67,7 +67,6 @@ Array [
           className="movie-card__poster"
         >
           <img
-            alt=""
             height="327"
             width="218"
           />
@@ -77,9 +76,7 @@ Array [
         >
           <h2
             className="movie-card__title"
-          >
-            
-          </h2>
+          />
           <p
             className="movie-card__meta"
           >

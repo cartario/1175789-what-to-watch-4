@@ -5,14 +5,17 @@ import PropTypes from "prop-types";
 import {getCurrentMovie} from "../../selectors.js";
 import withReview from "../../hocs/with-review/with-review.js";
 
+const DEFAULT_CHECKED = 1;
+
 const AddReview = (props) => {
-  const {films, activeFilmId, isCommentLoading, isReviewErr,
+  const {films, activeFilmId, isCommentLoading, isReviewErr, isCommentPostError,
     maxLength, minLength, comment, rating, postNewCommentHandler, changeRatingComment, changeTextComment
   } = props;
 
   const currentMovie = getCurrentMovie(films, activeFilmId);
   const {title, backgroundImage, posterImage} = currentMovie;
   const isSubmitBtnBlocked = !(comment && rating && !isCommentLoading);
+  const isFormDisabled = (isCommentLoading || isCommentPostError);
 
   return (
       <>
@@ -41,7 +44,7 @@ const AddReview = (props) => {
                 </ul>
               </nav>
               <div className="user-block">
-                <Link to={AppRoutes.ROOT}>
+                <Link to={AppRoutes.MY_LIST}>
                   <div className="user-block__avatar">
                     <img src="/img/avatar.jpg" alt="User avatar" width="63" height="63"/>
                   </div>
@@ -66,7 +69,8 @@ const AddReview = (props) => {
                         type="radio"
                         name="rating"
                         value={star}
-                        defaultChecked = {star === 1 && true}
+                        defaultChecked = {star === DEFAULT_CHECKED && true}
+                        disabled = {isFormDisabled}
                       />
                       <label className="rating__label" htmlFor={`star-${star}`}>Rating {star}</label>
                     </React.Fragment>
@@ -81,6 +85,7 @@ const AddReview = (props) => {
                     placeholder="Review text"
                     maxLength={maxLength}
                     minLength={minLength}
+                    disabled = {isFormDisabled}
                   >
                   </textarea>
                   <div className="add-review__submit">
@@ -112,11 +117,12 @@ AddReview.propTypes = {
   isReviewErr: PropTypes.bool.isRequired,
   maxLength: PropTypes.number.isRequired,
   minLength: PropTypes.number.isRequired,
-  comment: PropTypes.string.isRequired,
-  rating: PropTypes.string.isRequired,
+  comment: PropTypes.string,
+  rating: PropTypes.number.isRequired,
   postNewCommentHandler: PropTypes.func.isRequired,
   changeRatingComment: PropTypes.func.isRequired,
   changeTextComment: PropTypes.func.isRequired,
+  isCommentPostError: PropTypes.bool.isRequired,
 };
 
 export {AddReview};

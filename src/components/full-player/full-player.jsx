@@ -116,5 +116,5 @@ const mapStateToProps = (state) => ({
   films: getFilmsByFilter(state),
 });
 
-const connectedFullPlayer = connect(mapStateToProps)(FullPlayer);
-export default withFullPlayer(connectedFullPlayer);
+export const FullPlayerConnected = connect(mapStateToProps)(FullPlayer);
+export default withFullPlayer(FullPlayerConnected);

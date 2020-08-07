@@ -1,4 +1,4 @@
-import {TextRates} from "./const.js";
+import {TextRates, RateLimits} from "./const.js";
 import moment from "moment";
 
 
@@ -27,18 +27,18 @@ export const getUniqGenres = (films) => {
 
 export const getTextRate = (rate) => {
   switch (true) {
-    case rate >= 0 && rate < 3:
+    case rate >= RateLimits.NOTHING && rate < RateLimits.BAD:
       return TextRates.BAD;
-    case rate >= 3 && rate < 5:
+    case rate >= RateLimits.BAD && rate < RateLimits.NORMAL:
       return TextRates.NORMAL;
-    case rate >= 5 && rate < 8:
+    case rate >= RateLimits.NORMAL && rate < RateLimits.GOOD:
       return TextRates.GOOD;
-    case rate >= 8 && rate < 10:
+    case rate >= RateLimits.GOOD && rate < RateLimits.VERY_GOOD:
       return TextRates.VERY_GOOD;
-    case rate >= 10 && rate < 12:
+    case rate >= RateLimits.VERY_GOOD && rate < RateLimits.VERY_GOOD:
       return TextRates.AWESOME;
     default:
-      return `incorrect_rate`;
+      return RateLimits.INCORRECT_RATE;
   }
 };
 

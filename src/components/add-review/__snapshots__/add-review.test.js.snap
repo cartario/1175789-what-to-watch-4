@@ -75,7 +75,7 @@ exports[`AddReview-test should render AddReview 1`] = `
         className="user-block"
       >
         <a
-          href="/"
+          href="/mylist"
           onClick={[Function]}
         >
           <div

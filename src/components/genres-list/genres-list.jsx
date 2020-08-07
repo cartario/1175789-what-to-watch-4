@@ -2,14 +2,16 @@ import React from "react";
 import PropTypes from "prop-types";
 import {getUniqGenres} from "../../utils.js";
 
+const SHOWING_FILMS_ON_START = 8;
+
 const GenresList = (props) => {
   const {currentGenre, onFilterClick, films} = props;
 
   const genres = getUniqGenres(films);
 
   let visibleGenres = genres;
-  if (genres.length > 8) {
-    visibleGenres = genres.slice(0, 8);
+  if (genres.length > SHOWING_FILMS_ON_START) {
+    visibleGenres = genres.slice(0, SHOWING_FILMS_ON_START);
   }
 
   const clickHandler = (e) => {

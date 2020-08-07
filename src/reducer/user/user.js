@@ -5,10 +5,12 @@ export const AuthorizationStatus = {
 
 export const initialState = {
   authorizationStatus: AuthorizationStatus.NO_AUTH,
+  authStatusErr: false,
 };
 
 export const ActionType = {
   REQUIRED_AUTHORIZATION: `REQUIRED_AUTHORIZATION`,
+  ERROR_AUTHORIZATION: `ERROR_AUTHORIZATION`,
 };
 
 export const ActionCreator = {
@@ -16,6 +18,13 @@ export const ActionCreator = {
     return ({
       type: ActionType.REQUIRED_AUTHORIZATION,
       payload: status,
+    });
+  },
+
+  errorAuthorization: (error) => {
+    return ({
+      type: ActionType.ERROR_AUTHORIZATION,
+      payload: error,
     });
   }
 };
@@ -43,6 +52,10 @@ export const Operation = {
     )
     .then(() => {
       dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
+    })
+    .catch((err)=> {
+      dispatch(ActionCreator.errorAuthorization(true));
+      throw err;
     });
   },
 };
@@ -52,6 +65,9 @@ export const reducer = (state = initialState, action) => {
 
     case ActionType.REQUIRED_AUTHORIZATION:
       return Object.assign({}, state, {authorizationStatus: action.payload});
+
+    case ActionType.ERROR_AUTHORIZATION:
+      return Object.assign({}, state, {authStatusErr: action.payload});
     default:
       return state;
   }

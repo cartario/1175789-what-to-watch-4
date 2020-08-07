@@ -13,15 +13,15 @@ const Main = (props) => {
   const {
     films,
     filmsByGenre,
+    filmPromo,
     authorizationStatus,
     currentGenre,
     onFilterClick,
-    showMoreClickHandler,
+    onShowMoreClickHandler,
     showingFilmsCount,
   } = props;
 
-  const currentMovie = films.find((film) => film.id === 1);
-  const {title, posterImage, genre, released} = currentMovie;
+  const {title, posterImage, genre, released} = filmPromo;
 
   return (
     <React.Fragment>
@@ -66,7 +66,7 @@ const Main = (props) => {
           <MoviesList showingFilmsCount={showingFilmsCount} />
 
           {filmsByGenre.length > showingFilmsCount ? (
-            <ShowMore showMoreClickHandler={showMoreClickHandler} />
+            <ShowMore onShowMoreClickHandler={onShowMoreClickHandler} />
           ) : (
             ``
           )}
@@ -99,6 +99,12 @@ Main.propTypes = {
         released: PropTypes.number.isRequired,
       })
   ).isRequired,
+  filmPromo: PropTypes.shape({
+    title: PropTypes.string,
+    posterImage: PropTypes.string,
+    genre: PropTypes.string,
+    released: PropTypes.number,
+  }),
   filmsByGenre: PropTypes.arrayOf(
       PropTypes.shape({
         genre: PropTypes.string.isRequired,
@@ -108,12 +114,13 @@ Main.propTypes = {
   currentGenre: PropTypes.string.isRequired,
   onFilterClick: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
-  showMoreClickHandler: PropTypes.func.isRequired,
+  onShowMoreClickHandler: PropTypes.func.isRequired,
   showingFilmsCount: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   filmsByGenre: getFilmsByFilter(state),
+  filmPromo: state.FILMS.filmPromo,
 });
 
 export {Main};

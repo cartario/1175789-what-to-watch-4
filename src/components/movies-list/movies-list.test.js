@@ -10,6 +10,7 @@ const mockStore = configureStore([]);
 const store = mockStore({
   FILMS: {
     filmsByGenre: [],
+    films: [],
   },
 });
 

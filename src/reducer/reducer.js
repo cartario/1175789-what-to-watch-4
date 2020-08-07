@@ -5,10 +5,6 @@ import {reducer as userReducer} from "./user/user.js";
 
 import NameSpace from "./name-space/name-space.js";
 
-export const ActionCreator = {
-
-};
-
 export const reducers = combineReducers({
   [NameSpace.CURRENT_GENRE]: currentGenre,
   [NameSpace.FILMS]: filmsByGenre,

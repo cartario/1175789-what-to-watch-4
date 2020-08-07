@@ -21,7 +21,7 @@ const renderCurrentTab = (currentTab, currentMovie) => {
 };
 
 const Tabs = (props) => {
-  const {clickHandler, currentTab, loadComments, films, activeFilmId} = props;
+  const {onClickHandler, currentTab, loadComments, films, activeFilmId} = props;
 
   const currentMovie = films.find((film) => film.id === Number(activeFilmId));
 
@@ -34,7 +34,7 @@ const Tabs = (props) => {
               <li
                 key={tab}
                 onClick={() => {
-                  clickHandler(tab);
+                  onClickHandler(tab);
                   loadComments(activeFilmId);
                 }}
                 className={
@@ -72,7 +72,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 Tabs.propTypes = {
   loadComments: PropTypes.func,
-  clickHandler: PropTypes.func,
+  onClickHandler: PropTypes.func,
   currentTab: PropTypes.string,
   films: PropTypes.arrayOf(
       PropTypes.shape({
