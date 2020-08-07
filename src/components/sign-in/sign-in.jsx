@@ -2,9 +2,10 @@ import React, {createRef} from "react";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
 import {history} from "../../history.js";
+import {connect} from "react-redux";
 
 const SignIn = (props) => {
-  const {login} = props;
+  const {login, authStatusErr} = props;
 
   const loginRef = createRef();
   const passwordRef = createRef();
@@ -16,8 +17,17 @@ const SignIn = (props) => {
       password: passwordRef.current.value};
     login(data);
 
-    history.push(`/`);
+    if (authStatusErr) {
+      history.push(`/`);
+    }
   };
+
+  const isInvalidRequest = authStatusErr ?
+    <React.Fragment>
+      <div className="sign-in__message">
+        <p>Please enter a valid email address</p>
+      </div>
+    </React.Fragment> : ``;
 
   return (
     <>
@@ -36,13 +46,16 @@ const SignIn = (props) => {
 
         <div className="sign-in user-page__content">
           <form onSubmit={submitHandler} action="#" className="sign-in__form">
+            {isInvalidRequest}
             <div className="sign-in__fields">
+
               <div className="sign-in__field">
-                <input ref = {loginRef} className="sign-in__input" type="email" placeholder="Email address" name="user-email" id="user-email"/>
+                <input ref = {loginRef} className="sign-in__input" type="email" placeholder="Email address" name="user-email" id="user-email" required/>
                 <label className="sign-in__label visually-hidden" htmlFor="user-email">Email address</label>
               </div>
+
               <div className="sign-in__field">
-                <input ref = {passwordRef} className="sign-in__input" type="password" placeholder="Password" name="user-password" id="user-password"/>
+                <input ref = {passwordRef} className="sign-in__input" type="password" placeholder="Password" name="user-password" id="user-password" required/>
                 <label className="sign-in__label visually-hidden" htmlFor="user-password">Password</label>
               </div>
             </div>
@@ -74,6 +87,12 @@ const SignIn = (props) => {
 
 SignIn.propTypes = {
   login: PropTypes.func.isRequired,
+  authStatusErr: PropTypes.bool.isRequired,
 };
 
-export default SignIn;
+const mapStateToProps = (state) => ({
+  authStatusErr: state.USER.authStatusErr,
+});
+
+export {SignIn};
+export default connect(mapStateToProps)(SignIn);

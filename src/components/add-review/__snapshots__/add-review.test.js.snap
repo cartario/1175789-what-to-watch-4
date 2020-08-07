@@ -118,6 +118,7 @@ exports[`AddReview-test should render AddReview 1`] = `
           <input
             className="rating__input"
             defaultChecked={true}
+            disabled={false}
             id="star-1"
             name="rating"
             type="radio"
@@ -133,6 +134,7 @@ exports[`AddReview-test should render AddReview 1`] = `
           <input
             className="rating__input"
             defaultChecked={false}
+            disabled={false}
             id="star-2"
             name="rating"
             type="radio"
@@ -148,6 +150,7 @@ exports[`AddReview-test should render AddReview 1`] = `
           <input
             className="rating__input"
             defaultChecked={false}
+            disabled={false}
             id="star-3"
             name="rating"
             type="radio"
@@ -163,6 +166,7 @@ exports[`AddReview-test should render AddReview 1`] = `
           <input
             className="rating__input"
             defaultChecked={false}
+            disabled={false}
             id="star-4"
             name="rating"
             type="radio"
@@ -178,6 +182,7 @@ exports[`AddReview-test should render AddReview 1`] = `
           <input
             className="rating__input"
             defaultChecked={false}
+            disabled={false}
             id="star-5"
             name="rating"
             type="radio"
@@ -196,6 +201,7 @@ exports[`AddReview-test should render AddReview 1`] = `
         >
           <textarea
             className="add-review__textarea"
+            disabled={false}
             id="review-text"
             maxLength={400}
             minLength={50}

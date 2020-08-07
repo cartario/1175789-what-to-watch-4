@@ -69,6 +69,7 @@ const AddReview = (props) => {
                         name="rating"
                         value={star}
                         defaultChecked = {star === DEFAULT_CHECKED && true}
+                        disabled = {!isSubmitBtnBlocked}
                       />
                       <label className="rating__label" htmlFor={`star-${star}`}>Rating {star}</label>
                     </React.Fragment>
@@ -83,6 +84,7 @@ const AddReview = (props) => {
                     placeholder="Review text"
                     maxLength={maxLength}
                     minLength={minLength}
+                    disabled = {!isSubmitBtnBlocked}
                   >
                   </textarea>
                   <div className="add-review__submit">

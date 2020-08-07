@@ -7,6 +7,7 @@ test(`Reducer without additional parameters should return initial state`, ()=> {
     },
     USER: {
       authorizationStatus: `NO_AUTH`,
+      authStatusErr: false,
     },
 
     FILMS: {

@@ -1,6 +1,6 @@
 import React, {PureComponent} from "react";
 
-const SHOWING_BY_BTN_CLICK = 4;
+const SHOWING_BY_BTN_CLICK = 8;
 const SHOWING_FILMS_BY_START = 8;
 
 const withCountFilms = (Component) => {
