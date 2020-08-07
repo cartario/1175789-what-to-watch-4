@@ -99,14 +99,12 @@ Main.propTypes = {
         released: PropTypes.number.isRequired,
       })
   ).isRequired,
-  filmPromo: PropTypes.arrayOf(
-      PropTypes.shape({
-        title: PropTypes.string.isRequired,
-        posterImage: PropTypes.string.isRequired,
-        genre: PropTypes.string.isRequired,
-        released: PropTypes.number.isRequired,
-      })
-  ).isRequired,
+  filmPromo: PropTypes.shape({
+    title: PropTypes.string,
+    posterImage: PropTypes.string,
+    genre: PropTypes.string,
+    released: PropTypes.number,
+  }),
   filmsByGenre: PropTypes.arrayOf(
       PropTypes.shape({
         genre: PropTypes.string.isRequired,

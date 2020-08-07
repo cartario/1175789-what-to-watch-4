@@ -31,7 +31,17 @@ const App = (props) => {
     login,
     currentGenre,
     onFilterClick,
+    isLoadFilmsError,
+    isCommentPostError
   } = props;
+
+  if (isLoadFilmsError) {
+    return <p style={{backgroundColor: `red`}}>Сервер временно недоступен. Проверьте подключение к интернету!</p>;
+  }
+
+  if (isCommentPostError) {
+    return <p>Ошибка отправки комментария</p>;
+  }
 
   if (!props.isDataReady) {
     return null;
@@ -61,6 +71,7 @@ const App = (props) => {
               <AddReview
                 films = {films}
                 activeFilmId = {match.params.id}
+                isCommentPostError = {isCommentPostError}
               />);
           }
           }
@@ -109,6 +120,8 @@ App.propTypes = {
   currentGenre: PropTypes.string.isRequired,
   onFilterClick: PropTypes.func.isRequired,
   isDataReady: PropTypes.bool.isRequired,
+  isLoadFilmsError: PropTypes.bool.isRequired,
+  isCommentPostError: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -116,6 +129,8 @@ const mapStateToProps = (state) => ({
   authorizationStatus: getAuthorizationStatus(state),
   currentGenre: getCurrentGenre(state),
   isDataReady: getReadyData(state),
+  isLoadFilmsError: state.FILMS.isLoadFilmsError,
+  isCommentPostError: state.FILMS.isCommentPostError,
 });
 
 const mapDispatchToProps = (dispatch) => ({

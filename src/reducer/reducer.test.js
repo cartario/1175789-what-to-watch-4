@@ -20,6 +20,8 @@ test(`Reducer without additional parameters should return initial state`, ()=> {
       isReviewError: false,
       isReviewSent: false,
       newComment: {},
+      isLoadFilmsError: false,
+      isCommentPostError: false,
     }
   });
 });

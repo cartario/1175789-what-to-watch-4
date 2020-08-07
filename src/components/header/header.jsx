@@ -8,6 +8,7 @@ const Header = (props) => {
   const {authorizationStatus, currentMovie} = props;
 
   const {title, backgroundImage} = currentMovie;
+
   return (
     <>
       <div className="movie-card__bg">

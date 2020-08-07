@@ -12,6 +12,8 @@ describe(`test-reducer-films-by-genre`, () => {
       isCommentLoading: false,
       isReviewError: false,
       isReviewSent: false,
+      isLoadFilmsError: false,
+      isCommentPostError: false,
     });
   });
 });

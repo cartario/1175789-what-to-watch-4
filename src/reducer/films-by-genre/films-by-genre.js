@@ -12,6 +12,8 @@ const initialState = {
   isCommentLoading: false,
   isReviewError: false,
   isReviewSent: false,
+  isLoadFilmsError: false,
+  isCommentPostError: false,
 };
 
 export const ActionType = {
@@ -26,9 +28,21 @@ export const ActionType = {
   IS_COMMENT_LOADING: `IS_COMMENT_LOADING`,
   IS_REVIEW_ERROR: `IS_REVIEW_ERROR`,
   IS_REVIEW_SENT: `IS_REVIEW_SENT`,
+  SET_LOAD_FILMS_ERROR: `SET_LOAD_FILMS_ERROR`,
+  SET_COMMENT_POST_ERROR: `SET_COMMENT_POST_ERROR`,
 };
 
 export const ActionCreator = {
+  setCommentPostError: (error) => ({
+    type: ActionType.SET_COMMENT_POST_ERROR,
+    payload: error,
+  }),
+
+  setLoadFilmsError: (error) => ({
+    type: ActionType.SET_LOAD_FILMS_ERROR,
+    payload: error,
+  }),
+
   changeFilter: (genre) => ({
     type: `CHANGE_FILTER`,
     payload: genre,
@@ -153,7 +167,7 @@ const adapterPromo = (film) => ({
 
 export const Operation = {
   postNewComment: (userId, commentPost) => (dispatch, getState, api) => {
-    return api.post(`/comments/${userId}`, commentPost)
+    return api.post(`/comments8/${userId}`, commentPost)
       .then((response) => {
         dispatch(ActionCreator.setIsCommentLoading(true));
         dispatch(ActionCreator.postNewComment(response.data));
@@ -162,6 +176,7 @@ export const Operation = {
       })
       .catch((err) => {
         dispatch(ActionCreator.setIsReviewError(true));
+        dispatch(ActionCreator.setCommentPostError(true));
         throw err;
       });
   },
@@ -172,6 +187,10 @@ export const Operation = {
       dispatch(ActionCreator.loadFilms(dataFromAdapter));
       dispatch({type: ActionType.GET_MOVIES_BY_FILTER, payload: ALL_GENRE});
       dispatch(ActionCreator.setIsDataReady(true));
+    })
+    .catch((err) => {
+      dispatch(ActionCreator.setLoadFilmsError(true));
+      throw err;
     });
   },
 
@@ -185,6 +204,9 @@ export const Operation = {
   loadComments: (filmId) => (dispatch, getState, api) => {
     return api.get(`/comments/${filmId}`).then((response) => {
       dispatch(ActionCreator.loadComments(response.data));
+    })
+    .catch((err) => {
+      throw err;
     });
   },
 
@@ -249,6 +271,12 @@ export const reducer = (state = initialState, action) => {
 
     case ActionType.GET_FILM_PROMO:
       return extend(state, {filmPromo: action.payload});
+
+    case ActionType.SET_LOAD_FILMS_ERROR:
+      return extend(state, {isLoadFilmsError: action.payload});
+
+    case ActionType.SET_COMMENT_POST_ERROR:
+      return extend(state, {isCommentPostError: action.payload});
 
     default:
       return state;

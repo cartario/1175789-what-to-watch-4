@@ -8,13 +8,14 @@ import withReview from "../../hocs/with-review/with-review.js";
 const DEFAULT_CHECKED = 1;
 
 const AddReview = (props) => {
-  const {films, activeFilmId, isCommentLoading, isReviewErr,
+  const {films, activeFilmId, isCommentLoading, isReviewErr, isCommentPostError,
     maxLength, minLength, comment, rating, postNewCommentHandler, changeRatingComment, changeTextComment
   } = props;
 
   const currentMovie = getCurrentMovie(films, activeFilmId);
   const {title, backgroundImage, posterImage} = currentMovie;
   const isSubmitBtnBlocked = !(comment && rating && !isCommentLoading);
+  const isFormDisabled = (isCommentLoading || isCommentPostError);
 
   return (
       <>
@@ -69,7 +70,7 @@ const AddReview = (props) => {
                         name="rating"
                         value={star}
                         defaultChecked = {star === DEFAULT_CHECKED && true}
-                        disabled = {!isSubmitBtnBlocked}
+                        disabled = {isFormDisabled}
                       />
                       <label className="rating__label" htmlFor={`star-${star}`}>Rating {star}</label>
                     </React.Fragment>
@@ -84,7 +85,7 @@ const AddReview = (props) => {
                     placeholder="Review text"
                     maxLength={maxLength}
                     minLength={minLength}
-                    disabled = {!isSubmitBtnBlocked}
+                    disabled = {isFormDisabled}
                   >
                   </textarea>
                   <div className="add-review__submit">
@@ -121,6 +122,7 @@ AddReview.propTypes = {
   postNewCommentHandler: PropTypes.func.isRequired,
   changeRatingComment: PropTypes.func.isRequired,
   changeTextComment: PropTypes.func.isRequired,
+  isCommentPostError: PropTypes.bool.isRequired,
 };
 
 export {AddReview};
