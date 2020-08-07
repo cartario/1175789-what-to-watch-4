@@ -4,6 +4,8 @@ import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {getFilmsByFilter} from "../../selectors.js";
 
+const SHOWING_SIMILAR_MOVIE_COUNT = 4;
+
 const MoviesList = (props) => {
   const {filmsByGenre, showSimilar, showingFilmsCount, activeFilmId} = props;
 
@@ -33,7 +35,7 @@ const MoviesList = (props) => {
         <div className="catalog__movies-list">
           {similarFilms
             .map((film) => <MovieCard film={film} key={film.id} />)
-            .slice(0, 4)}
+            .slice(0, SHOWING_SIMILAR_MOVIE_COUNT)}
         </div>
       );
     default:

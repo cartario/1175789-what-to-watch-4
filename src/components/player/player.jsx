@@ -3,11 +3,14 @@ import PropTypes from "prop-types";
 
 const Player = (props) => {
   const {videoRef} = props;
+
   return <video ref={videoRef} />;
 };
 
 Player.propTypes = {
-  videoRef: PropTypes.shape().isRequired,
+  videoRef: PropTypes.shape({
+    current: PropTypes.shape()
+  }).isRequired,
 };
 
 export default Player;

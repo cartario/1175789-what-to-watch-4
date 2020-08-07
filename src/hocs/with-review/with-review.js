@@ -10,7 +10,7 @@ const withAddReview = (Component) => {
       super(props);
 
       this.state = {
-        rating: 0,
+        rating: 1,
         comment: null,
         maxLength: 400,
         minLength: 50,
@@ -39,7 +39,7 @@ const withAddReview = (Component) => {
 
     _changeRatingComment(e) {
       this.setState({
-        rating: e.target.value,
+        rating: Number(e.target.value),
       });
     }
 

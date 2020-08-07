@@ -5,6 +5,8 @@ import PropTypes from "prop-types";
 import {getCurrentMovie} from "../../selectors.js";
 import withReview from "../../hocs/with-review/with-review.js";
 
+const DEFAULT_CHECKED = 1;
+
 const AddReview = (props) => {
   const {films, activeFilmId, isCommentLoading, isReviewErr,
     maxLength, minLength, comment, rating, postNewCommentHandler, changeRatingComment, changeTextComment
@@ -66,7 +68,7 @@ const AddReview = (props) => {
                         type="radio"
                         name="rating"
                         value={star}
-                        defaultChecked = {star === 1 && true}
+                        defaultChecked = {star === DEFAULT_CHECKED && true}
                       />
                       <label className="rating__label" htmlFor={`star-${star}`}>Rating {star}</label>
                     </React.Fragment>
@@ -112,8 +114,8 @@ AddReview.propTypes = {
   isReviewErr: PropTypes.bool.isRequired,
   maxLength: PropTypes.number.isRequired,
   minLength: PropTypes.number.isRequired,
-  comment: PropTypes.string.isRequired,
-  rating: PropTypes.string.isRequired,
+  comment: PropTypes.string,
+  rating: PropTypes.number.isRequired,
   postNewCommentHandler: PropTypes.func.isRequired,
   changeRatingComment: PropTypes.func.isRequired,
   changeTextComment: PropTypes.func.isRequired,
