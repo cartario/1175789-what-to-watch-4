@@ -91,11 +91,7 @@ const App = (props) => {
         <PrivateRoute
           path={AppRoutes.MY_LIST}
           exact
-          render = {() => {
-            return (
-              <MyList/>
-            );
-          }}
+          render = {() => <MyList/>}
         />
       </Switch>
     </Router>
