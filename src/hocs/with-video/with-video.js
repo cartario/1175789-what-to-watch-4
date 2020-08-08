@@ -33,6 +33,7 @@ const withCard = (Component) => {
       const video = this._videoRef.current;
       if (this.state.isPlaying) {
         this._timeout = setTimeout(() => {
+
           this._videoRef.current.play();
         }, 1000);
       } else {

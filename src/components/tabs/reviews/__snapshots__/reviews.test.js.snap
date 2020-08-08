@@ -7,5 +7,8 @@ exports[`Reviews-test should render reviews 1`] = `
   <div
     className="movie-card__reviews-col"
   />
+  <div
+    className="movie-card__reviews-col"
+  />
 </div>
 `;
