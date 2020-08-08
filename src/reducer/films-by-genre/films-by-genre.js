@@ -167,6 +167,7 @@ const adapterPromo = (film) => ({
 
 export const Operation = {
   postNewComment: (userId, commentPost) => (dispatch, getState, api) => {
+
     return api.post(`/comments/${userId}`, commentPost)
       .then((response) => {
         dispatch(ActionCreator.setIsCommentLoading(true));
@@ -175,6 +176,8 @@ export const Operation = {
         dispatch(ActionCreator.setIsReviewSent(true));
       })
       .catch((err) => {
+        dispatch(ActionCreator.setIsCommentLoading(true));
+        dispatch(ActionCreator.setIsReviewSent(false));
         dispatch(ActionCreator.setIsReviewError(true));
         dispatch(ActionCreator.setCommentPostError(true));
         throw err;

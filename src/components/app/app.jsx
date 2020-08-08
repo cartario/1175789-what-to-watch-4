@@ -39,10 +39,6 @@ const App = (props) => {
     return <p style={{backgroundColor: `red`}}>Сервер временно недоступен. Проверьте подключение к интернету!</p>;
   }
 
-  if (isCommentPostError) {
-    return <p>Ошибка отправки комментария</p>;
-  }
-
   if (!props.isDataReady) {
     return null;
   }

@@ -211,7 +211,7 @@ exports[`AddReview-test should render AddReview 1`] = `
               disabled={true}
               type="submit"
             >
-              
+              Post
             </button>
           </div>
         </div>
