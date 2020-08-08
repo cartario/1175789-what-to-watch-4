@@ -50,6 +50,8 @@ const withCard = (Component) => {
       video.width = null;
       video.height = null;
       video.muted = null;
+
+      clearTimeout(this._timeout);
     }
 
     _handlerMouseOver() {
