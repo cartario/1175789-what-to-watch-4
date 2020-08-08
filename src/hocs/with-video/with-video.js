@@ -31,8 +31,10 @@ const withCard = (Component) => {
 
     componentDidUpdate() {
       const video = this._videoRef.current;
+
       if (this.state.isPlaying) {
         this._timeout = setTimeout(() => {
+
           this._videoRef.current.play();
         }, 1000);
       } else {
@@ -48,6 +50,8 @@ const withCard = (Component) => {
       video.width = null;
       video.height = null;
       video.muted = null;
+
+      clearTimeout(this._timeout);
     }
 
     _handlerMouseOver() {

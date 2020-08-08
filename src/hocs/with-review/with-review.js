@@ -1,7 +1,6 @@
 import React, {PureComponent} from "react";
 import {connect} from "react-redux";
 import {Operation} from "../../reducer/films-by-genre/films-by-genre.js";
-import {history} from "../../history.js";
 import PropTypes from "prop-types";
 
 const withAddReview = (Component) => {
@@ -33,8 +32,6 @@ const withAddReview = (Component) => {
         rating: 1,
         comment: null,
       });
-
-      history.goBack();
     }
 
     _changeRatingComment(e) {
@@ -61,6 +58,7 @@ const withAddReview = (Component) => {
           changeTextComment = {this._changeTextComment}
           postNewCommentHandler = {this._postNewCommentHandler}
           isReviewErr = {this.props.isReviewErr}
+          isReviewSent = {this.props.isReviewSent}
           isCommentLoading = {this.props.isCommentLoading}
         />
       );
@@ -70,6 +68,7 @@ const withAddReview = (Component) => {
   const mapStateToProps = (state) => ({
     isCommentLoading: state.FILMS.isCommentLoading,
     isReviewErr: state.FILMS.isReviewError,
+    isReviewSent: state.FILMS.isReviewSent,
   });
 
   const mapDispatchToProps = (dispatch) => ({
@@ -82,6 +81,7 @@ const withAddReview = (Component) => {
     postNewComment: PropTypes.func.isRequired,
     isCommentLoading: PropTypes.bool.isRequired,
     isReviewErr: PropTypes.bool.isRequired,
+    isReviewSent: PropTypes.bool.isRequired,
   };
 
   return connect(mapStateToProps, mapDispatchToProps)(WithAddReview);

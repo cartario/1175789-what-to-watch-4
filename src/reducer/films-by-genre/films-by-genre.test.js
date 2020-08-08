@@ -52,4 +52,59 @@ describe(`test-reducer-films-by-genre`, () => {
       isReviewError: {},
     });
   });
+
+  it(`should catch is comment loading`, () => {
+    expect(reducer({
+      isCommentLoading: false,
+    }, {
+      type: ActionType.IS_COMMENT_LOADING,
+      payload: true,
+    })).toEqual({
+      isCommentLoading: true,
+    });
+  });
+
+  it(`should catch is review error`, () => {
+    expect(reducer({
+      isReviewError: false,
+    }, {
+      type: ActionType.IS_REVIEW_ERROR,
+      payload: true,
+    })).toEqual({
+      isReviewError: true,
+    });
+  });
+
+  it(`should catch is review sent`, () => {
+    expect(reducer({
+      isReviewSent: false,
+    }, {
+      type: ActionType.IS_REVIEW_SENT,
+      payload: true,
+    })).toEqual({
+      isReviewSent: true,
+    });
+  });
+
+  it(`should catch is is Load Films Error`, () => {
+    expect(reducer({
+      isLoadFilmsError: false,
+    }, {
+      type: ActionType.SET_LOAD_FILMS_ERROR,
+      payload: true,
+    })).toEqual({
+      isLoadFilmsError: true,
+    });
+  });
+
+  it(`should catch is is Load Films Error`, () => {
+    expect(reducer({
+      isCommentPostError: false,
+    }, {
+      type: ActionType.SET_COMMENT_POST_ERROR,
+      payload: true,
+    })).toEqual({
+      isCommentPostError: true,
+    });
+  });
 });

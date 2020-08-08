@@ -4,18 +4,35 @@ import {AppRoutes} from "../../const.js";
 import PropTypes from "prop-types";
 import {getCurrentMovie} from "../../selectors.js";
 import withReview from "../../hocs/with-review/with-review.js";
+import {history} from "../../history.js";
 
 const DEFAULT_CHECKED = 1;
 
 const AddReview = (props) => {
-  const {films, activeFilmId, isCommentLoading, isReviewErr, isCommentPostError,
+  const {films, activeFilmId, isCommentLoading, isReviewErr, isCommentPostError, isReviewSent,
     maxLength, minLength, comment, rating, postNewCommentHandler, changeRatingComment, changeTextComment
   } = props;
 
   const currentMovie = getCurrentMovie(films, activeFilmId);
   const {title, backgroundImage, posterImage} = currentMovie;
-  const isSubmitBtnBlocked = !(comment && rating && !isCommentLoading);
+
+  const isValidReview = (rating && comment) ? false : true;
+
   const isFormDisabled = (isCommentLoading || isCommentPostError);
+
+  const isSendingReview = () => {
+    if (isReviewSent) {
+      history.goBack();
+    }
+
+    if (isCommentPostError) {
+      return <p style={{backgroundColor: `red`}}>Something went wrong...</p>;
+    }
+
+    return false;
+  };
+
+  const isBlocked = (isCommentLoading && !isCommentPostError);
 
   return (
       <>
@@ -89,14 +106,15 @@ const AddReview = (props) => {
                   >
                   </textarea>
                   <div className="add-review__submit">
-                    <button disabled = {isSubmitBtnBlocked} className="add-review__btn" type="submit">
-                      {isSubmitBtnBlocked ? `` : `Post`}
+                    <button disabled = {isValidReview || isBlocked} className="add-review__btn" type="submit">
+                  Post
                     </button>
                   </div>
                 </div>
               </div>
             </form>
             {isReviewErr && <p style={{backgroundColor: `red`}}>Something went wrong...</p>}
+            {isSendingReview()}
           </div>
         </section>
       </>
@@ -123,6 +141,7 @@ AddReview.propTypes = {
   changeRatingComment: PropTypes.func.isRequired,
   changeTextComment: PropTypes.func.isRequired,
   isCommentPostError: PropTypes.bool.isRequired,
+  isReviewSent: PropTypes.bool.isRequired,
 };
 
 export {AddReview};
