@@ -4,35 +4,19 @@ import {AppRoutes} from "../../const.js";
 import PropTypes from "prop-types";
 import {getCurrentMovie} from "../../selectors.js";
 import withReview from "../../hocs/with-review/with-review.js";
-import {history} from "../../history.js";
+
 
 const DEFAULT_CHECKED = 1;
 
 const AddReview = (props) => {
-  const {films, activeFilmId, isCommentLoading, isReviewErr, isCommentPostError, isReviewSent,
+  const {films, activeFilmId, isCommentLoading, isCommentPostError,
     maxLength, minLength, comment, rating, postNewCommentHandler, changeRatingComment, changeTextComment
   } = props;
 
   const currentMovie = getCurrentMovie(films, activeFilmId);
   const {title, backgroundImage, posterImage} = currentMovie;
 
-  const isValidReview = (rating && comment) ? false : true;
-
-  const isFormDisabled = (isCommentLoading || isCommentPostError);
-
-  const isSendingReview = () => {
-    if (isReviewSent) {
-      history.goBack();
-    }
-
-    if (isCommentPostError) {
-      return <p style={{backgroundColor: `red`}}>Something went wrong...</p>;
-    }
-
-    return false;
-  };
-
-  const isBlocked = (isCommentLoading && !isCommentPostError);
+  const isButtonBlocked = isCommentLoading || !(rating && comment);
 
   return (
       <>
@@ -87,7 +71,7 @@ const AddReview = (props) => {
                         name="rating"
                         value={star}
                         defaultChecked = {star === DEFAULT_CHECKED && true}
-                        disabled = {isFormDisabled}
+                        disabled = {isCommentLoading}
                       />
                       <label className="rating__label" htmlFor={`star-${star}`}>Rating {star}</label>
                     </React.Fragment>
@@ -102,19 +86,18 @@ const AddReview = (props) => {
                     placeholder="Review text"
                     maxLength={maxLength}
                     minLength={minLength}
-                    disabled = {isFormDisabled}
+                    disabled = {isCommentLoading}
                   >
                   </textarea>
                   <div className="add-review__submit">
-                    <button disabled = {isValidReview || isBlocked} className="add-review__btn" type="submit">
+                    <button disabled = {isButtonBlocked} className="add-review__btn" type="submit">
                   Post
                     </button>
                   </div>
                 </div>
               </div>
             </form>
-            {isReviewErr && <p style={{backgroundColor: `red`}}>Something went wrong...</p>}
-            {isSendingReview()}
+            {isCommentPostError && <p style={{backgroundColor: `red`}}>Something went wrong...</p>}
           </div>
         </section>
       </>
