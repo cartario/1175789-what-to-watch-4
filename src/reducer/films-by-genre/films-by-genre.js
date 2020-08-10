@@ -1,5 +1,5 @@
 import {extend} from "../../utils.js";
-
+import {history} from "../../history.js";
 const ALL_GENRE = `All genres`;
 
 const initialState = {
@@ -167,16 +167,17 @@ const adapterPromo = (film) => ({
 
 export const Operation = {
   postNewComment: (userId, commentPost) => (dispatch, getState, api) => {
-
+    dispatch(ActionCreator.setIsCommentLoading(true));
     return api.post(`/comments/${userId}`, commentPost)
       .then((response) => {
-        dispatch(ActionCreator.setIsCommentLoading(true));
         dispatch(ActionCreator.postNewComment(response.data));
-        dispatch(ActionCreator.setIsCommentLoading(false));
         dispatch(ActionCreator.setIsReviewSent(true));
+        dispatch(ActionCreator.setIsCommentLoading(false));
+        dispatch(ActionCreator.setCommentPostError(false));
+        history.goBack();
       })
       .catch((err) => {
-        dispatch(ActionCreator.setIsCommentLoading(true));
+        dispatch(ActionCreator.setIsCommentLoading(false));
         dispatch(ActionCreator.setIsReviewSent(false));
         dispatch(ActionCreator.setIsReviewError(true));
         dispatch(ActionCreator.setCommentPostError(true));
