@@ -9,7 +9,7 @@ const Player = (props) => {
 
 Player.propTypes = {
   videoRef: PropTypes.shape({
-    current: PropTypes.shape()
+    current: PropTypes.instanceOf(Element).isRequiredOrNull,
   }).isRequired,
 };
 

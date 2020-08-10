@@ -1,4 +1,5 @@
 import NameSpace from "./reducer/name-space/name-space.js";
+import {AuthorizationStatus} from "./reducer/user/user.js";
 
 export const getCurrentGenre = (state) => {
   return state[NameSpace.CURRENT_GENRE].currentGenre;
@@ -21,7 +22,7 @@ export const getAllComments = (state) => {
 };
 
 export const getReadyData = (state) => {
-  return state[NameSpace.FILMS].isDataReady;
+  return state[NameSpace.FILMS].isDataReady && state[NameSpace.USER].authorizationStatus === AuthorizationStatus.AUTH;
 };
 
 export const getFavoriteFilms = (state) => {
